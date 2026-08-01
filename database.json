@@ -27,6 +27,30 @@
       "email": "mithra@gmail.com",
       "password_hash": "7bbca133d9d5870138744d883b05afbbea3213c1a7741c3c2246df7fd4b4b4c4",
       "role": "customer"
+    },
+    {
+      "id": 4,
+      "name": "AKSHAY",
+      "mobile": "9014228068",
+      "email": "akshaykanaparthi1@gmail.com",
+      "password_hash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "role": "customer"
+    },
+    {
+      "id": 5,
+      "name": "AKSHAY",
+      "mobile": "9014228068",
+      "email": "akshaykanaparthi1@gmail.com",
+      "password_hash": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "role": "customer"
+    },
+    {
+      "id": 6,
+      "name": "Siddhu",
+      "mobile": "7382868511",
+      "email": "sidhhu123@gmail.com",
+      "password_hash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+      "role": "customer"
     }
   ],
   "otp_verifications": [

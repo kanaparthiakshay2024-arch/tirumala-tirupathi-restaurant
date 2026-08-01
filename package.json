@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'No build required for static CDN single page app'",
+    "lint": "eslint ."
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3",
