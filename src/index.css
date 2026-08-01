@@ -1,0 +1,271 @@
+:root {
+  --bg-cream: #FDFBF7;
+  --bg-cream-dark: #F5EFE0;
+  --maroon-header: #4A0E17;
+  --maroon-deep: #380910;
+  --maroon-light: #7A1C2B;
+  --gold-primary: #D4AF37;
+  --gold-glow: #F3E5AB;
+  --gold-dark: #B8860B;
+  --green-btn: #1E4620;
+  --green-btn-hover: #2B612E;
+  --wood-card-bg: #FFFDF9;
+  --wood-border: #8B5A2B;
+  --banana-leaf: #2E6F29;
+  --text-dark: #2C1810;
+  --text-muted: #5C4A42;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-ornate: 'Rozha One', serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-cream);
+  color: var(--text-dark);
+  line-height: 1.6;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Light Lord Vishnu Background Watermark Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23D4AF37' fill-opacity='0.05'%3E%3Cpath d='M120 20 L130 50 L160 30 L140 60 L170 70 L140 80 L160 110 L130 90 L120 120 L110 90 L80 110 L100 80 L70 70 L100 60 L80 30 L110 50 Z'/%3E%3Ccircle cx='120' cy='150' r='25' stroke='%234A0E17' stroke-width='2' stroke-opacity='0.05' fill='none'/%3E%3Cpath d='M120 135 L120 165 M105 150 L135 150' stroke='%23D4AF37' stroke-opacity='0.06' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-cream-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--maroon-header);
+}
+
+/* Traditional Ornate Temple Borders */
+.temple-border-top {
+  border-top: 4px solid var(--gold-primary);
+  position: relative;
+}
+.temple-border-top::before {
+  content: "🛕 ✦ 🛕 ✦ 🛕";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--maroon-header);
+  color: var(--gold-primary);
+  padding: 0 10px;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+}
+
+.gold-accent-line {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), var(--gold-dark), var(--gold-primary), transparent);
+  margin: 15px auto;
+  width: 80%;
+  max-width: 300px;
+}
+
+/* Buttons */
+.btn-primary-green {
+  background-color: var(--green-btn);
+  color: #FFFFFF;
+  border: 1px solid var(--gold-primary);
+  padding: 10px 22px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 3px 8px rgba(30, 70, 32, 0.2);
+}
+.btn-primary-green:hover {
+  background-color: var(--green-btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(30, 70, 32, 0.35);
+  border-color: var(--gold-glow);
+}
+
+.btn-maroon {
+  background-color: var(--maroon-header);
+  color: var(--gold-glow);
+  border: 1px solid var(--gold-primary);
+  padding: 10px 22px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-maroon:hover {
+  background-color: var(--maroon-light);
+  color: #FFF;
+  transform: translateY(-2px);
+}
+
+.btn-gold-outline {
+  background: transparent;
+  color: var(--maroon-header);
+  border: 2px solid var(--gold-dark);
+  padding: 8px 18px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-gold-outline:hover {
+  background: var(--gold-primary);
+  color: var(--maroon-deep);
+}
+
+/* Banana Leaf Styled Food Card */
+.banana-leaf-card {
+  background: var(--wood-card-bg);
+  border: 2px solid var(--gold-dark);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 15px rgba(74, 14, 23, 0.08);
+}
+.banana-leaf-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--banana-leaf), #4CAF50, var(--banana-leaf));
+  z-index: 2;
+}
+.banana-leaf-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(74, 14, 23, 0.18);
+  border-color: var(--gold-primary);
+}
+
+/* Pure Veg Badge */
+.veg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1.5px solid #2E7D32;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #E8F5E9;
+  color: #1B5E20;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.veg-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #2E7D32;
+  border-radius: 50%;
+}
+
+/* Animations */
+@keyframes floatLamp {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+
+.diya-floating {
+  animation: floatLamp 4s ease-in-out infinite;
+}
+
+@keyframes soundwave {
+  0%, 100% { height: 6px; }
+  50% { height: 18px; }
+}
+.soundwave-bar {
+  width: 3px;
+  background: var(--gold-primary);
+  display: inline-block;
+  border-radius: 2px;
+  animation: soundwave 1.2s ease-in-out infinite;
+}
+.soundwave-bar:nth-child(2) { animation-delay: 0.2s; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.4s; }
+
+/* Modal Styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(44, 24, 16, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--bg-cream);
+  border: 3px solid var(--gold-primary);
+  border-radius: 14px;
+  max-width: 750px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+/* Section Headings */
+.section-title {
+  font-family: var(--font-heading);
+  color: var(--maroon-header);
+  font-size: 2.2rem;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-top: 6px;
+}
