@@ -1,18 +1,1132 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/logo.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tirupati Restaurant - Pure South Indian Satvik Dining</title>
-    <meta name="description" content="Tirupati Restaurant offers authentic traditional South Indian vegetarian delicacies, Srivari Naivedyam offerings, and divine dining experiences in a peaceful temple ambiance." />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tirumala Tirupati Restaurant - Pure Satvik South Indian Dining</title>
+  <meta name="description" content="Tirumala Tirupati Restaurant near Tata Automobile Showroom, beside Tirupati Busstand. Pure Satvik South Indian Vegetarian, Srivari Naivedyam, and divine dining experiences." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- React CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg-cream: #FDFBF7;
+      --bg-cream-dark: #F5EFE0;
+      --maroon-header: #4A0E17;
+      --maroon-deep: #380910;
+      --maroon-light: #7A1C2B;
+      --gold-primary: #D4AF37;
+      --gold-glow: #F3E5AB;
+      --gold-dark: #B8860B;
+      --green-btn: #1E4620;
+      --green-btn-hover: #2B612E;
+      --wood-card-bg: rgba(255, 253, 249, 0.78);
+      --banana-leaf: #2E6F29;
+      --text-dark: #2C1810;
+      --text-muted: #5C4A42;
+      --font-heading: 'Cinzel', serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--font-body);
+      background-color: #1A0407;
+      color: var(--text-dark);
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 3D Canvas Background */
+    #bg3dCanvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index: 0;
+    }
+
+    .watermark-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='%23D4AF37' fill-opacity='0.06'%3E%3Cpath d='M120 20 L130 50 L160 30 L140 60 L170 70 L140 80 L160 110 L130 90 L120 120 L110 90 L80 110 L100 80 L70 70 L100 60 L80 30 L110 50 Z'/%3E%3Ccircle cx='120' cy='150' r='25' stroke='%234A0E17' stroke-width='2' stroke-opacity='0.06' fill='none'/%3E%3Cpath d='M120 135 L120 165 M105 150 L135 150' stroke='%23D4AF37' stroke-opacity='0.07' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat; pointer-events: none; z-index: 1;
+    }
+
+    #root { position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column; }
+
+    .glass-panel {
+      background: rgba(253, 251, 247, 0.88);
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      border: 1.5px solid rgba(212, 175, 55, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .glass-header {
+      background: rgba(74, 14, 23, 0.88);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border-bottom: 3px solid var(--gold-primary);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .glass-card {
+      background: rgba(255, 253, 249, 0.82);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      border: 2px solid var(--gold-dark);
+      border-radius: 14px;
+      overflow: hidden; position: relative;
+      transition: all 0.35s ease;
+      box-shadow: 0 8px 25px rgba(56, 9, 16, 0.12);
+      cursor: pointer;
+    }
+    .glass-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, var(--banana-leaf), #4CAF50, var(--banana-leaf));
+      z-index: 2;
+    }
+    .glass-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 16px 35px rgba(74, 14, 23, 0.25);
+      border-color: var(--gold-primary);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .search-input-glass {
+      background: rgba(253, 251, 247, 0.94);
+      border: 2px solid var(--gold-primary);
+      border-radius: 25px;
+      padding: 8px 18px 8px 38px;
+      font-size: 0.9rem;
+      color: var(--maroon-header);
+      outline: none;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-family: var(--font-body);
+    }
+    .search-input-glass:focus {
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+      background: #FFF;
+    }
+
+    /* SEARCH SUGGESTIONS DROPDOWN */
+    .search-dropdown {
+      position: absolute; top: 105%; left: 0; right: 0;
+      background: rgba(253, 251, 247, 0.98); backdrop-filter: blur(20px);
+      border: 2px solid var(--gold-primary); border-radius: 14px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); max-height: 380px; overflow-y: auto; z-index: 200; padding: 10px;
+    }
+    .search-item-row {
+      display: flex; align-items: center; gap: 12px; padding: 10px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2); border-radius: 8px; cursor: pointer; transition: all 0.2s ease;
+    }
+    .search-item-row:hover { background: rgba(74, 14, 23, 0.08); transform: translateX(4px); }
+
+    .highlight-match {
+      background-color: #FFF3C4; color: var(--maroon-header); font-weight: 800; padding: 0 2px; border-radius: 2px;
+    }
+
+    .gold-accent-line {
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), var(--gold-dark), var(--gold-primary), transparent);
+      margin: 15px auto; width: 80%; max-width: 300px;
+    }
+
+    .btn-primary-green {
+      background-color: var(--green-btn); color: #FFF; border: 1px solid var(--gold-primary);
+      padding: 10px 22px; font-family: var(--font-heading); font-weight: 600; border-radius: 6px;
+      cursor: pointer; transition: all 0.3s ease; display: inline-flex; alignItems: center; gap: 8px;
+      box-shadow: 0 4px 12px rgba(30, 70, 32, 0.3);
+    }
+    .btn-primary-green:hover { background-color: var(--green-btn-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(30, 70, 32, 0.45); }
+
+    .btn-maroon {
+      background-color: var(--maroon-header); color: var(--gold-glow); border: 1px solid var(--gold-primary);
+      padding: 10px 22px; font-family: var(--font-heading); font-weight: 600; border-radius: 6px;
+      cursor: pointer; transition: all 0.3s ease; display: inline-flex; alignItems: center; gap: 8px;
+    }
+    .btn-maroon:hover { background-color: var(--maroon-light); color: #FFF; transform: translateY(-2px); }
+
+    .btn-gold-outline {
+      background: transparent; color: var(--maroon-header); border: 1.5px solid var(--gold-primary);
+      padding: 8px 18px; border-radius: 6px; font-family: var(--font-heading); font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+    }
+    .btn-gold-outline:hover { background: var(--gold-primary); color: #380910; }
+
+    .veg-badge {
+      display: inline-flex; alignItems: center; gap: 4px; border: 1.5px solid #2E7D32; padding: 2px 6px; border-radius: 4px;
+      background-color: rgba(232, 245, 233, 0.9); color: #1B5E20; font-size: 0.75rem; font-weight: 700;
+    }
+    .veg-dot { width: 8px; height: 8px; background-color: #2E7D32; border-radius: 50%; }
+
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(30, 6, 10, 0.82); backdrop-filter: blur(10px);
+      z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-content {
+      background: rgba(253, 251, 247, 0.96); backdrop-filter: blur(20px);
+      border: 3px solid var(--gold-primary); border-radius: 16px; max-width: 750px; width: 100%; max-height: 90vh;
+      overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative;
+    }
+
+    .section-title { font-family: var(--font-heading); color: var(--maroon-header); font-size: 2.2rem; text-align: center; font-weight: 700; }
+    .section-subtitle { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 6px; }
+
+    @keyframes bounceDown {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(10px); }
+      60% { transform: translateY(5px); }
+    }
+    .scroll-down-btn {
+      display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+      margin-top: 35px; color: var(--gold-glow); text-decoration: none;
+      font-family: var(--font-heading); font-size: 0.9rem; font-weight: 700; letter-spacing: 1.5px;
+      cursor: pointer; animation: bounceDown 2s infinite; transition: all 0.3s ease;
+      background: rgba(74, 14, 23, 0.75); backdrop-filter: blur(8px); padding: 8px 20px;
+      border-radius: 30px; border: 1.5px solid var(--gold-primary);
+    }
+    .scroll-down-btn:hover { color: #FFF; background: var(--maroon-header); transform: scale(1.05); }
+  </style>
+</head>
+<body>
+  <canvas id="bg3dCanvas"></canvas>
+  <div class="watermark-overlay"></div>
+  <div id="root"></div>
+
+  <!-- 3D Moving Canvas Background Script -->
+  <script>
+    (function() {
+      const canvas = document.getElementById('bg3dCanvas');
+      const ctx = canvas.getContext('2d');
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      for (let i = 0; i < 65; i++) {
+        particles.push({
+          x: Math.random() * width, y: Math.random() * height, z: Math.random() * 1000,
+          radius: Math.random() * 3 + 1, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4 - 0.2, vz: (Math.random() - 0.5) * 0.5,
+          color: i % 3 === 0 ? 'rgba(212, 175, 55, ' : (i % 3 === 1 ? 'rgba(243, 229, 171, ' : 'rgba(255, 215, 0, '), angle: Math.random() * Math.PI * 2
+        });
+      }
+
+      let time = 0;
+      function render3D() {
+        ctx.clearRect(0, 0, width, height);
+        time += 0.01;
+        const grad = ctx.createRadialGradient(width/2, height/2, 100, width/2, height/2, Math.max(width, height));
+        grad.addColorStop(0, '#2D060A'); grad.addColorStop(0.5, '#1A0407'); grad.addColorStop(1, '#0F0204');
+        ctx.fillStyle = grad; ctx.fillRect(0, 0, width, height);
+
+        particles.forEach(p => {
+          p.x += p.vx + Math.sin(time + p.angle) * 0.3; p.y += p.vy; p.z += p.vz;
+          if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
+          const scale = 400 / (400 + p.z);
+          const x2d = (p.x - width / 2) * scale + width / 2;
+          const y2d = (p.y - height / 2) * scale + height / 2;
+          ctx.beginPath(); ctx.arc(x2d, y2d, p.radius * scale * 1.8, 0, Math.PI * 2);
+          ctx.fillStyle = p.color + Math.min(0.8, (1 - p.z / 1000) * 0.7) + ')';
+          ctx.fill();
+        });
+        requestAnimationFrame(render3D);
+      }
+      render3D();
+    })();
+  </script>
+
+  <!-- React Web Application Code -->
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+    const EXACT_ADDRESS = "Tirumala Tirupati Restaurant, Near Tata Automobile Showroom, Beside Tirupati Busstand, PIN code 517501, Andhra Pradesh, India";
+
+    // FALLBACK MENU ITEMS ARRAY FOR NETLIFY & STATIC HOSTS
+    const DEFAULT_MENU_ITEMS = [
+      { id: 1, category_slug: 'breakfast', name: 'Idli', description: 'Steamed fluffy rice and lentil cakes served with authentic coconut chutney, tomato chutney, and piping hot sambar.', price: 60, offer_price: 50, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 180, ingredients: 'Raw Rice, Urad Dal, Fenugreek, Rock Salt, Coconut Chutney, Drumstick Sambar', allergens: 'None', calories: 180, preparation_style: 'Traditional Steaming', available: 1 },
+      { id: 2, category_slug: 'breakfast', name: 'Ghee Idli', description: 'Soft steamed idlis drenched in generous aromatic pure cow ghee and sprinkled with podi (gunpowder spice).', price: 90, offer_price: 80, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 210, ingredients: 'Raw Rice, Urad Dal, Pure Cow Ghee, Gunpowder Podi (Chana Dal, Sesame, Chilies)', allergens: 'Dairy', calories: 280, preparation_style: 'Steamed and Ghee Soaked', available: 1 },
+      { id: 3, category_slug: 'breakfast', name: 'Medu Vada', description: 'Classic crunchy Medu Vada served with fresh green coconut chutney and aromatic drumstick sambar.', price: 80, offer_price: 70, image_url: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.8, total_ratings: 165, ingredients: 'Urad Dal, Green Chilies, Cumin, Black Pepper, Ginger, Curry Leaves', allergens: 'None', calories: 310, preparation_style: 'Crispy Fried Ring', available: 1 },
+      { id: 4, category_slug: 'breakfast', name: 'Ven Pongal', description: 'Traditional temple style Ven Pongal made with pure ghee and crushed black pepper, served with coconut chutney.', price: 100, offer_price: 90, image_url: '/pongal.jpg', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 230, ingredients: 'Raw Rice, Yellow Moong Dal, Pure Cow Ghee, Fried Cashews, Cumin, Black Pepper, Ginger', allergens: 'Nuts, Dairy', calories: 360, preparation_style: 'Tempered Temple Recipe', available: 1 },
+      { id: 5, category_slug: 'breakfast', name: 'Masala Dosa', description: 'Crispy golden crepe stuffed with aromatic spiced potato masala, cooked on tawa with pure cow ghee.', price: 110, offer_price: 99, image_url: '/dosa.jpg', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 310, ingredients: 'Fermented Rice Batter, Pure Cow Ghee, Spiced Potato Masala, Mustard Seeds, Turmeric, Chutneys', allergens: 'Dairy', calories: 380, preparation_style: 'Crispy Tawa Griddled Crepe', available: 1 },
+      { id: 6, category_slug: 'breakfast', name: 'Ghee Roast Dosa', description: 'Super thin paper crisp dosa roasted extravagantly in pure deshi ghee until golden perfection.', price: 140, offer_price: 125, image_url: '/dosa.jpg', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 5.0, total_ratings: 290, ingredients: 'Fermented Rice Batter, Pure Deshi Cow Ghee', allergens: 'Dairy', calories: 420, preparation_style: 'Golden Ghee Roast', available: 1 },
+
+      { id: 7, category_slug: 'lunch', name: 'Srivari Maha Bhojanam', description: 'The ultimate royal temple feast served on a giant banana leaf with 18 sacred Satvik items and Tirupati Laddu.', price: 320, offer_price: 280, image_url: '/bhojanam.jpg', time_slot: '12pm-6pm', is_veg: 1, is_daily_special: 1, rating: 5.0, total_ratings: 420, ingredients: 'Pulihora, Chakkara Pongal, Sambar Rice, Daddojanam, Tirupati Laddu, Medu Vada, Vegetable Poriyal, Rasam, Payasam, Pure Ghee', allergens: 'Dairy, Nuts', calories: 1100, preparation_style: 'Grand Satvik Banana Leaf Banquet', worship_significance: 'Prepared following strict Tirumala temple Satvik culinary traditions without onion or garlic.', available: 1 },
+      { id: 8, category_slug: 'lunch', name: 'South Indian Meals', description: 'Authentic South Indian Bhojanam with steamed rice, drumstick sambar, rasam, kootu, poriyal, curd, ghee, papad, and sweet.', price: 180, offer_price: 160, image_url: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=600&q=80', time_slot: '12pm-6pm', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 310, ingredients: 'Steamed Rice, Sambar, Rasam, Poriyal, Avial, Curd, Ghee, Papad', allergens: 'Dairy', calories: 750, preparation_style: 'Banana Leaf Style Bhojanam', available: 1 },
+      { id: 9, category_slug: 'lunch', name: 'Andhra Meals', description: 'Spicy authentic Andhra Bhojanam served with Gunpowder Podi, Nethi Ghee, Majjiga Pulusu, Vepudu, Gongura Pachadi.', price: 210, offer_price: 190, image_url: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=600&q=80', time_slot: '12pm-6pm', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 280, ingredients: 'Rice, Gongura Chutney, Podi, Ghee, Vegetable Fry, Majjiga Pulusu', allergens: 'Dairy', calories: 780, preparation_style: 'Traditional Andhra Style', available: 1 },
+      { id: 10, category_slug: 'lunch', name: 'Pulihora Tamarind Rice', description: 'Tangy tamarind rice seasoned with mustard, green chilies, curry leaves, and crunchy roasted peanuts.', price: 110, offer_price: 95, image_url: '/pulihora.jpg', time_slot: '12pm-6pm', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 320, ingredients: 'Raw Rice, Tamarind Paste, Turmeric, Mustard Seeds, Curry Leaves, Peanuts', allergens: 'Nuts', calories: 410, preparation_style: 'Tempered Tamarind Rice', available: 1 },
+      { id: 11, category_slug: 'lunch', name: 'Vegetable Dum Biryani', description: 'Long grain basmati rice slow cooked with garden fresh vegetables, saffron, and aromatic biryani spices in a handi.', price: 180, offer_price: 160, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=600&q=80', time_slot: '12pm-6pm', is_veg: 1, is_daily_special: 0, rating: 4.8, total_ratings: 230, ingredients: 'Basmati Rice, Carrots, Green Beans, Peas, Biryani Masala, Saffron, Ghee', allergens: 'Dairy', calories: 540, preparation_style: 'Claypot Dum Cooking', available: 1 },
+
+      { id: 12, category_slug: 'naivedyam', name: 'Tirupati Laddu Prasadam', description: 'The world-famous sacred Srivari Laddu Prasadam enriched with pure deshi ghee, gram flour, sugar candy, cashew nuts, raisins, cardamom, and edible camphor (Pachcha Karpooram).', price: 120, offer_price: 100, image_url: '/laddu.jpg', time_slot: '6pm-11pm', is_veg: 1, is_daily_special: 0, rating: 5.0, total_ratings: 540, ingredients: 'Gram Flour (Besan), Pure Cow Ghee, Sugar Candy, Cashews, Raisins, Edible Camphor, Cardamom', allergens: 'Nuts, Dairy', calories: 450, preparation_style: 'Sacred Temple Recipe', worship_significance: 'Primary Naivedyam offered to Lord Sri Venkateswara Swami at Tirumala.', available: 1 },
+      { id: 13, category_slug: 'naivedyam', name: 'Temple Pulihora Naivedyam', description: 'Sacred divine tamarind rice seasoned with turmeric, green chilies, mustard seeds, curry leaves, and roasted peanuts.', price: 110, offer_price: 95, image_url: '/pulihora.jpg', time_slot: '6pm-11pm', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 320, ingredients: 'Raw Rice, Tamarind Paste, Turmeric, Mustard Seeds, Curry Leaves, Peanuts', allergens: 'Nuts', calories: 390, preparation_style: 'Traditional Naivedyam Tempering', worship_significance: 'Symbolizes divine protection and purity in Vaishnava traditions.', available: 1 },
+      { id: 14, category_slug: 'naivedyam', name: 'Sacred Chakkara Pongal', description: 'Rich jaggery and rice pudding simmered with milk, pure ghee, crushed cardamom, and ghee-fried cashews.', price: 120, offer_price: 100, image_url: '/pongal.jpg', time_slot: '6pm-11pm', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 275, ingredients: 'Raw Rice, Yellow Moong Dal, Organic Jaggery, Cow Ghee, Cashew Nuts, Cardamom', allergens: 'Nuts, Dairy', calories: 420, preparation_style: 'Slow Copper Pot Cooking', worship_significance: 'Sweet jaggery and ghee symbolize devotion and spiritual warmth.', available: 1 },
+      { id: 15, category_slug: 'naivedyam', name: 'Daddojanam (Temple Curd Rice)', description: 'Cooling, velvety curd rice tempered with mustard seeds, curry leaves, ginger, and pomegranates.', price: 100, offer_price: 85, image_url: '/daddojanam.jpg', time_slot: '6pm-11pm', is_veg: 1, is_daily_special: 0, rating: 4.8, total_ratings: 210, ingredients: 'Raw Rice, Fresh Curd, Ginger, Mustard, Curry Leaves, Butter', allergens: 'Dairy', calories: 330, preparation_style: 'Tempered Satvik Curd', worship_significance: 'Grants peace of mind (Shanti) and physical cooling.', available: 1 }
+    ];
+
+    // Helper to highlight matching text in dish names
+    const HighlightText = ({ text, query }) => {
+      if (!query.trim()) return <span>{text}</span>;
+      const parts = text.split(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'));
+      return (
+        <span>
+          {parts.map((part, i) => 
+            part.toLowerCase() === query.toLowerCase() ? (
+              <span key={i} className="highlight-match">{part}</span>
+            ) : (
+              part
+            )
+          )}
+        </span>
+      );
+    };
+
+    // --- USER WHATSAPP MPEG AUDIO PLAYER ---
+    const BackgroundAudioPlayer = () => {
+      const [isPlaying, setIsPlaying] = useState(false);
+      const audioRef = useRef(null);
+
+      const togglePlay = () => {
+        if (!audioRef.current) return;
+        if (isPlaying) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          audioRef.current.play().then(() => {
+            setIsPlaying(true);
+          }).catch(err => {
+            console.error('Audio play error:', err);
+          });
+        }
+      };
+
+      return (
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(74, 14, 23, 0.85)', backdropFilter: 'blur(10px)', border: '1.5px solid #D4AF37', borderRadius: '25px', padding: '4px 14px', color: '#F3E5AB' }}>
+          <audio ref={audioRef} loop src="/WhatsApp%20Audio%202026-07-29%20at%2012.08.25%20PM.mpeg" preload="auto" />
+          <span style={{ fontSize: '0.8rem', fontWeight: 600, fontFamily: 'Cinzel, serif' }}>🎵 Background Sacred Music</span>
+          <button onClick={togglePlay} style={{ background: 'var(--gold-primary)', color: '#380910', border: 'none', borderRadius: '50%', width: '28px', height: '28px', cursor: 'pointer', fontWeight: 800 }}>
+            {isPlaying ? '⏸' : '▶'}
+          </button>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const [currentPage, setCurrentPage] = useState('home');
+      const [menuItems, setMenuItems] = useState(DEFAULT_MENU_ITEMS);
+      const [dailySpecial, setDailySpecial] = useState(DEFAULT_MENU_ITEMS[6]);
+      const [cart, setCart] = useState([]);
+      
+      // PERSISTENT USER SESSION
+      const [user, setUser] = useState(() => {
+        try {
+          const saved = localStorage.getItem('tirupati_user');
+          return saved ? JSON.parse(saved) : null;
+        } catch(e) { return null; }
+      });
+
+      const [isAuthOpen, setIsAuthOpen] = useState(false);
+      const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
+      
+      // Dedicated Login State
+      const [loginIdentifier, setLoginIdentifier] = useState('devotee@tirupati.com');
+      const [loginPassword, setLoginPassword] = useState('demo123');
+
+      // Registration State
+      const [regName, setRegName] = useState('');
+      const [regMobile, setRegMobile] = useState('');
+      const [regEmail, setRegEmail] = useState('');
+      const [regPassword, setRegPassword] = useState('');
+
+      // SELECTED ITEM MODAL STATE (SHOWS INGREDIENTS USED WHEN CLICKED!)
+      const [selectedFoodModal, setSelectedFoodModal] = useState(null);
+
+      // SEARCH BAR STATE & DROPDOWN OPEN STATUS
+      const [searchQuery, setSearchQuery] = useState('');
+      const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+
+      const [activeTimeSlot, setActiveTimeSlot] = useState('12pm-6pm');
+
+      // Table Reservation State
+      const [resFullName, setResFullName] = useState('');
+      const [resMobile, setResMobile] = useState('');
+      const [resDate, setResDate] = useState('2026-07-30');
+      const [resTimeSlot, setResTimeSlot] = useState('19:30 (Dinner)');
+      const [resGuests, setResGuests] = useState(4);
+      const [resSeatingArea, setResSeatingArea] = useState('Indoor Air Conditioned');
+      const [resSpecialRequests, setResSpecialRequests] = useState('');
+      const [tableReservedSuccess, setTableReservedSuccess] = useState(null);
+
+      // Checkout form
+      const [houseNo, setHouseNo] = useState('');
+      const [street, setStreet] = useState('');
+      const [area, setArea] = useState('');
+      const [city, setCity] = useState('Tirupati');
+      const [pinCode, setPinCode] = useState('517501');
+      const [primaryMobile, setPrimaryMobile] = useState('');
+      const [secondaryMobile, setSecondaryMobile] = useState('');
+      const [paymentMethod, setPaymentMethod] = useState('UPI');
+
+      useEffect(() => {
+        fetch('/api/menu/items').then(r => r.json()).then(d => { if(Array.isArray(d) && d.length>0) setMenuItems(d); }).catch(()=>{});
+        fetch('/api/menu/daily-special').then(r => r.json()).then(d => { if(d && d.name) setDailySpecial(d); }).catch(()=>{});
+      }, []);
+
+      const handleLoginSubmit = (e) => {
+        e.preventDefault();
+        if (!loginIdentifier || !loginPassword) return alert('Please enter both Email/Mobile and Password!');
+        
+        fetch('/api/auth/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ identifier: loginIdentifier, password: loginPassword })
+        }).then(r => r.json()).then(d => {
+          if (d.error) alert(d.error);
+          else {
+            setUser(d.user);
+            localStorage.setItem('tirupati_user', JSON.stringify(d.user));
+            setIsAuthOpen(false);
+            alert(`Welcome back, ${d.user.name}! 🙏`);
+          }
+        }).catch(() => {
+          // Fallback login for static hosting
+          const demoUser = { name: loginIdentifier.split('@')[0] || 'Devotee', email: loginIdentifier, role: 'customer' };
+          setUser(demoUser);
+          localStorage.setItem('tirupati_user', JSON.stringify(demoUser));
+          setIsAuthOpen(false);
+          alert(`Welcome back, ${demoUser.name}! 🙏`);
+        });
+      };
+
+      const handleRegisterSubmit = (e) => {
+        e.preventDefault();
+        if (!regEmail || !regPassword) return alert('Email and Password are required for registration!');
+        
+        const newU = { name: regName || 'Devotee', mobile: regMobile, email: regEmail, role: 'customer' };
+        setUser(newU);
+        localStorage.setItem('tirupati_user', JSON.stringify(newU));
+        setIsAuthOpen(false);
+        alert(`Account registered successfully! Welcome ${newU.name}.`);
+      };
+
+      const handleLogout = () => {
+        setUser(null);
+        localStorage.removeItem('tirupati_user');
+        alert('You have logged out.');
+      };
+
+      const addToCart = (item) => {
+        if (!user) { alert('Please log in to add items to cart.'); setIsAuthOpen(true); return; }
+        setCart(prev => {
+          const ex = prev.find(i => i.id === item.id);
+          if (ex) return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+          return [...prev, { ...item, quantity: 1 }];
+        });
+      };
+
+      const handleScrollDown = () => {
+        const el = document.getElementById('explore-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        else window.scrollBy({ top: 500, behavior: 'smooth' });
+      };
+
+      const handleBookTableSubmit = (e) => {
+        e.preventDefault();
+        if (!resFullName || !resMobile) return alert('Full Name and Mobile Number are required for table booking!');
+        const resCode = 'TBL-' + Math.floor(1000 + Math.random() * 9000);
+        const details = { name: resFullName, mobile: resMobile, res_date: resDate, res_time: resTimeSlot, guests: resGuests, seating_area: resSeatingArea };
+        setTableReservedSuccess({ reservation_code: resCode, details });
+      };
+
+      const subtotal = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+
+      // DISH NAME MATCHING
+      const matchingItems = menuItems.filter(item => {
+        return searchQuery === '' || 
+          item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchQuery.toLowerCase());
+      });
+
+      const filteredMenuItems = menuItems.filter(item => {
+        if (searchQuery !== '') return item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase());
+        if (activeTimeSlot === '6am-11am') return item.category_slug === 'breakfast';
+        if (activeTimeSlot === '12pm-6pm') return item.category_slug === 'lunch';
+        if (activeTimeSlot === '6pm-11pm') return item.category_slug === 'naivedyam' || item.category_slug === 'dinner';
+        return true;
+      });
+
+      return (
+        <div onClick={() => setIsSearchDropdownOpen(false)}>
+          {/* HEADER */}
+          <header className="glass-header" style={{ color: '#FFF', position: 'sticky', top: 0, zIndex: 100 }}>
+            <div style={{ backgroundColor: 'rgba(56, 9, 16, 0.88)', padding: '6px 20px', fontSize: '0.78rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#F3E5AB' }}>
+              <span>📍 {EXACT_ADDRESS}</span>
+              <BackgroundAudioPlayer />
+            </div>
+
+            <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
+              <div onClick={() => setCurrentPage('home')} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
+                <img src="/logo.jpg" style={{ width: '55px', height: '55px', borderRadius: '50%', border: '2px solid var(--gold-primary)' }} />
+                <div>
+                  <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '1.45rem', color: 'var(--gold-primary)', fontWeight: 800 }}>TIRUMALA TIRUPATI RESTAURANT</h1>
+                  <p style={{ fontSize: '0.72rem', color: '#F3E5AB' }}>Pure South Indian Satvik Vegetarian</p>
+                </div>
+              </div>
+
+              {/* SEARCH INPUT */}
+              <div style={{ position: 'relative', width: '290px' }} onClick={e => e.stopPropagation()}>
+                <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '0.9rem', color: 'var(--gold-dark)' }}>🔍</span>
+                <input
+                  type="text"
+                  placeholder="Search Masala Dosa, Idli..."
+                  value={searchQuery}
+                  onFocus={() => setIsSearchDropdownOpen(true)}
+                  onChange={e => { setSearchQuery(e.target.value); setIsSearchDropdownOpen(true); }}
+                  className="search-input-glass"
+                />
+                {searchQuery && (
+                  <button onClick={() => { setSearchQuery(''); setIsSearchDropdownOpen(false); }} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#999', cursor: 'pointer', fontWeight: 800 }}>✕</button>
+                )}
+
+                {/* SEARCH SUGGESTIONS DROPDOWN */}
+                {isSearchDropdownOpen && (
+                  <div className="search-dropdown">
+                    <div style={{ padding: '4px 8px 8px 8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--gold-dark)', borderBottom: '1px solid #EEE', display: 'flex', justifyContent: 'space-between' }}>
+                      <span>DISH MATCHES ({matchingItems.length})</span>
+                      <span>Click for Ingredients</span>
+                    </div>
+
+                    {matchingItems.length === 0 ? (
+                      <div style={{ padding: '15px', textAlign: 'center', fontSize: '0.85rem', color: '#888' }}>
+                        No dish matching "{searchQuery}"
+                      </div>
+                    ) : (
+                      matchingItems.map(item => (
+                        <div
+                          key={item.id}
+                          className="search-item-row"
+                          onClick={() => {
+                            setSelectedFoodModal(item);
+                            setIsSearchDropdownOpen(false);
+                          }}
+                        >
+                          <img src={item.image_url} style={{ width: '42px', height: '42px', borderRadius: '6px', objectFit: 'cover' }} />
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontFamily: 'Cinzel, serif', fontWeight: 700, fontSize: '0.85rem', color: 'var(--maroon-header)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              <HighlightText text={item.name} query={searchQuery} />
+                            </div>
+                            <div style={{ fontSize: '0.72rem', color: '#666' }}>
+                              🔍 View Ingredients & Details • ₹{item.offer_price || item.price}
+                            </div>
+                          </div>
+                          <button className="btn-gold-outline" style={{ padding: '4px 10px', fontSize: '0.75rem' }}>Inspect</button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+
+              <nav style={{ display: 'flex', gap: '18px', fontFamily: 'Cinzel, serif', fontWeight: 600, fontSize: '0.9rem' }}>
+                <a onClick={() => setCurrentPage('home')} style={{ cursor: 'pointer', color: currentPage === 'home' ? 'var(--gold-primary)' : '#FFF' }}>Home</a>
+                <a onClick={() => setCurrentPage('menu')} style={{ cursor: 'pointer', color: currentPage === 'menu' ? 'var(--gold-primary)' : '#FFF' }}>Veg Menu</a>
+                <a onClick={() => setCurrentPage('naivedyam')} style={{ cursor: 'pointer', color: currentPage === 'naivedyam' ? 'var(--gold-primary)' : '#FFF' }}>✨ Naivedyam</a>
+                <a onClick={() => setCurrentPage('reservation')} style={{ cursor: 'pointer', color: currentPage === 'reservation' ? 'var(--gold-primary)' : '#FFF' }}>Book Table</a>
+                <a onClick={() => setCurrentPage('contact')} style={{ cursor: 'pointer', color: currentPage === 'contact' ? 'var(--gold-primary)' : '#FFF' }}>Contact</a>
+              </nav>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <button onClick={() => setCurrentPage('cart')} className="btn-primary-green" style={{ padding: '6px 16px' }}>
+                  Cart ({cart.reduce((s,i)=>s+i.quantity, 0)})
+                </button>
+                {user ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontSize: '0.85rem', color: '#F3E5AB', fontWeight: 600 }}>Namaste, {user.name}</span>
+                    <button onClick={handleLogout} style={{ background: 'none', border: '1px solid var(--gold-primary)', color: '#F3E5AB', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '0.75rem' }}>Logout</button>
+                  </div>
+                ) : (
+                  <button onClick={() => setIsAuthOpen(true)} className="btn-maroon" style={{ padding: '6px 16px' }}>Login</button>
+                )}
+              </div>
+            </div>
+          </header>
+
+          {/* MAIN CONTENT */}
+          <main style={{ minHeight: '80vh' }}>
+            {currentPage === 'home' && (
+              <div>
+                <section style={{
+                  backgroundImage: `linear-gradient(rgba(56, 9, 16, 0.75), rgba(74, 14, 23, 0.85)), url('/hero_bg.jpg')`,
+                  backgroundSize: 'cover', backgroundPosition: 'center',
+                  textAlign: 'center', padding: '85px 20px 60px 20px', color: '#FFF', borderBottom: '4px solid var(--gold-primary)',
+                  display: 'flex', flexDirection: 'column', alignItems: 'center'
+                }}>
+                  <img src="/logo.jpg" style={{ width: '85px', height: '85px', borderRadius: '50%', border: '3px solid var(--gold-primary)', marginBottom: '15px', boxShadow: '0 0 25px rgba(212,175,55,0.8)' }} />
+                  <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '2.9rem', color: '#FFF', fontWeight: 900 }}>TIRUMALA TIRUPATI RESTAURANT</h1>
+                  <p style={{ color: '#F3E5AB', fontSize: '1.1rem', maxWidth: '800px', margin: '10px auto' }}>
+                    Near Tata Automobile Showroom, Beside Tirupati Busstand, PIN 517501, Andhra Pradesh
+                  </p>
+
+                  <div style={{ position: 'relative', width: '90%', maxWidth: '540px', margin: '18px 0 10px 0' }} onClick={e => e.stopPropagation()}>
+                    <span style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', fontSize: '1.1rem', color: 'var(--gold-dark)' }}>🔍</span>
+                    <input
+                      type="text"
+                      placeholder="Type dish name (e.g. Masala Dosa, Idli, Bhojanam...)"
+                      value={searchQuery}
+                      onFocus={() => setIsSearchDropdownOpen(true)}
+                      onChange={e => { setSearchQuery(e.target.value); setIsSearchDropdownOpen(true); }}
+                      className="search-input-glass"
+                      style={{ padding: '12px 20px 12px 48px', fontSize: '1rem', boxShadow: '0 8px 25px rgba(0,0,0,0.4)' }}
+                    />
+                    {searchQuery && (
+                      <button onClick={() => { setSearchQuery(''); setIsSearchDropdownOpen(false); }} style={{ position: 'absolute', right: '14px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontWeight: 800, fontSize: '1.1rem' }}>✕</button>
+                    )}
+
+                    {isSearchDropdownOpen && (
+                      <div className="search-dropdown" style={{ textAlign: 'left' }}>
+                        <div style={{ padding: '4px 8px 8px 8px', fontSize: '0.75rem', fontWeight: 800, color: 'var(--gold-dark)', borderBottom: '1px solid #EEE', display: 'flex', justifyContent: 'space-between' }}>
+                          <span>MATCHING DISHES ({matchingItems.length})</span>
+                          <span>Click to View Ingredients</span>
+                        </div>
+
+                        {matchingItems.length === 0 ? (
+                          <div style={{ padding: '15px', textAlign: 'center', fontSize: '0.85rem', color: '#888' }}>
+                            No dish matching "{searchQuery}"
+                          </div>
+                        ) : (
+                          matchingItems.map(item => (
+                            <div
+                              key={item.id}
+                              className="search-item-row"
+                              onClick={() => {
+                                setSelectedFoodModal(item);
+                                setIsSearchDropdownOpen(false);
+                              }}
+                            >
+                              <img src={item.image_url} style={{ width: '45px', height: '45px', borderRadius: '6px', objectFit: 'cover' }} />
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ fontFamily: 'Cinzel, serif', fontWeight: 700, fontSize: '0.9rem', color: 'var(--maroon-header)' }}>
+                                  <HighlightText text={item.name} query={searchQuery} />
+                                </div>
+                                <div style={{ fontSize: '0.75rem', color: '#555' }}>
+                                  🔍 View Ingredients Used • ₹{item.offer_price || item.price}
+                                </div>
+                              </div>
+                              <button className="btn-primary-green" style={{ padding: '4px 12px', fontSize: '0.78rem' }}>Inspect</button>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '15px' }}>
+                    <button onClick={() => setCurrentPage('menu')} className="btn-primary-green" style={{ padding: '12px 28px', fontSize: '1.05rem' }}>Order Food Now</button>
+                    <button onClick={() => setCurrentPage('reservation')} className="btn-maroon" style={{ padding: '12px 28px', fontSize: '1.05rem' }}>Reserve Table</button>
+                  </div>
+
+                  <div onClick={handleScrollDown} className="scroll-down-btn">
+                    <span>EXPLORE MENU & TABLES</span>
+                    <span style={{ fontSize: '1.3rem' }}>↓</span>
+                  </div>
+                </section>
+
+                <div id="explore-section"></div>
+
+                {dailySpecial && !searchQuery && (
+                  <div style={{ maxWidth: '1150px', margin: '40px auto', padding: '0 20px' }}>
+                    <div className="glass-panel" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', padding: '25px', gap: '20px', borderRadius: '16px', border: '2px solid var(--gold-primary)' }}>
+                      <img src={dailySpecial.image_url} style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '10px' }} />
+                      <div>
+                        <span style={{ backgroundColor: 'var(--gold-primary)', color: '#380910', padding: '4px 12px', borderRadius: '12px', fontWeight: 800, fontSize: '0.8rem' }}>✨ TODAY'S DAILY SPECIAL</span>
+                        <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '8px', fontSize: '1.8rem', fontWeight: 800 }}>{dailySpecial.name}</h2>
+                        <p style={{ fontSize: '0.9rem', margin: '8px 0', color: 'var(--text-dark)' }}>{dailySpecial.description}</p>
+                        <div style={{ fontSize: '2rem', color: 'var(--green-btn)', fontWeight: 800 }}>₹{dailySpecial.offer_price || dailySpecial.price}</div>
+                        <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
+                          <button onClick={() => setSelectedFoodModal(dailySpecial)} className="btn-gold-outline">Inspect Ingredients</button>
+                          <button onClick={() => addToCart(dailySpecial)} className="btn-primary-green">Order Daily Special</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* MENU DISHES GRID */}
+                <section style={{ maxWidth: '1200px', margin: '50px auto', padding: '0 20px' }}>
+                  <div className="glass-panel" style={{ padding: '25px', borderRadius: '16px', marginBottom: '30px' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                      <span style={{ color: 'var(--gold-dark)', fontWeight: 700, letterSpacing: '2px', fontSize: '0.88rem' }}>
+                        {searchQuery ? `🔍 SEARCH RESULTS FOR "${searchQuery.toUpperCase()}"` : '⏰ TIME-BASED LIVE DINING SELECTION'}
+                      </span>
+                      <h2 className="section-title" style={{ marginTop: '4px' }}>
+                        {searchQuery ? `Found ${filteredMenuItems.length} Satvik Dishes` : 'Dishes Served Based on Timing'}
+                      </h2>
+                      <p className="section-subtitle">
+                        💡 Click on any dish card (e.g. Masala Dosa) to see all ingredients used & nutrition details
+                      </p>
+                      <div className="gold-accent-line"></div>
+                    </div>
+
+                    {!searchQuery && (
+                      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                        <button
+                          onClick={() => setActiveTimeSlot('6am-11am')}
+                          style={{
+                            padding: '10px 22px', borderRadius: '25px',
+                            border: activeTimeSlot === '6am-11am' ? '2px solid var(--gold-primary)' : '1px solid #CCC',
+                            backgroundColor: activeTimeSlot === '6am-11am' ? 'var(--maroon-header)' : 'rgba(255,255,255,0.7)',
+                            color: activeTimeSlot === '6am-11am' ? 'var(--gold-glow)' : 'var(--text-dark)',
+                            fontFamily: 'Cinzel, serif', fontWeight: 700, cursor: 'pointer'
+                          }}
+                        >
+                          ☕ Morning Tiffins (6 AM - 11 AM)
+                        </button>
+
+                        <button
+                          onClick={() => setActiveTimeSlot('12pm-6pm')}
+                          style={{
+                            padding: '10px 22px', borderRadius: '25px',
+                            border: activeTimeSlot === '12pm-6pm' ? '2px solid var(--gold-primary)' : '1px solid #CCC',
+                            backgroundColor: activeTimeSlot === '12pm-6pm' ? 'var(--maroon-header)' : 'rgba(255,255,255,0.7)',
+                            color: activeTimeSlot === '12pm-6pm' ? 'var(--gold-glow)' : 'var(--text-dark)',
+                            fontFamily: 'Cinzel, serif', fontWeight: 700, cursor: 'pointer'
+                          }}
+                        >
+                          🍛 Afternoon Meals & Bhojanam (12 PM - 6 PM)
+                        </button>
+
+                        <button
+                          onClick={() => setActiveTimeSlot('6pm-11pm')}
+                          style={{
+                            padding: '10px 22px', borderRadius: '25px',
+                            border: activeTimeSlot === '6pm-11pm' ? '2px solid var(--gold-primary)' : '1px solid #CCC',
+                            backgroundColor: activeTimeSlot === '6pm-11pm' ? 'var(--maroon-header)' : 'rgba(255,255,255,0.7)',
+                            color: activeTimeSlot === '6pm-11pm' ? 'var(--gold-glow)' : 'var(--text-dark)',
+                            fontFamily: 'Cinzel, serif', fontWeight: 700, cursor: 'pointer'
+                          }}
+                        >
+                          ✨ Evening Dinner & Naivedyam (6 PM - 11 PM)
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {filteredMenuItems.length === 0 ? (
+                    <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', borderRadius: '16px' }}>
+                      <h3>No dish names match "{searchQuery}"</h3>
+                      <button onClick={() => setSearchQuery('')} className="btn-primary-green" style={{ marginTop: '15px' }}>Clear Search & View All Menu</button>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px' }}>
+                      {filteredMenuItems.map(item => (
+                        <div key={item.id} className="glass-card" onClick={() => setSelectedFoodModal(item)} style={{ padding: '16px' }}>
+                          <img src={item.image_url} style={{ width: '100%', height: '170px', objectFit: 'cover', borderRadius: '8px' }} />
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                            <span className="veg-badge"><span className="veg-dot"></span> 100% Pure Veg</span>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--gold-dark)', fontWeight: 700 }}>🔍 Click for Ingredients</span>
+                          </div>
+                          <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '6px', fontWeight: 700 }}>
+                            <HighlightText text={item.name} query={searchQuery} />
+                          </h3>
+                          <p style={{ fontSize: '0.82rem', color: '#555', margin: '6px 0' }}>{item.description}</p>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                            <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--maroon-header)' }}>₹{item.offer_price || item.price}</span>
+                            <button onClick={e => { e.stopPropagation(); addToCart(item); }} className="btn-primary-green" style={{ padding: '6px 14px' }}>+ Add</button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              </div>
+            )}
+
+            {/* AUTH / LOGIN / REGISTER MODAL */}
+            {isAuthOpen && (
+              <div className="modal-overlay" onClick={() => setIsAuthOpen(false)}>
+                <div className="modal-content" onClick={e => e.stopPropagation()} style={{ padding: '30px', maxWidth: '480px' }}>
+                  <button onClick={() => setIsAuthOpen(false)} style={{ position: 'absolute', right: '15px', top: '15px', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: 'var(--maroon-header)' }}>✕</button>
+
+                  <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', borderBottom: '2px solid var(--gold-primary)', paddingBottom: '10px' }}>
+                    <button
+                      onClick={() => setAuthMode('login')}
+                      style={{ flex: 1, padding: '10px', background: authMode === 'login' ? 'var(--maroon-header)' : 'transparent', color: authMode === 'login' ? 'var(--gold-glow)' : 'var(--maroon-header)', border: '1px solid var(--gold-primary)', borderRadius: '6px', fontWeight: 700, fontFamily: 'Cinzel, serif', cursor: 'pointer' }}
+                    >
+                      Login
+                    </button>
+                    <button
+                      onClick={() => setAuthMode('register')}
+                      style={{ flex: 1, padding: '10px', background: authMode === 'register' ? 'var(--maroon-header)' : 'transparent', color: authMode === 'register' ? 'var(--gold-glow)' : 'var(--maroon-header)', border: '1px solid var(--gold-primary)', borderRadius: '6px', fontWeight: 700, fontFamily: 'Cinzel, serif', cursor: 'pointer' }}
+                    >
+                      Register
+                    </button>
+                  </div>
+
+                  {authMode === 'login' ? (
+                    <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                      <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)' }}>Customer & Staff Login</h3>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Email or Mobile Number</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. devotee@tirupati.com or 9014228068"
+                          value={loginIdentifier}
+                          onChange={e => setLoginIdentifier(e.target.value)}
+                          style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC', marginTop: '4px' }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Password</label>
+                        <input
+                          type="password"
+                          required
+                          placeholder="Enter password"
+                          value={loginPassword}
+                          onChange={e => setLoginPassword(e.target.value)}
+                          style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC', marginTop: '4px' }}
+                        />
+                      </div>
+
+                      <button type="submit" className="btn-primary-green" style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '1rem', marginTop: '10px' }}>
+                        Login Now
+                      </button>
+
+                      {/* QUICK DEMO LOGIN BUTTONS */}
+                      <div style={{ marginTop: '15px', borderTop: '1px solid #DDD', paddingTop: '15px', textAlign: 'center' }}>
+                        <p style={{ fontSize: '0.78rem', color: '#666', marginBottom: '8px' }}>⚡ Quick 1-Click Demo Login:</p>
+                        <div style={{ display: 'flex', gap: '10px' }}>
+                          <button
+                            type="button"
+                            onClick={() => { setLoginIdentifier('devotee@tirupati.com'); setLoginPassword('demo123'); }}
+                            style={{ flex: 1, padding: '6px', background: '#E8F5E9', border: '1px solid #2E7D32', color: '#1B5E20', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}
+                          >
+                            Customer Demo
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => { setLoginIdentifier('admin@tirupatirestaurant.com'); setLoginPassword('admin123'); }}
+                            style={{ flex: 1, padding: '6px', background: '#FFEBEE', border: '1px solid #C62828', color: '#B71C1C', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}
+                          >
+                            Admin Demo
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  ) : (
+                    <form onSubmit={handleRegisterSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                      <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)' }}>Register New Account</h3>
+                      <input type="text" required placeholder="Full Name" value={regName} onChange={e=>setRegName(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      <input type="tel" required placeholder="Mobile Number" value={regMobile} onChange={e=>setRegMobile(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      <input type="email" required placeholder="Email Address" value={regEmail} onChange={e=>setRegEmail(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      <input type="password" required placeholder="Create Password" value={regPassword} onChange={e=>setRegPassword(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      <button type="submit" className="btn-primary-green" style={{ width: '100%', justifyContent: 'center', padding: '12px', fontSize: '1rem', marginTop: '10px' }}>
+                        Register & Login
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* DETAILED INGREDIENTS MODAL */}
+            {selectedFoodModal && (
+              <div className="modal-overlay" onClick={() => setSelectedFoodModal(null)}>
+                <div className="modal-content" onClick={e => e.stopPropagation()} style={{ padding: '25px', maxWidth: '650px' }}>
+                  <button onClick={() => setSelectedFoodModal(null)} style={{ position: 'absolute', right: '15px', top: '15px', background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer', color: 'var(--maroon-header)' }}>✕</button>
+                  
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                    <img src={selectedFoodModal.image_url} style={{ width: '100%', height: '230px', objectFit: 'cover', borderRadius: '10px', border: '2px solid var(--gold-primary)' }} />
+                    <div>
+                      <span className="veg-badge"><span className="veg-dot"></span> 100% Pure Satvik Veg</span>
+                      <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '8px', fontSize: '1.6rem' }}>{selectedFoodModal.name}</h2>
+                      <p style={{ fontSize: '0.85rem', color: '#555', margin: '6px 0' }}>{selectedFoodModal.description}</p>
+                      <div style={{ fontSize: '1.8rem', fontWeight: 900, color: 'var(--green-btn)' }}>₹{selectedFoodModal.offer_price || selectedFoodModal.price}</div>
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: '20px', backgroundColor: 'rgba(255, 253, 249, 0.95)', padding: '18px', borderRadius: '10px', border: '1.5px solid var(--gold-primary)' }}>
+                    <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontSize: '1.1rem', marginBottom: '8px' }}>
+                      🥗 Ingredients Used:
+                    </h3>
+                    <p style={{ fontSize: '0.92rem', color: 'var(--text-dark)', fontWeight: 600, lineHeight: '1.5' }}>
+                      {selectedFoodModal.ingredients || 'Raw Rice, Urad Dal, Pure Cow Ghee, Fenugreek, Spiced Potato Masala, Mustard Seeds, Curry Leaves, Turmeric, Rock Salt.'}
+                    </p>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '14px', borderTop: '1px solid #EEE', paddingTop: '12px' }}>
+                      <div>
+                        <strong style={{ fontSize: '0.8rem', color: 'var(--maroon-header)' }}>🍳 Preparation Style:</strong>
+                        <p style={{ fontSize: '0.82rem', color: '#444' }}>{selectedFoodModal.preparation_style || 'Traditional Temple Tawa Griddled Recipe'}</p>
+                      </div>
+                      <div>
+                        <strong style={{ fontSize: '0.8rem', color: 'var(--maroon-header)' }}>⚠️ Allergens Info:</strong>
+                        <p style={{ fontSize: '0.82rem', color: '#444' }}>{selectedFoodModal.allergens || 'Pure Cow Ghee (Dairy), Gluten-Free'}</p>
+                      </div>
+                    </div>
+
+                    {selectedFoodModal.worship_significance && (
+                      <div style={{ marginTop: '12px', backgroundColor: 'rgba(212,175,55,0.15)', padding: '10px', borderRadius: '6px', fontSize: '0.8rem', color: 'var(--maroon-header)', borderLeft: '3px solid var(--gold-primary)' }}>
+                        <strong>✨ Worship Significance:</strong> {selectedFoodModal.worship_significance}
+                      </div>
+                    )}
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '20px' }}>
+                    <button onClick={() => setSelectedFoodModal(null)} className="btn-gold-outline">Close</button>
+                    <button onClick={() => { addToCart(selectedFoodModal); setSelectedFoodModal(null); }} className="btn-primary-green">
+                      + Add {selectedFoodModal.name} to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TABLE RESERVATION WITH OFFICIAL REFERENCE CHART IMAGE */}
+            {currentPage === 'reservation' && (
+              <div style={{ maxWidth: '1050px', margin: '40px auto', padding: '0 20px' }}>
+                <h1 className="section-title" style={{ color: '#FFF' }}>Reserve a Dining Table</h1>
+                <p className="section-subtitle" style={{ color: '#F3E5AB' }}>Tirumala Tirupati Restaurant • Near Tata Automobile Showroom, Beside Busstand</p>
+                <div className="gold-accent-line"></div>
+
+                <div className="glass-panel" style={{ padding: '20px', borderRadius: '16px', marginTop: '25px', textDecoration: 'none', textAlign: 'center' }}>
+                  <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontSize: '1.35rem', marginBottom: '12px', fontWeight: 800 }}>
+                    🪑 Traditional Dining Tables Reference Guide
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '15px' }}>
+                    Inspect our authentic temple-style 4, 6, 10, and 12-seater table arrangements for your reference:
+                  </p>
+                  
+                  <div style={{ borderRadius: '12px', overflow: 'hidden', border: '2.5px solid var(--gold-primary)', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }}>
+                    <img 
+                      src="/table_guide.jpg" 
+                      alt="Tirupati Restaurant Traditional Dining Tables Reference Guide" 
+                      style={{ width: '100%', height: 'auto', display: 'block' }} 
+                    />
+                  </div>
+
+                  <div onClick={() => document.getElementById('booking-form-anchor').scrollIntoView({ behavior: 'smooth' })} className="scroll-down-btn" style={{ marginTop: '20px' }}>
+                    <span>SCROLL DOWN TO BOOK TABLE FORM</span>
+                    <span style={{ fontSize: '1.3rem' }}>↓</span>
+                  </div>
+                </div>
+
+                <div id="booking-form-anchor"></div>
+
+                {tableReservedSuccess ? (
+                  <div className="glass-panel" style={{ padding: '35px', textAlign: 'center', marginTop: '30px', borderRadius: '16px' }}>
+                    <div style={{ fontSize: '3rem', marginBottom: '10px' }}>✅</div>
+                    <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)' }}>Table Reservation Confirmed!</h2>
+                    <p style={{ color: 'var(--text-muted)', margin: '10px 0' }}>Reservation Code: <strong>{tableReservedSuccess.reservation_code}</strong></p>
+                    <p style={{ fontSize: '0.95rem' }}>We look forward to hosting <strong>{tableReservedSuccess.details.name}</strong> for <strong>{tableReservedSuccess.details.guests} guests</strong> on {tableReservedSuccess.details.res_date} ({tableReservedSuccess.details.res_time}).</p>
+                    <button onClick={() => setTableReservedSuccess(null)} className="btn-maroon" style={{ marginTop: '20px' }}>Book Another Table</button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleBookTableSubmit} className="glass-panel" style={{ padding: '30px', marginTop: '30px', display: 'flex', flexDirection: 'column', gap: '16px', borderRadius: '16px' }}>
+                    <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)' }}>Table Reservation Form</h3>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Full Name *</label>
+                        <input type="text" required placeholder="Enter full name" value={resFullName} onChange={e=>setResFullName(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Mobile Number *</label>
+                        <input type="tel" required placeholder="10-digit mobile" value={resMobile} onChange={e=>setResMobile(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Date of Visit *</label>
+                        <input type="date" required value={resDate} onChange={e=>setResDate(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Preferred Time Slot *</label>
+                        <select value={resTimeSlot} onChange={e=>setResTimeSlot(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }}>
+                          <option value="08:00 AM (Morning Tiffins)">08:00 AM (Morning Tiffins)</option>
+                          <option value="10:00 AM (Morning Tiffins)">10:00 AM (Morning Tiffins)</option>
+                          <option value="12:30 PM (Afternoon Bhojanam)">12:30 PM (Afternoon Bhojanam)</option>
+                          <option value="02:00 PM (Afternoon Bhojanam)">02:00 PM (Afternoon Bhojanam)</option>
+                          <option value="05:00 PM (Evening Snacks)">05:00 PM (Evening Snacks)</option>
+                          <option value="07:30 PM (Divine Dinner)">07:30 PM (Divine Dinner)</option>
+                          <option value="09:00 PM (Divine Dinner)">09:00 PM (Divine Dinner)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Number of Guests (Table for 4, 6, 10, 12, etc.) *</label>
+                        <select value={resGuests} onChange={e=>setResGuests(parseInt(e.target.value))} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }}>
+                          <option value={2}>Table for 2 Members</option>
+                          <option value={4}>Table for 4 Members</option>
+                          <option value={6}>Table for 6 Members</option>
+                          <option value={10}>Table for 10 Members</option>
+                          <option value={12}>Table for 12 Members</option>
+                          <option value={15}>Table for 15+ Members (Large Group)</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Preferred Seating Area *</label>
+                        <select value={resSeatingArea} onChange={e=>setResSeatingArea(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }}>
+                          <option value="Indoor Air Conditioned">Indoor Air Conditioned</option>
+                          <option value="Outdoor Garden Courtyard">Outdoor Garden Courtyard</option>
+                          <option value="Traditional Wooden Floor Seating">Traditional Wooden Floor Seating</option>
+                          <option value="VIP Family Sanctuary">VIP Family Sanctuary</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--maroon-header)' }}>Special Requests / Occasion</label>
+                      <textarea rows={2} placeholder="e.g. Birthday celebration, High chair for infant, Wheelchair access..." value={resSpecialRequests} onChange={e=>setResSpecialRequests(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid #CCC' }} />
+                    </div>
+
+                    <button type="submit" className="btn-primary-green" style={{ width: '100%', justifyContent: 'center', padding: '14px', fontSize: '1.05rem', marginTop: '10px' }}>
+                      Confirm Booking for Table ({resGuests} Members)
+                    </button>
+                  </form>
+                )}
+              </div>
+            )}
+
+            {/* FULL VEG MENU PAGE */}
+            {currentPage === 'menu' && (
+              <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px' }}>
+                <h1 className="section-title" style={{ color: '#FFF' }}>Complete Pure Veg Menu</h1>
+                <div className="gold-accent-line"></div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px', marginTop: '30px' }}>
+                  {filteredMenuItems.map(item => (
+                    <div key={item.id} className="glass-card" onClick={() => setSelectedFoodModal(item)} style={{ padding: '16px' }}>
+                      <img src={item.image_url} style={{ width: '100%', height: '170px', objectFit: 'cover', borderRadius: '6px' }} />
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <span className="veg-badge"><span className="veg-dot"></span> 100% Veg</span>
+                        <span style={{ fontSize: '0.75rem', color: 'var(--gold-dark)', fontWeight: 700 }}>🔍 Click for Ingredients</span>
+                      </div>
+                      <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '6px' }}>
+                        <HighlightText text={item.name} query={searchQuery} />
+                      </h3>
+                      <p style={{ fontSize: '0.82rem', color: '#555', margin: '6px 0' }}>{item.description}</p>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
+                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--maroon-header)' }}>₹{item.offer_price || item.price}</span>
+                        <button onClick={e => { e.stopPropagation(); addToCart(item); }} className="btn-primary-green" style={{ padding: '6px 14px' }}>+ Add</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SACRED NAIVEDYAM PAGE */}
+            {currentPage === 'naivedyam' && (
+              <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px' }}>
+                <h1 className="section-title" style={{ color: '#FFF' }}>Worship Offerings (Naivedyam)</h1>
+                <div className="gold-accent-line"></div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '25px', marginTop: '30px' }}>
+                  {menuItems.filter(i=>i.category_slug==='naivedyam').map(item => (
+                    <div key={item.id} className="glass-card" onClick={() => setSelectedFoodModal(item)} style={{ padding: '18px' }}>
+                      <img src={item.image_url} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '6px' }} />
+                      <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '10px' }}>{item.name}</h3>
+                      <p style={{ fontSize: '0.85rem', margin: '6px 0' }}>{item.description}</p>
+                      {item.worship_significance && (
+                        <div style={{ backgroundColor: 'rgba(212,175,55,0.15)', padding: '10px', borderRadius: '6px', fontSize: '0.8rem', color: 'var(--maroon-header)', margin: '10px 0', borderLeft: '3px solid var(--gold-primary)' }}>
+                          <strong>✨ Spiritual Worship Significance:</strong> {item.worship_significance}
+                        </div>
+                      )}
+                      <button onClick={e => { e.stopPropagation(); addToCart(item); }} className="btn-primary-green" style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}>Add Sacred Naivedyam</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CART PAGE */}
+            {currentPage === 'cart' && (
+              <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px' }}>
+                <h1 className="section-title" style={{ color: '#FFF' }}>Your Cart</h1>
+                <div className="glass-panel" style={{ padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
+                  {cart.map(i => (
+                    <div key={i.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', borderBottom: '1px solid #DDD' }}>
+                      <span>{i.name} x {i.quantity}</span>
+                      <span>₹{i.price * i.quantity}</span>
+                    </div>
+                  ))}
+                  <div style={{ fontSize: '1.3rem', fontWeight: 800, textAlign: 'right', marginTop: '15px' }}>Total: ₹{subtotal}</div>
+                  <button onClick={() => setCurrentPage('checkout')} className="btn-primary-green" style={{ marginTop: '15px', float: 'right' }}>Proceed to Checkout</button>
+                </div>
+              </div>
+            )}
+
+            {/* CHECKOUT PAGE */}
+            {currentPage === 'checkout' && (
+              <div style={{ maxWidth: '800px', margin: '40px auto', padding: '0 20px' }}>
+                <h1 className="section-title" style={{ color: '#FFF' }}>Delivery & Payment</h1>
+                <form onSubmit={e => { e.preventDefault(); alert('Order placed successfully!'); setCart([]); setCurrentPage('home'); }} className="glass-panel" style={{ padding: '30px', marginTop: '20px', borderRadius: '16px' }}>
+                  <input type="text" required placeholder="House / Flat No." value={houseNo} onChange={e=>setHouseNo(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px' }} />
+                  <input type="text" required placeholder="Street" value={street} onChange={e=>setStreet(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px' }} />
+                  <input type="text" required placeholder="Area" value={area} onChange={e=>setArea(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px' }} />
+                  <input type="tel" required placeholder="Secondary Mobile (MANDATORY)" value={secondaryMobile} onChange={e=>setSecondaryMobile(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px', border: '2px solid red' }} />
+                  <button type="submit" className="btn-primary-green" style={{ width: '100%', justifyContent: 'center' }}>Confirm & Pay ₹{subtotal + 30}</button>
+                </form>
+              </div>
+            )}
+
+            {/* CONTACT PAGE */}
+            {currentPage === 'contact' && (
+              <div style={{ maxWidth: '950px', margin: '40px auto', padding: '0 20px' }}>
+                <h1 className="section-title" style={{ color: '#FFF' }}>Contact & Leadership</h1>
+                <p className="section-subtitle" style={{ color: '#F3E5AB' }}>{EXACT_ADDRESS}</p>
+                <div className="gold-accent-line"></div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginTop: '30px', textAlign: 'center' }}>
+                  <div className="glass-card" style={{ padding: '20px' }}>
+                    <h3>Rachakonda Mithrakumar</h3>
+                    <p style={{ color: 'var(--gold-dark)', fontWeight: 700 }}>Owner</p>
+                  </div>
+                  <div className="glass-card" style={{ padding: '20px' }}>
+                    <h3>Kanaparthi Akshay</h3>
+                    <p style={{ color: 'var(--green-btn)', fontWeight: 700 }}>Manager</p>
+                  </div>
+                  <div className="glass-card" style={{ padding: '20px' }}>
+                    <h3>Koppula Koteshwar Rao</h3>
+                    <p style={{ color: 'var(--maroon-header)', fontWeight: 700 }}>Chief Chef</p>
+                  </div>
+                </div>
+
+                <div className="glass-panel" style={{ padding: '25px', marginTop: '30px', borderRadius: '16px' }}>
+                  <p><strong>📍 Full Address:</strong> {EXACT_ADDRESS}</p>
+                  <p style={{ marginTop: '8px' }}><strong>📞 Phones:</strong> +91 9346174197, +91 9014228068, +91 8247467209</p>
+                  <p style={{ marginTop: '8px' }}><strong>✉️ Email:</strong> tirumaltirupatirestarent@gmail.com</p>
+                </div>
+              </div>
+            )}
+          </main>
+
+          {/* FOOTER */}
+          <footer className="glass-header" style={{ color: '#FFF', padding: '35px 20px', marginTop: 'auto', borderTop: '4px solid var(--gold-primary)' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+              <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--gold-primary)' }}>Tirumala Tirupati Restaurant</h3>
+              <p style={{ color: '#F3E5AB', fontSize: '0.85rem', marginTop: '4px' }}>📍 {EXACT_ADDRESS}</p>
+              <p style={{ color: '#F3E5AB', fontSize: '0.85rem', marginTop: '4px' }}>Owner: Rachakonda Mithrakumar | Manager: Kanaparthi Akshay | Chief Chef: Koppula Koteshwar Rao</p>
+              <p style={{ color: '#E0D6C3', fontSize: '0.82rem', marginTop: '6px' }}>Phone: +91 9346174197, +91 9014228068, +91 8247467209 | Email: tirumaltirupatirestarent@gmail.com</p>
+            </div>
+          </footer>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
 </html>
