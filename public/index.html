@@ -314,53 +314,172 @@
 
     // FALLBACK MENU ITEMS ARRAY FOR NETLIFY & STATIC HOSTS
 
+
+    // DYNAMIC RESTAURANT AUTO-REPLY GENERATOR BASED ON COMMENT & DISH
+    function generateRestaurantReply(comment, dish_name, rating, user_name) {
+      const text = (comment || '').toLowerCase();
+      const dish = (dish_name || '').toLowerCase();
+      const name = user_name || 'Devotee';
+      const stars = Number(rating) || 5;
+
+      if (text.includes('bhojanam') || text.includes('banana leaf') || text.includes('thali') || text.includes('meal') || dish.includes('bhojanam')) {
+        return {
+          text: "🙏 Namaste " + name + "! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!",
+          author: "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+          badge: "Temple Kitchen Management",
+          replied_at: new Date().toISOString()
+        };
+      }
+
+      if (text.includes('laddu') || text.includes('prasadam') || text.includes('sweet') || text.includes('camphor') || text.includes('karpooram') || dish.includes('laddu')) {
+        return {
+          text: "🙏 Govinda Govinda, " + name + "! Thank you for your divine blessings. Our sacred Tirupati Laddu Prasadam is prepared using pure deshi cow ghee, premium cashews, and Pachcha Karpooram, just like temple offerings. May Lord Venkateswara shower you with abundant health and happiness!",
+          author: "Koppula Koteshwar Rao (Chief Chef)",
+          badge: "Prasadam Department",
+          replied_at: new Date().toISOString()
+        };
+      }
+
+      if (text.includes('dosa') || text.includes('idli') || text.includes('vada') || text.includes('tiffin') || text.includes('chutney') || text.includes('sambar') || dish.includes('dosa') || dish.includes('idli')) {
+        return {
+          text: "🙏 Namaste " + name + "! We are overjoyed that you enjoyed our crispy deshi ghee dosas and soft cotton idlis with freshly ground coconut chutney and piping drumstick sambar. Freshness and pure ghee are our eternal promise to every pilgrim!",
+          author: "Kanaparthi Akshay (Manager)",
+          badge: "Operations Manager",
+          replied_at: new Date().toISOString()
+        };
+      }
+
+      if (text.includes('clean') || text.includes('hygiene') || text.includes('atmosphere') || text.includes('busstand') || text.includes('location') || text.includes('service')) {
+        return {
+          text: "🙏 Dhanyavadalu " + name + "! Cleanliness is next to godliness. Situated conveniently beside Tirupati bus stand, our goal is to offer weary travelers and pilgrims a serene, pristine, and spiritually uplifting dining haven. Thank you for your kind words!",
+          author: "Kanaparthi Akshay (Manager)",
+          badge: "Guest Hospitality",
+          replied_at: new Date().toISOString()
+        };
+      }
+
+      if (stars <= 3) {
+        return {
+          text: "🙏 Namaste " + name + ". We humbly apologize if your experience was anything short of divine. Devotee satisfaction is our sacred duty. Please call Manager Kanaparthi Akshay directly at +91 9346174197 so we can address your feedback and ensure your next pilgrimage meal is extraordinary.",
+          author: "Kanaparthi Akshay (Manager)",
+          badge: "Customer Care",
+          replied_at: new Date().toISOString()
+        };
+      }
+
+      return {
+        text: "🙏 Srivari blessings to you and your family, " + name + "! Your warm appreciation fills our entire team with devotion and gratitude. We are blessed to serve pure Satvik cuisine to pilgrims of Lord Sri Venkateswara Swami. Visit us again soon!",
+        author: "Tirumala Tirupati Restaurant Team",
+        badge: "Official Management",
+        replied_at: new Date().toISOString()
+      };
+    }
+
     // SEED CUSTOMER DEVOTEE REVIEWS WITH AUTHENTIC DINING PHOTOS
     const DEFAULT_REVIEWS = [
-      {
-        id: 1,
-        user_name: "Ramesh Kumar",
-        dish_name: "Ghee Masala Dosa & Cotton Idli",
-        rating: 5,
-        comment: "Authentic Tirupati taste! The ghee idlis were divine and soft as cotton. The pure cow ghee masala dosa was delightfully crisp and full of traditional flavour.",
-        images: ["/dosa.jpg"],
-        likes_count: 24,
-        status: "approved",
-        created_at: "2026-10-14T08:30:00.000Z"
-      },
-      {
-        id: 2,
-        user_name: "Srinivas Rao",
-        dish_name: "Srivari Maha Bhojanam",
-        rating: 5,
-        comment: "The Srivari Maha Bhojanam is a royal feast! Served on a real banana leaf with 18 sacred Satvik items. The ghee and sambar aroma made our Tirupati pilgrimage unforgettable.",
-        images: ["/bhojanam.jpg", "/table_2.jpg"],
-        likes_count: 39,
-        status: "approved",
-        created_at: "2026-10-12T13:15:00.000Z"
-      },
-      {
-        id: 3,
-        user_name: "Padma Subrahmanyam",
-        dish_name: "Tirupati Laddu Prasadam & Pongal",
-        rating: 5,
-        comment: "The Tirupati Laddu prasadam has exact temple ghee aroma and Pachcha Karpooram taste. Blessed dining experience right near the bus stand.",
-        images: ["/laddu.jpg", "/pongal.jpg"],
-        likes_count: 52,
-        status: "approved",
-        created_at: "2026-10-10T19:45:00.000Z"
-      },
-      {
-        id: 4,
-        user_name: "Venkatesh Ananth",
-        dish_name: "Temple Pulihora & Daddojanam",
-        rating: 5,
-        comment: "Exceptional temple cleanliness and spiritual hospitality. Pure Satvik without onion or garlic, just like Tirumala temple naivedyam.",
-        images: ["/pulihora.jpg", "/daddojanam.jpg"],
-        likes_count: 19,
-        status: "approved",
-        created_at: "2026-10-08T12:20:00.000Z"
-      }
-    ];
+  {
+    "id": 5,
+    "menu_item_id": null,
+    "dish_name": "Srivari Maha Bhojanam",
+    "user_name": "Ananya Sharma",
+    "user_email": "ananya@tirupati.com",
+    "user_mobile": "",
+    "rating": 5,
+    "comment": "The traditional banana leaf meal was blissful! Everything from the podi ghee rice to the payasam was divine.",
+    "images": [
+      "/bhojanam.jpg",
+      "/table_2.jpg"
+    ],
+    "likes_count": 1,
+    "status": "approved",
+    "created_at": "2026-10-15T13:20:42.369Z",
+    "restaurant_reply": {
+      "text": "🙏 Namaste Ananya Sharma! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!",
+      "author": "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+      "badge": "Temple Kitchen Management",
+      "replied_at": "2026-10-15T15:16:41.044Z"
+    }
+  },
+  {
+    "id": 1,
+    "user_name": "Ramesh Kumar",
+    "dish_name": "Ghee Masala Dosa & Cotton Idli",
+    "rating": 5,
+    "comment": "Authentic Tirupati taste! The ghee idlis were divine and soft as cotton. The pure cow ghee masala dosa was delightfully crisp.",
+    "images": [
+      "/dosa.jpg"
+    ],
+    "likes_count": 24,
+    "status": "approved",
+    "created_at": "2026-10-14T08:30:00.000Z",
+    "restaurant_reply": {
+      "text": "🙏 Namaste Ramesh Kumar! We are overjoyed that you enjoyed our crispy deshi ghee dosas and soft cotton idlis with freshly ground coconut chutney and piping drumstick sambar. Freshness and pure ghee are our eternal promise to every pilgrim!",
+      "author": "Kanaparthi Akshay (Manager)",
+      "badge": "Operations Manager",
+      "replied_at": "2026-10-15T15:16:41.044Z"
+    }
+  },
+  {
+    "id": 2,
+    "user_name": "Srinivas Rao",
+    "dish_name": "Srivari Maha Bhojanam",
+    "rating": 5,
+    "comment": "The Srivari Maha Bhojanam is a royal feast! Served on a real banana leaf with 18 sacred Satvik items. The ghee and sambar aroma made our Tirupati pilgrimage unforgettable.",
+    "images": [
+      "/bhojanam.jpg",
+      "/table_2.jpg"
+    ],
+    "likes_count": 39,
+    "status": "approved",
+    "created_at": "2026-10-12T13:15:00.000Z",
+    "restaurant_reply": {
+      "text": "🙏 Namaste Srinivas Rao! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!",
+      "author": "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+      "badge": "Temple Kitchen Management",
+      "replied_at": "2026-10-15T15:16:41.044Z"
+    }
+  },
+  {
+    "id": 3,
+    "user_name": "Padma Subrahmanyam",
+    "dish_name": "Tirupati Laddu Prasadam & Pongal",
+    "rating": 5,
+    "comment": "The Tirupati Laddu prasadam has exact temple ghee aroma and Pachcha Karpooram taste. Blessed dining experience right near the bus stand.",
+    "images": [
+      "/laddu.jpg",
+      "/pongal.jpg"
+    ],
+    "likes_count": 52,
+    "status": "approved",
+    "created_at": "2026-10-10T19:45:00.000Z",
+    "restaurant_reply": {
+      "text": "🙏 Govinda Govinda, Padma Subrahmanyam! Thank you for your divine blessings. Our sacred Tirupati Laddu Prasadam is prepared using pure cow ghee, premium cashews, and Pachcha Karpooram, just like temple offerings. May Lord Venkateswara shower you with abundant health and happiness!",
+      "author": "Koppula Koteshwar Rao (Chief Chef)",
+      "badge": "Prasadam Department",
+      "replied_at": "2026-10-15T15:16:41.044Z"
+    }
+  },
+  {
+    "id": 4,
+    "user_name": "Venkatesh Ananth",
+    "dish_name": "Temple Pulihora & Daddojanam",
+    "rating": 5,
+    "comment": "Exceptional temple cleanliness and spiritual hospitality. Pure Satvik without onion or garlic, just like Tirumala temple naivedyam.",
+    "images": [
+      "/pulihora.jpg",
+      "/daddojanam.jpg"
+    ],
+    "likes_count": 19,
+    "status": "approved",
+    "created_at": "2026-10-08T12:20:00.000Z",
+    "restaurant_reply": {
+      "text": "🙏 Dhanyavadalu Venkatesh Ananth! Cleanliness is next to godliness. Situated conveniently beside Tirupati bus stand, our goal is to offer weary travelers and pilgrims a serene, pristine, and spiritually uplifting dining haven. Thank you for your kind words!",
+      "author": "Kanaparthi Akshay (Manager)",
+      "badge": "Guest Hospitality",
+      "replied_at": "2026-10-15T15:16:41.044Z"
+    }
+  }
+];
     const DEFAULT_MENU_ITEMS = [
       { id: 1, category_slug: 'breakfast', name: 'Idli', description: 'Steamed fluffy rice and lentil cakes served with authentic coconut chutney, tomato chutney, and piping hot sambar.', price: 60, offer_price: 50, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 180, ingredients: 'Raw Rice, Urad Dal, Fenugreek, Rock Salt, Coconut Chutney, Drumstick Sambar', allergens: 'None', calories: 180, preparation_style: 'Traditional Steaming', available: 1 },
       { id: 2, category_slug: 'breakfast', name: 'Ghee Idli', description: 'Soft steamed idlis drenched in generous aromatic pure cow ghee and sprinkled with podi (gunpowder spice).', price: 90, offer_price: 80, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 210, ingredients: 'Raw Rice, Urad Dal, Pure Cow Ghee, Gunpowder Podi (Chana Dal, Sesame, Chilies)', allergens: 'Dairy', calories: 280, preparation_style: 'Steamed and Ghee Soaked', available: 1 },
@@ -506,6 +625,13 @@
       const [paymentMethod, setPaymentMethod] = useState('UPI');
 
       useEffect(() => {
+        const checkHashUrl = () => {
+          if (window.location.hash === '#reviews' || window.location.hash === '#review-section' || window.location.hash === '#devotee-review-portal') {
+            setCurrentPage('reviews');
+          }
+        };
+        checkHashUrl();
+        window.addEventListener('hashchange', checkHashUrl);
         fetch('/api/menu/items').then(r => r.json()).then(d => { if(Array.isArray(d) && d.length>0) setMenuItems(d); }).catch(()=>{});
         fetch('/api/menu/daily-special').then(r => r.json()).then(d => { if(d && d.name) setDailySpecial(d); }).catch(()=>{});
         fetch('/api/reviews').then(r => r.json()).then(d => {
@@ -566,6 +692,7 @@
           images: revImages,
           likes_count: 0,
           status: 'approved',
+          restaurant_reply: generateRestaurantReply(revComment.trim(), revDish, Number(revRating) || 5, reviewerName),
           created_at: new Date().toISOString()
         };
 
@@ -766,7 +893,7 @@
                 <a onClick={() => setCurrentPage('menu')} style={{ cursor: 'pointer', color: currentPage === 'menu' ? 'var(--gold-primary)' : '#FFF' }}>Veg Menu</a>
                 <a onClick={() => setCurrentPage('naivedyam')} style={{ cursor: 'pointer', color: currentPage === 'naivedyam' ? 'var(--gold-primary)' : '#FFF' }}>✨ Naivedyam</a>
                 <a onClick={() => setCurrentPage('reservation')} style={{ cursor: 'pointer', color: currentPage === 'reservation' ? 'var(--gold-primary)' : '#FFF' }}>Book Table</a>
-                <a onClick={() => setCurrentPage('reviews')} style={{ cursor: 'pointer', color: currentPage === 'reviews' ? 'var(--gold-primary)' : '#FFF' }}>⭐ Reviews</a>
+                <a onClick={() => { setCurrentPage('reviews'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ cursor: 'pointer', color: currentPage === 'reviews' ? 'var(--gold-primary)' : '#FFF' }}>⭐ Reviews</a>
                 <a onClick={() => setCurrentPage('contact')} style={{ cursor: 'pointer', color: currentPage === 'contact' ? 'var(--gold-primary)' : '#FFF' }}>Contact</a>
               </nav>
 
@@ -1013,11 +1140,8 @@
                     <div style={{ textAlign: 'center', marginBottom: '25px' }}>
                       <button
                         onClick={() => {
-                          setCurrentPage('contact');
-                          setTimeout(() => {
-                            const el = document.getElementById('devotee-review-portal');
-                            if (el) el.scrollIntoView({ behavior: 'smooth' });
-                          }, 150);
+                          setCurrentPage('reviews');
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
                         }}
                         className="btn-primary-green"
                         style={{ padding: '12px 28px', fontSize: '1rem', boxShadow: '0 6px 18px rgba(46,125,50,0.35)' }}
@@ -1444,6 +1568,411 @@
               </div>
             )}
 
+            
+            {/* DEDICATED DEVOTEE REVIEWS PAGE (WITH WRITE FORM & LIVE AUTO-REPLY STREAM) */}
+            {currentPage === 'reviews' && (
+              <div style={{ maxWidth: '1150px', margin: '40px auto', padding: '0 20px' }}>
+                <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+                  <span style={{ backgroundColor: 'var(--maroon-header)', color: 'var(--gold-glow)', padding: '4px 16px', borderRadius: '15px', fontSize: '0.82rem', fontWeight: 800 }}>
+                    ⭐ SACRED DEVOTEE REVIEWS & PHOTOS
+                  </span>
+                  <h1 className="section-title" style={{ color: '#FFF', marginTop: '10px' }}>Pilgrim Reviews & Dining Gallery</h1>
+                  <p className="section-subtitle" style={{ color: '#F3E5AB' }}>
+                    Tirumala Tirupati Restaurant • Verified Satvik Dining Feedback & Official Restaurant Responses
+                  </p>
+                  <div className="gold-accent-line"></div>
+                </div>
+
+                {/* DEVOTEE SATISFACTION SUMMARY STATS */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '15px', marginBottom: '35px', textAlign: 'center' }}>
+                  <div style={{ backgroundColor: 'rgba(255,255,255,0.88)', padding: '18px', borderRadius: '14px', border: '2px solid var(--gold-primary)', boxShadow: '0 8px 25px rgba(0,0,0,0.15)' }}>
+                    <div style={{ fontSize: '2.6rem', fontWeight: 900, color: 'var(--maroon-header)', fontFamily: 'Cinzel, serif' }}>4.9★</div>
+                    <div style={{ color: '#FFD700', fontSize: '1.25rem', marginBottom: '4px' }}>★★★★★</div>
+                    <div style={{ fontSize: '0.88rem', color: '#555', fontWeight: 700 }}>Overall Pilgrim Rating</div>
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(255,255,255,0.88)', padding: '18px', borderRadius: '14px', border: '2px solid var(--gold-primary)', boxShadow: '0 8px 25px rgba(0,0,0,0.15)' }}>
+                    <div style={{ fontSize: '2.6rem', fontWeight: 900, color: 'var(--green-btn)', fontFamily: 'Cinzel, serif' }}>100%</div>
+                    <div style={{ fontSize: '1.25rem', marginBottom: '4px' }}>🛕 ✨</div>
+                    <div style={{ fontSize: '0.88rem', color: '#555', fontWeight: 700 }}>Pure Cow Ghee Satvik (No Onion/Garlic)</div>
+                  </div>
+                  <div style={{ backgroundColor: 'rgba(255,255,255,0.88)', padding: '18px', borderRadius: '14px', border: '2px solid var(--gold-primary)', boxShadow: '0 8px 25px rgba(0,0,0,0.15)' }}>
+                    <div style={{ fontSize: '2.6rem', fontWeight: 900, color: 'var(--gold-dark)', fontFamily: 'Cinzel, serif' }}>1,480+</div>
+                    <div style={{ fontSize: '1.25rem', marginBottom: '4px' }}>🙏 👨‍👩‍👧‍👦</div>
+                    <div style={{ fontSize: '0.88rem', color: '#555', fontWeight: 700 }}>Happy Pilgrim Diners Served</div>
+                  </div>
+                </div>
+
+                {/* WRITE A REVIEW & ATTACH PHOTOS FORM ON REVIEWS PAGE */}
+                <div id="devotee-review-form-reviews-page" className="glass-panel" style={{ padding: '30px', borderRadius: '18px', border: '2.5px solid var(--gold-primary)', marginBottom: '40px', boxShadow: '0 12px 35px rgba(0,0,0,0.25)' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '22px' }}>
+                    <span style={{ backgroundColor: 'var(--green-btn)', color: '#FFF', padding: '4px 14px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800 }}>
+                      ✍️ WRITE A REVIEW
+                    </span>
+                    <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '8px', fontSize: '1.8rem', fontWeight: 800 }}>
+                      Share Your Dining Experience & Attach Food Photos
+                    </h2>
+                    <p style={{ color: 'var(--text-dark)', fontSize: '0.92rem', maxWidth: '650px', margin: '6px auto' }}>
+                      Rate your experience, upload your dining photos, and receive an instant personalized official response from our temple kitchen leadership!
+                    </p>
+                    <div className="gold-accent-line"></div>
+                  </div>
+
+                  {reviewSuccessMsg && (
+                    <div style={{ backgroundColor: '#E8F5E9', border: '2px solid #2E7D32', color: '#1B5E20', padding: '16px', borderRadius: '10px', textAlign: 'center', fontWeight: 700, fontSize: '1.05rem', marginBottom: '20px', boxShadow: '0 4px 15px rgba(46,125,50,0.2)' }}>
+                      {reviewSuccessMsg}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmitReview} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    {/* STAR RATING PICKER */}
+                    <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(255,255,255,0.7)', borderRadius: '12px', border: '1px solid rgba(212,175,55,0.4)' }}>
+                      <label style={{ display: 'block', fontSize: '0.95rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                        ⭐ Select Your Devotee Rating:
+                      </label>
+                      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px' }}>
+                        {[1, 2, 3, 4, 5].map(starNum => (
+                          <button
+                            key={starNum}
+                            type="button"
+                            onClick={() => setRevRating(starNum)}
+                            className={`star-rating-btn ${revRating >= starNum ? 'active' : ''}`}
+                            title={`${starNum} Stars`}
+                          >
+                            ★
+                          </button>
+                        ))}
+                      </div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--maroon-header)', fontWeight: 700, marginTop: '6px' }}>
+                        {revRating === 5 && '🌟🌟🌟🌟🌟 5 Stars - Divine & Heavenly Satvik Experience!'}
+                        {revRating === 4 && '⭐⭐⭐⭐ 4 Stars - Excellent Taste & Great Hospitality!'}
+                        {revRating === 3 && '⭐⭐⭐ 3 Stars - Good & Satisfactory Meal.'}
+                        {revRating === 2 && '⭐⭐ 2 Stars - Fair experience.'}
+                        {revRating === 1 && '⭐ 1 Star - Needs Improvement.'}
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '15px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Your Name *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Ramesh Kumar"
+                          value={revName}
+                          onChange={e => setRevName(e.target.value)}
+                          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Mobile Number or Email</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. 9014228068 or devotee@gmail.com"
+                          value={revContact}
+                          onChange={e => setRevContact(e.target.value)}
+                          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Dish / Meal Experienced</label>
+                        <select
+                          value={revDish}
+                          onChange={e => setRevDish(e.target.value)}
+                          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF', fontWeight: 600 }}
+                        >
+                          <option value="Srivari Maha Bhojanam">🍛 Srivari Maha Bhojanam (Banana Leaf Feast)</option>
+                          <option value="Ghee Masala Dosa">🥞 Pure Cow Ghee Masala Dosa</option>
+                          <option value="Tirupati Laddu Prasadam">🟡 World Famous Tirupati Laddu Prasadam</option>
+                          <option value="Ven Pongal & Ghee Idli">☕ Ven Pongal & Cotton Ghee Idli</option>
+                          <option value="Temple Pulihora & Daddojanam">🍚 Temple Pulihora & Sacred Curd Rice</option>
+                          <option value="Traditional South Indian Meals">🍲 Authentic South Indian / Andhra Meals</option>
+                          <option value="Overall Restaurant Ambience & Hospitality">🛕 Overall Dining Ambience & Spiritual Hospitality</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Your Devotee Review & Feedback *</label>
+                      <textarea
+                        required
+                        rows="4"
+                        placeholder="Describe your dining experience, taste of pure ghee, chutneys, banana leaf feast, cleanliness, or hospitality near Tirupati bus stand..."
+                        value={revComment}
+                        onChange={e => setRevComment(e.target.value)}
+                        style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF', fontFamily: 'inherit', fontSize: '0.92rem' }}
+                      />
+                    </div>
+
+                    {/* CUSTOMER PHOTO UPLOAD SECTION */}
+                    <div style={{ backgroundColor: 'rgba(255, 253, 249, 0.9)', padding: '20px', borderRadius: '12px', border: '1.5px solid var(--gold-primary)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+                        <div>
+                          <strong style={{ color: 'var(--maroon-header)', fontSize: '0.95rem' }}>📸 Attach Customer Dining Photos:</strong>
+                          <p style={{ fontSize: '0.78rem', color: '#666', margin: '2px 0 0 0' }}>Upload pictures of dishes, dining banana leaf, or your family feast from phone/camera!</p>
+                        </div>
+                        <span style={{ fontSize: '0.78rem', backgroundColor: 'var(--gold-primary)', color: '#380910', padding: '3px 10px', borderRadius: '12px', fontWeight: 800 }}>
+                          {revImages.length} Photo{revImages.length === 1 ? '' : 's'} Selected
+                        </span>
+                      </div>
+
+                      <div className="photo-upload-dropzone" onClick={() => document.getElementById('review-file-input-reviews-page').click()}>
+                        <input
+                          id="review-file-input-reviews-page"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={handleImageFilesChange}
+                          style={{ display: 'none' }}
+                        />
+                        <div style={{ fontSize: '2rem', marginBottom: '6px' }}>📷</div>
+                        <div style={{ fontWeight: 700, color: 'var(--maroon-header)', fontSize: '0.95rem' }}>
+                          Click here to Choose Photos from Device / Camera
+                        </div>
+                        <div style={{ fontSize: '0.78rem', color: '#777', marginTop: '4px' }}>
+                          Supports JPEG, PNG, WEBP (multiple photos allowed)
+                        </div>
+                      </div>
+
+                      {/* QUICK 1-CLICK SAMPLE DINING PHOTOS */}
+                      <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px dashed #DDD' }}>
+                        <div style={{ fontSize: '0.78rem', color: '#666', fontWeight: 700, marginBottom: '6px' }}>
+                          ⚡ Or 1-Click Attach Authentic Restaurant Photos:
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/bhojanam.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🍛 Srivari Bhojanam
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/laddu.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🟡 Tirupati Laddu
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/dosa.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🥞 Ghee Masala Dosa
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/table_2.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🪑 Dining Table
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* SELECTED PHOTO PREVIEWS WITH REMOVE (X) */}
+                      {revImages.length > 0 && (
+                        <div style={{ marginTop: '16px' }}>
+                          <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                            Attached Photos ({revImages.length}):
+                          </div>
+                          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                            {revImages.map((img, i) => (
+                              <div
+                                key={i}
+                                style={{
+                                  position: 'relative', width: '90px', height: '90px', borderRadius: '8px',
+                                  overflow: 'hidden', border: '2px solid var(--gold-primary)', boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                                }}
+                              >
+                                <img src={img} alt={`Attached ${i}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveRevImage(i)}
+                                  title="Remove this photo"
+                                  style={{
+                                    position: 'absolute', top: '3px', right: '3px',
+                                    background: 'rgba(183, 28, 28, 0.9)', color: '#FFF',
+                                    border: 'none', borderRadius: '50%', width: '22px', height: '22px',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: '0.75rem', fontWeight: 800, cursor: 'pointer'
+                                  }}
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmittingReview}
+                      className="btn-primary-green"
+                      style={{ padding: '14px', justifyContent: 'center', fontSize: '1.1rem', marginTop: '10px', boxShadow: '0 6px 20px rgba(46, 125, 50, 0.4)' }}
+                    >
+                      {isSubmittingReview ? 'Publishing Review & Generating Response...' : '✨ Submit Devotee Review & Receive Official Response'}
+                    </button>
+                  </form>
+                </div>
+
+                {/* FILTER TABS */}
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '25px' }}>
+                  <button
+                    onClick={() => setReviewFilter('all')}
+                    className="review-filter-btn"
+                    style={{
+                      backgroundColor: reviewFilter === 'all' ? 'var(--gold-primary)' : 'rgba(255,255,255,0.85)',
+                      color: reviewFilter === 'all' ? '#380910' : 'var(--maroon-header)',
+                      border: '1.5px solid var(--gold-primary)'
+                    }}
+                  >
+                    🌟 All Reviews ({reviews.length})
+                  </button>
+                  <button
+                    onClick={() => setReviewFilter('photos')}
+                    className="review-filter-btn"
+                    style={{
+                      backgroundColor: reviewFilter === 'photos' ? 'var(--gold-primary)' : 'rgba(255,255,255,0.85)',
+                      color: reviewFilter === 'photos' ? '#380910' : 'var(--maroon-header)',
+                      border: '1.5px solid var(--gold-primary)'
+                    }}
+                  >
+                    📸 With Customer Photos ({reviews.filter(r => r.images && r.images.length > 0).length})
+                  </button>
+                  <button
+                    onClick={() => setReviewFilter('5star')}
+                    className="review-filter-btn"
+                    style={{
+                      backgroundColor: reviewFilter === '5star' ? 'var(--gold-primary)' : 'rgba(255,255,255,0.85)',
+                      color: reviewFilter === '5star' ? '#380910' : 'var(--maroon-header)',
+                      border: '1.5px solid var(--gold-primary)'
+                    }}
+                  >
+                    ⭐⭐⭐⭐⭐ 5 Stars Only ({reviews.filter(r => Number(r.rating) === 5).length})
+                  </button>
+                </div>
+
+                {/* REVIEWS GRID WITH RESTAURANT AUTO-REPLIES */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px' }}>
+                  {reviews.filter(r => {
+                    if (reviewFilter === 'photos') return r.images && r.images.length > 0;
+                    if (reviewFilter === '5star') return Number(r.rating) === 5;
+                    return true;
+                  }).map((r, idx) => (
+                    <div key={r.id || idx} className="glass-card" style={{ padding: '22px', cursor: 'default' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <div style={{
+                            width: '46px', height: '46px', borderRadius: '50%',
+                            background: 'linear-gradient(135deg, var(--maroon-header), #7A1A27)',
+                            border: '2px solid var(--gold-primary)', color: 'var(--gold-glow)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontWeight: 800, fontSize: '1.1rem', fontFamily: 'Cinzel, serif',
+                            boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                          }}>
+                            {(r.user_name || 'D').substring(0, 2).toUpperCase()}
+                          </div>
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                              <strong style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontSize: '0.98rem' }}>{r.user_name}</strong>
+                              <span style={{ backgroundColor: '#E8F5E9', color: '#1B5E20', border: '1px solid #2E7D32', fontSize: '0.7rem', padding: '1px 6px', borderRadius: '10px', fontWeight: 700 }}>✓ Verified</span>
+                            </div>
+                            <div style={{ fontSize: '0.72rem', color: '#777' }}>
+                              {r.created_at ? new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Verified Pilgrim'}
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          <div style={{ color: '#FFD700', fontSize: '1.25rem' }}>
+                            {'★'.repeat(Math.min(5, Math.max(1, Number(r.rating) || 5)))}
+                          </div>
+                          <span style={{ fontSize: '0.72rem', backgroundColor: 'rgba(212,175,55,0.18)', color: 'var(--maroon-header)', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                            🍛 {r.dish_name}
+                          </span>
+                        </div>
+                      </div>
+
+                      <p style={{ marginTop: '14px', fontSize: '0.92rem', color: 'var(--text-dark)', lineHeight: '1.6', fontStyle: 'italic' }}>
+                        "{r.comment}"
+                      </p>
+
+                      {/* CUSTOMER ATTACHED DINING PHOTOS */}
+                      {r.images && r.images.length > 0 && (
+                        <div style={{ marginTop: '14px', borderTop: '1px solid rgba(212, 175, 55, 0.25)', paddingTop: '10px' }}>
+                          <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                            📸 Customer Dining Photos ({r.images.length}):
+                          </div>
+                          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                            {r.images.map((img, imgIdx) => (
+                              <div
+                                key={imgIdx}
+                                className="review-photo-hover"
+                                onClick={() => setSelectedPhotoModal({ url: img, caption: r.dish_name || 'Tirupati Dining', reviewer: r.user_name })}
+                                style={{
+                                  position: 'relative', width: '85px', height: '85px', borderRadius: '8px',
+                                  overflow: 'hidden', border: '2px solid var(--gold-primary)', cursor: 'pointer',
+                                  boxShadow: '0 4px 10px rgba(0,0,0,0.15)'
+                                }}
+                              >
+                                <img src={img} alt="Customer Photo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(56, 9, 16, 0.8)', color: '#FFF', fontSize: '0.6rem', textAlign: 'center', padding: '1px 0' }}>
+                                  🔍 Zoom
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* OFFICIAL RESTAURANT AUTO-REPLY BADGE */}
+                      {r.restaurant_reply && (
+                        <div style={{
+                          marginTop: '15px',
+                          backgroundColor: 'rgba(212, 175, 55, 0.12)',
+                          borderLeft: '4px solid var(--gold-primary)',
+                          padding: '12px 16px',
+                          borderRadius: '0 10px 10px 0',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '1rem' }}>🛕</span>
+                            <strong style={{ fontSize: '0.84rem', color: 'var(--maroon-header)', fontFamily: 'Cinzel, serif' }}>
+                              Official Response • {r.restaurant_reply.author}
+                            </strong>
+                            <span style={{ fontSize: '0.68rem', backgroundColor: 'var(--maroon-header)', color: 'var(--gold-glow)', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
+                              {r.restaurant_reply.badge || 'Verified Restaurant Response'}
+                            </span>
+                          </div>
+                          <p style={{ fontSize: '0.86rem', color: 'var(--text-dark)', lineHeight: '1.5', margin: 0 }}>
+                            {r.restaurant_reply.text}
+                          </p>
+                        </div>
+                      )}
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', borderTop: '1px solid #EEE', paddingTop: '10px' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleLikeReview(r.id)}
+                          className="helpful-pill"
+                        >
+                          <span>👍 Helpful</span>
+                          <span>({r.likes_count || 0})</span>
+                        </button>
+                        <span style={{ fontSize: '0.72rem', color: '#888' }}>
+                          📍 Near Tirupati Busstand
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* CONTACT PAGE */}
             {currentPage === 'contact' && (
               <div style={{ maxWidth: '950px', margin: '40px auto', padding: '0 20px' }}>
@@ -1832,6 +2361,31 @@
                                 </div>
                               ))}
                             </div>
+                          </div>
+                        )}
+
+                        {/* OFFICIAL RESTAURANT AUTO-REPLY BADGE */}
+                        {r.restaurant_reply && (
+                          <div style={{
+                            marginTop: '15px',
+                            backgroundColor: 'rgba(212, 175, 55, 0.12)',
+                            borderLeft: '4px solid var(--gold-primary)',
+                            padding: '12px 16px',
+                            borderRadius: '0 10px 10px 0',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+                          }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px', flexWrap: 'wrap' }}>
+                              <span style={{ fontSize: '1rem' }}>🛕</span>
+                              <strong style={{ fontSize: '0.84rem', color: 'var(--maroon-header)', fontFamily: 'Cinzel, serif' }}>
+                                Official Response • {r.restaurant_reply.author}
+                              </strong>
+                              <span style={{ fontSize: '0.68rem', backgroundColor: 'var(--maroon-header)', color: 'var(--gold-glow)', padding: '2px 8px', borderRadius: '10px', fontWeight: 700 }}>
+                                {r.restaurant_reply.badge || 'Verified Restaurant Response'}
+                              </span>
+                            </div>
+                            <p style={{ fontSize: '0.86rem', color: 'var(--text-dark)', lineHeight: '1.5', margin: 0 }}>
+                              {r.restaurant_reply.text}
+                            </p>
                           </div>
                         )}
 

@@ -841,6 +841,28 @@
   ],
   "reviews": [
     {
+      "id": 6,
+      "menu_item_id": null,
+      "dish_name": "Ghee Masala Dosa",
+      "user_name": "Kalyan Chakravarthy",
+      "user_email": "",
+      "user_mobile": "",
+      "rating": 5,
+      "comment": "The Ven Pongal and Ghee Masala Dosa with drumstick sambar was absolutely top class!",
+      "images": [
+        "/dosa.jpg"
+      ],
+      "likes_count": 0,
+      "status": "approved",
+      "restaurant_reply": {
+        "text": "🙏 Namaste Kalyan Chakravarthy! We are overjoyed that you enjoyed our crispy deshi ghee dosas and soft cotton idlis with freshly ground coconut chutney and piping drumstick sambar. Freshness and pure ghee are our eternal promise to every pilgrim!",
+        "author": "Kanaparthi Akshay (Manager)",
+        "badge": "Operations Manager",
+        "replied_at": "2026-10-15T15:21:46.574Z"
+      },
+      "created_at": "2026-10-15T15:21:46.574Z"
+    },
+    {
       "id": 5,
       "menu_item_id": null,
       "dish_name": "Srivari Maha Bhojanam",
@@ -855,7 +877,13 @@
       ],
       "likes_count": 1,
       "status": "approved",
-      "created_at": "2026-10-15T13:20:42.369Z"
+      "created_at": "2026-10-15T13:20:42.369Z",
+      "restaurant_reply": {
+        "text": "🙏 Namaste Ananya Sharma! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!",
+        "author": "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+        "badge": "Temple Kitchen Management",
+        "replied_at": "2026-10-15T15:16:41.044Z"
+      }
     },
     {
       "id": 1,
@@ -868,7 +896,13 @@
       ],
       "likes_count": 24,
       "status": "approved",
-      "created_at": "2026-10-14T08:30:00.000Z"
+      "created_at": "2026-10-14T08:30:00.000Z",
+      "restaurant_reply": {
+        "text": "🙏 Namaste Ramesh Kumar! We are overjoyed that you enjoyed our crispy deshi ghee dosas and soft cotton idlis with freshly ground coconut chutney and piping drumstick sambar. Freshness and pure ghee are our eternal promise to every pilgrim!",
+        "author": "Kanaparthi Akshay (Manager)",
+        "badge": "Operations Manager",
+        "replied_at": "2026-10-15T15:16:41.044Z"
+      }
     },
     {
       "id": 2,
@@ -882,7 +916,13 @@
       ],
       "likes_count": 39,
       "status": "approved",
-      "created_at": "2026-10-12T13:15:00.000Z"
+      "created_at": "2026-10-12T13:15:00.000Z",
+      "restaurant_reply": {
+        "text": "🙏 Namaste Srinivas Rao! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!",
+        "author": "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+        "badge": "Temple Kitchen Management",
+        "replied_at": "2026-10-15T15:16:41.044Z"
+      }
     },
     {
       "id": 3,
@@ -896,7 +936,13 @@
       ],
       "likes_count": 52,
       "status": "approved",
-      "created_at": "2026-10-10T19:45:00.000Z"
+      "created_at": "2026-10-10T19:45:00.000Z",
+      "restaurant_reply": {
+        "text": "🙏 Govinda Govinda, Padma Subrahmanyam! Thank you for your divine blessings. Our sacred Tirupati Laddu Prasadam is prepared using pure cow ghee, premium cashews, and Pachcha Karpooram, just like temple offerings. May Lord Venkateswara shower you with abundant health and happiness!",
+        "author": "Koppula Koteshwar Rao (Chief Chef)",
+        "badge": "Prasadam Department",
+        "replied_at": "2026-10-15T15:16:41.044Z"
+      }
     },
     {
       "id": 4,
@@ -910,7 +956,13 @@
       ],
       "likes_count": 19,
       "status": "approved",
-      "created_at": "2026-10-08T12:20:00.000Z"
+      "created_at": "2026-10-08T12:20:00.000Z",
+      "restaurant_reply": {
+        "text": "🙏 Dhanyavadalu Venkatesh Ananth! Cleanliness is next to godliness. Situated conveniently beside Tirupati bus stand, our goal is to offer weary travelers and pilgrims a serene, pristine, and spiritually uplifting dining haven. Thank you for your kind words!",
+        "author": "Kanaparthi Akshay (Manager)",
+        "badge": "Guest Hospitality",
+        "replied_at": "2026-10-15T15:16:41.044Z"
+      }
     }
   ],
   "orders": [],

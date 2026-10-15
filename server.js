@@ -108,6 +108,65 @@ function verifyAuth(req) {
   }
 }
 
+function generateRestaurantReply(comment, dish_name, rating, user_name) {
+  const text = (comment || '').toLowerCase();
+  const dish = (dish_name || '').toLowerCase();
+  const name = user_name || 'Devotee';
+  const stars = Number(rating) || 5;
+
+  if (text.includes('bhojanam') || text.includes('banana leaf') || text.includes('thali') || text.includes('meal') || dish.includes('bhojanam')) {
+    return {
+      text: `🙏 Namaste ${name}! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!`,
+      author: "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+      badge: "Temple Kitchen Management",
+      replied_at: new Date().toISOString()
+    };
+  }
+
+  if (text.includes('laddu') || text.includes('prasadam') || text.includes('sweet') || text.includes('camphor') || text.includes('karpooram') || dish.includes('laddu')) {
+    return {
+      text: `🙏 Govinda Govinda, ${name}! Thank you for your divine blessings. Our sacred Tirupati Laddu Prasadam is prepared using pure deshi cow ghee, premium cashews, and Pachcha Karpooram, just like temple offerings. May Lord Venkateswara shower you with abundant health and happiness!`,
+      author: "Koppula Koteshwar Rao (Chief Chef)",
+      badge: "Prasadam Department",
+      replied_at: new Date().toISOString()
+    };
+  }
+
+  if (text.includes('dosa') || text.includes('idli') || text.includes('vada') || text.includes('tiffin') || text.includes('chutney') || text.includes('sambar') || dish.includes('dosa') || dish.includes('idli')) {
+    return {
+      text: `🙏 Namaste ${name}! We are overjoyed that you enjoyed our crispy deshi ghee dosas and soft cotton idlis with freshly ground coconut chutney and piping drumstick sambar. Freshness and pure ghee are our eternal promise to every pilgrim!`,
+      author: "Kanaparthi Akshay (Manager)",
+      badge: "Operations Manager",
+      replied_at: new Date().toISOString()
+    };
+  }
+
+  if (text.includes('clean') || text.includes('hygiene') || text.includes('atmosphere') || text.includes('busstand') || text.includes('location') || text.includes('service')) {
+    return {
+      text: `🙏 Dhanyavadalu ${name}! Cleanliness is next to godliness. Situated conveniently beside Tirupati bus stand, our goal is to offer weary travelers and pilgrims a serene, pristine, and spiritually uplifting dining haven. Thank you for your kind words!`,
+      author: "Kanaparthi Akshay (Manager)",
+      badge: "Guest Hospitality",
+      replied_at: new Date().toISOString()
+    };
+  }
+
+  if (stars <= 3) {
+    return {
+      text: `🙏 Namaste ${name}. We humbly apologize if your experience was anything short of divine. Devotee satisfaction is our sacred duty. Please call Manager Kanaparthi Akshay directly at +91 9346174197 so we can address your feedback and ensure your next pilgrimage meal is extraordinary.`,
+      author: "Kanaparthi Akshay (Manager)",
+      badge: "Customer Care",
+      replied_at: new Date().toISOString()
+    };
+  }
+
+  return {
+    text: `🙏 Srivari blessings to you and your family, ${name}! Your warm appreciation fills our entire team with devotion and gratitude. We are blessed to serve pure Satvik cuisine to pilgrims of Lord Sri Venkateswara Swami. Visit us again soon!`,
+    author: "Tirumala Tirupati Restaurant Team",
+    badge: "Official Management",
+    replied_at: new Date().toISOString()
+  };
+}
+
 // HTTP Server
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
@@ -276,6 +335,7 @@ const server = http.createServer(async (req, res) => {
         images: Array.isArray(body.images) ? body.images : (body.image ? [body.image] : []),
         likes_count: 0,
         status: 'approved',
+        restaurant_reply: generateRestaurantReply(body.comment, body.dish_name, body.rating, body.user_name),
         created_at: new Date().toISOString()
       };
       if (!dbData.reviews) dbData.reviews = [];
