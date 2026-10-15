@@ -841,35 +841,93 @@
   ],
   "reviews": [
     {
-      "id": 1,
-      "menu_item_id": 1,
-      "user_name": "Ramesh Kumar",
+      "id": 5,
+      "menu_item_id": null,
+      "dish_name": "Srivari Maha Bhojanam",
+      "user_name": "Ananya Sharma",
+      "user_email": "ananya@tirupati.com",
+      "user_mobile": "",
       "rating": 5,
-      "comment": "Authentic Tirupati taste! The ghee idlis were divine and soft as cotton.",
-      "likes_count": 18,
-      "status": "approved"
+      "comment": "The traditional banana leaf meal was blissful! Everything from the podi ghee rice to the payasam was divine.",
+      "images": [
+        "/bhojanam.jpg",
+        "/table_2.jpg"
+      ],
+      "likes_count": 1,
+      "status": "approved",
+      "created_at": "2026-10-15T13:20:42.369Z"
+    },
+    {
+      "id": 1,
+      "user_name": "Ramesh Kumar",
+      "dish_name": "Ghee Masala Dosa & Cotton Idli",
+      "rating": 5,
+      "comment": "Authentic Tirupati taste! The ghee idlis were divine and soft as cotton. The pure cow ghee masala dosa was delightfully crisp.",
+      "images": [
+        "/dosa.jpg"
+      ],
+      "likes_count": 24,
+      "status": "approved",
+      "created_at": "2026-10-14T08:30:00.000Z"
     },
     {
       "id": 2,
-      "menu_item_id": 20,
       "user_name": "Srinivas Rao",
+      "dish_name": "Srivari Maha Bhojanam",
       "rating": 5,
-      "comment": "The Srivari Maha Bhojanam is a royal feast! Laddu was heavenly.",
-      "likes_count": 34,
-      "status": "approved"
+      "comment": "The Srivari Maha Bhojanam is a royal feast! Served on a real banana leaf with 18 sacred Satvik items. The ghee and sambar aroma made our Tirupati pilgrimage unforgettable.",
+      "images": [
+        "/bhojanam.jpg",
+        "/table_2.jpg"
+      ],
+      "likes_count": 39,
+      "status": "approved",
+      "created_at": "2026-10-12T13:15:00.000Z"
     },
     {
       "id": 3,
-      "menu_item_id": 27,
       "user_name": "Padma Subrahmanyam",
+      "dish_name": "Tirupati Laddu Prasadam & Pongal",
       "rating": 5,
-      "comment": "The Tirupati Laddu prasadam has exact temple ghee aroma and taste. Blessed experience.",
-      "likes_count": 42,
-      "status": "approved"
+      "comment": "The Tirupati Laddu prasadam has exact temple ghee aroma and Pachcha Karpooram taste. Blessed dining experience right near the bus stand.",
+      "images": [
+        "/laddu.jpg",
+        "/pongal.jpg"
+      ],
+      "likes_count": 52,
+      "status": "approved",
+      "created_at": "2026-10-10T19:45:00.000Z"
+    },
+    {
+      "id": 4,
+      "user_name": "Venkatesh Ananth",
+      "dish_name": "Temple Pulihora & Daddojanam",
+      "rating": 5,
+      "comment": "Exceptional temple cleanliness and spiritual hospitality. Pure Satvik without onion or garlic, just like Tirumala temple naivedyam.",
+      "images": [
+        "/pulihora.jpg",
+        "/daddojanam.jpg"
+      ],
+      "likes_count": 19,
+      "status": "approved",
+      "created_at": "2026-10-08T12:20:00.000Z"
     }
   ],
   "orders": [],
-  "table_reservations": [],
+  "table_reservations": [
+    {
+      "id": 1,
+      "reservation_code": "TBL-6287",
+      "name": "Test Devotee",
+      "mobile": "9014228068",
+      "res_date": "2026-08-21",
+      "res_time": "19:30 (Dinner)",
+      "guests": 4,
+      "seating_area": "Indoor Air Conditioned",
+      "special_requests": "None",
+      "status": "Confirmed"
+    }
+  ],
   "feedback": [],
   "coupons": [
     {

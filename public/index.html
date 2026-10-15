@@ -194,6 +194,65 @@
       border-radius: 30px; border: 1.5px solid var(--gold-primary);
     }
     .scroll-down-btn:hover { color: #FFF; background: var(--maroon-header); transform: scale(1.05); }
+
+    /* DEVOTEE REVIEWS & CUSTOMER PHOTO GALLERY STYLES */
+    .star-rating-btn {
+      background: none; border: none; font-size: 2rem; cursor: pointer;
+      color: #D1C7B7; transition: all 0.2s ease; padding: 2px 4px; line-height: 1;
+    }
+    .star-rating-btn.active, .star-rating-btn:hover {
+      color: #FFD700; transform: scale(1.22); text-shadow: 0 0 14px rgba(255, 215, 0, 0.7);
+    }
+    .review-photo-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .review-photo-hover:hover {
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 10px 22px rgba(74, 14, 23, 0.35);
+      border-color: var(--gold-glow) !important;
+    }
+    .photo-upload-dropzone {
+      border: 2px dashed var(--gold-primary);
+      background: rgba(255, 253, 249, 0.85);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .photo-upload-dropzone:hover {
+      background: rgba(255, 255, 255, 0.98);
+      border-color: var(--maroon-header);
+    }
+    .helpful-pill {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid var(--gold-primary);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--maroon-header);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .helpful-pill:hover {
+      background: var(--gold-primary);
+      color: #380910;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+    }
+    .review-filter-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
   </style>
 </head>
 <body>
@@ -254,6 +313,54 @@
     const EXACT_ADDRESS = "Tirumala Tirupati Restaurant, Near Tata Automobile Showroom, Beside Tirupati Busstand, PIN code 517501, Andhra Pradesh, India";
 
     // FALLBACK MENU ITEMS ARRAY FOR NETLIFY & STATIC HOSTS
+
+    // SEED CUSTOMER DEVOTEE REVIEWS WITH AUTHENTIC DINING PHOTOS
+    const DEFAULT_REVIEWS = [
+      {
+        id: 1,
+        user_name: "Ramesh Kumar",
+        dish_name: "Ghee Masala Dosa & Cotton Idli",
+        rating: 5,
+        comment: "Authentic Tirupati taste! The ghee idlis were divine and soft as cotton. The pure cow ghee masala dosa was delightfully crisp and full of traditional flavour.",
+        images: ["/dosa.jpg"],
+        likes_count: 24,
+        status: "approved",
+        created_at: "2026-10-14T08:30:00.000Z"
+      },
+      {
+        id: 2,
+        user_name: "Srinivas Rao",
+        dish_name: "Srivari Maha Bhojanam",
+        rating: 5,
+        comment: "The Srivari Maha Bhojanam is a royal feast! Served on a real banana leaf with 18 sacred Satvik items. The ghee and sambar aroma made our Tirupati pilgrimage unforgettable.",
+        images: ["/bhojanam.jpg", "/table_2.jpg"],
+        likes_count: 39,
+        status: "approved",
+        created_at: "2026-10-12T13:15:00.000Z"
+      },
+      {
+        id: 3,
+        user_name: "Padma Subrahmanyam",
+        dish_name: "Tirupati Laddu Prasadam & Pongal",
+        rating: 5,
+        comment: "The Tirupati Laddu prasadam has exact temple ghee aroma and Pachcha Karpooram taste. Blessed dining experience right near the bus stand.",
+        images: ["/laddu.jpg", "/pongal.jpg"],
+        likes_count: 52,
+        status: "approved",
+        created_at: "2026-10-10T19:45:00.000Z"
+      },
+      {
+        id: 4,
+        user_name: "Venkatesh Ananth",
+        dish_name: "Temple Pulihora & Daddojanam",
+        rating: 5,
+        comment: "Exceptional temple cleanliness and spiritual hospitality. Pure Satvik without onion or garlic, just like Tirumala temple naivedyam.",
+        images: ["/pulihora.jpg", "/daddojanam.jpg"],
+        likes_count: 19,
+        status: "approved",
+        created_at: "2026-10-08T12:20:00.000Z"
+      }
+    ];
     const DEFAULT_MENU_ITEMS = [
       { id: 1, category_slug: 'breakfast', name: 'Idli', description: 'Steamed fluffy rice and lentil cakes served with authentic coconut chutney, tomato chutney, and piping hot sambar.', price: 60, offer_price: 50, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 180, ingredients: 'Raw Rice, Urad Dal, Fenugreek, Rock Salt, Coconut Chutney, Drumstick Sambar', allergens: 'None', calories: 180, preparation_style: 'Traditional Steaming', available: 1 },
       { id: 2, category_slug: 'breakfast', name: 'Ghee Idli', description: 'Soft steamed idlis drenched in generous aromatic pure cow ghee and sprinkled with podi (gunpowder spice).', price: 90, offer_price: 80, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80', time_slot: '6am-11am', is_veg: 1, is_daily_special: 0, rating: 4.9, total_ratings: 210, ingredients: 'Raw Rice, Urad Dal, Pure Cow Ghee, Gunpowder Podi (Chana Dal, Sesame, Chilies)', allergens: 'Dairy', calories: 280, preparation_style: 'Steamed and Ghee Soaked', available: 1 },
@@ -357,6 +464,27 @@
 
       const [activeTimeSlot, setActiveTimeSlot] = useState('12pm-6pm');
 
+      // REVIEWS & PHOTO GALLERY STATE
+      const [reviews, setReviews] = useState(() => {
+        try {
+          const cached = localStorage.getItem('tirupati_reviews');
+          return cached ? JSON.parse(cached) : DEFAULT_REVIEWS;
+        } catch(e) { return DEFAULT_REVIEWS; }
+      });
+      const [reviewFilter, setReviewFilter] = useState('all');
+      const [selectedPhotoModal, setSelectedPhotoModal] = useState(null);
+
+      // CONTACT & REVIEW FORM STATE
+      const [revName, setRevName] = useState('');
+      const [revContact, setRevContact] = useState('');
+      const [revDish, setRevDish] = useState('Srivari Maha Bhojanam');
+      const [revRating, setRevRating] = useState(5);
+      const [revComment, setRevComment] = useState('');
+      const [revImages, setRevImages] = useState([]);
+      const [customImageUrl, setCustomImageUrl] = useState('');
+      const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+      const [reviewSuccessMsg, setReviewSuccessMsg] = useState('');
+
       // Table Reservation State
       const [resFullName, setResFullName] = useState('');
       const [resMobile, setResMobile] = useState('');
@@ -380,7 +508,103 @@
       useEffect(() => {
         fetch('/api/menu/items').then(r => r.json()).then(d => { if(Array.isArray(d) && d.length>0) setMenuItems(d); }).catch(()=>{});
         fetch('/api/menu/daily-special').then(r => r.json()).then(d => { if(d && d.name) setDailySpecial(d); }).catch(()=>{});
+        fetch('/api/reviews').then(r => r.json()).then(d => {
+          if (Array.isArray(d) && d.length > 0) {
+            setReviews(d);
+            try { localStorage.setItem('tirupati_reviews', JSON.stringify(d)); } catch(e){}
+          }
+        }).catch(()=>{});
       }, []);
+
+      const handleImageFilesChange = (e) => {
+        const files = Array.from(e.target.files || []);
+        if (files.length === 0) return;
+        files.forEach(file => {
+          if (!file.type.startsWith('image/')) return;
+          const reader = new FileReader();
+          reader.onload = (loadEvt) => {
+            const base64Data = loadEvt.target.result;
+            setRevImages(prev => [...prev, base64Data]);
+          };
+          reader.readAsDataURL(file);
+        });
+        e.target.value = '';
+      };
+
+      const handleRemoveRevImage = (index) => {
+        setRevImages(prev => prev.filter((_, i) => i !== index));
+      };
+
+      const handleAddSampleImage = (imgUrl) => {
+        if (!revImages.includes(imgUrl)) {
+          setRevImages(prev => [...prev, imgUrl]);
+        }
+      };
+
+      const handleAddCustomImageUrl = () => {
+        if (!customImageUrl.trim()) return;
+        setRevImages(prev => [...prev, customImageUrl.trim()]);
+        setCustomImageUrl('');
+      };
+
+      const handleSubmitReview = async (e) => {
+        e.preventDefault();
+        const reviewerName = revName.trim() || (user ? user.name : 'Devotee Customer');
+        if (!revComment.trim()) {
+          alert('Please write your review feedback or dining experience!');
+          return;
+        }
+
+        setIsSubmittingReview(true);
+        const newRevObj = {
+          id: Date.now(),
+          user_name: reviewerName,
+          user_email: revContact.trim() || (user ? user.email : ''),
+          dish_name: revDish,
+          rating: Number(revRating) || 5,
+          comment: revComment.trim(),
+          images: revImages,
+          likes_count: 0,
+          status: 'approved',
+          created_at: new Date().toISOString()
+        };
+
+        try {
+          const res = await fetch('/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newRevObj)
+          });
+          const data = await res.json();
+          const savedReview = (data && data.review) ? data.review : newRevObj;
+          setReviews(prev => {
+            const updated = [savedReview, ...prev];
+            try { localStorage.setItem('tirupati_reviews', JSON.stringify(updated)); } catch(e){}
+            return updated;
+          });
+        } catch (err) {
+          setReviews(prev => {
+            const updated = [newRevObj, ...prev];
+            try { localStorage.setItem('tirupati_reviews', JSON.stringify(updated)); } catch(e){}
+            return updated;
+          });
+        }
+
+        setIsSubmittingReview(false);
+        setRevComment('');
+        setRevImages([]);
+        setReviewSuccessMsg('🙏 Dhanyavadalu! Your review & dining photos have been published.');
+        setTimeout(() => setReviewSuccessMsg(''), 8000);
+      };
+
+      const handleLikeReview = (reviewId) => {
+        setReviews(prev => {
+          const updated = prev.map(r => r.id === reviewId ? { ...r, likes_count: (r.likes_count || 0) + 1, userLiked: true } : r);
+          try { localStorage.setItem('tirupati_reviews', JSON.stringify(updated)); } catch(e){}
+          return updated;
+        });
+        fetch(`/api/reviews/${reviewId}/like`, { method: 'POST' }).catch(() => {});
+      };
 
       const handleLoginSubmit = (e) => {
         e.preventDefault();
@@ -542,6 +766,7 @@
                 <a onClick={() => setCurrentPage('menu')} style={{ cursor: 'pointer', color: currentPage === 'menu' ? 'var(--gold-primary)' : '#FFF' }}>Veg Menu</a>
                 <a onClick={() => setCurrentPage('naivedyam')} style={{ cursor: 'pointer', color: currentPage === 'naivedyam' ? 'var(--gold-primary)' : '#FFF' }}>✨ Naivedyam</a>
                 <a onClick={() => setCurrentPage('reservation')} style={{ cursor: 'pointer', color: currentPage === 'reservation' ? 'var(--gold-primary)' : '#FFF' }}>Book Table</a>
+                <a onClick={() => setCurrentPage('reviews')} style={{ cursor: 'pointer', color: currentPage === 'reviews' ? 'var(--gold-primary)' : '#FFF' }}>⭐ Reviews</a>
                 <a onClick={() => setCurrentPage('contact')} style={{ cursor: 'pointer', color: currentPage === 'contact' ? 'var(--gold-primary)' : '#FFF' }}>Contact</a>
               </nav>
 
@@ -747,6 +972,143 @@
                       ))}
                     </div>
                   )}
+                </section>
+
+                {/* DEVOTEE REVIEWS & CUSTOMER PHOTO SHOWCASE */}
+                <section style={{ maxWidth: '1200px', margin: '50px auto 30px auto', padding: '0 20px' }}>
+                  <div className="glass-panel" style={{ padding: '30px', borderRadius: '18px', border: '2px solid var(--gold-primary)' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+                      <span style={{ color: 'var(--gold-dark)', fontWeight: 800, letterSpacing: '2px', fontSize: '0.85rem' }}>
+                        ⭐ PILGRIM TESTIMONIALS & DINING GALLERY
+                      </span>
+                      <h2 className="section-title" style={{ marginTop: '6px' }}>
+                        Devotee Reviews & Food Photos
+                      </h2>
+                      <p className="section-subtitle">
+                        Real experiences and dining photos shared by pilgrims visiting Lord Sri Venkateswara Swami
+                      </p>
+                      <div className="gold-accent-line"></div>
+                    </div>
+
+                    {/* RATING SUMMARY STATS */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '15px', marginBottom: '30px', textAlign: 'center' }}>
+                      <div style={{ backgroundColor: 'rgba(255,255,255,0.85)', padding: '18px', borderRadius: '12px', border: '1.5px solid var(--gold-primary)' }}>
+                        <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--maroon-header)', fontFamily: 'Cinzel, serif' }}>4.9★</div>
+                        <div style={{ color: '#FFD700', fontSize: '1.2rem', marginBottom: '4px' }}>★★★★★</div>
+                        <div style={{ fontSize: '0.85rem', color: '#555', fontWeight: 600 }}>Overall Devotee Rating</div>
+                      </div>
+                      <div style={{ backgroundColor: 'rgba(255,255,255,0.85)', padding: '18px', borderRadius: '12px', border: '1.5px solid var(--gold-primary)' }}>
+                        <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--green-btn)', fontFamily: 'Cinzel, serif' }}>100%</div>
+                        <div style={{ fontSize: '1.2rem', marginBottom: '4px' }}>🛕 ✨</div>
+                        <div style={{ fontSize: '0.85rem', color: '#555', fontWeight: 600 }}>Pure Cow Ghee & Satvik (No Onion/Garlic)</div>
+                      </div>
+                      <div style={{ backgroundColor: 'rgba(255,255,255,0.85)', padding: '18px', borderRadius: '12px', border: '1.5px solid var(--gold-primary)' }}>
+                        <div style={{ fontSize: '2.5rem', fontWeight: 900, color: 'var(--gold-dark)', fontFamily: 'Cinzel, serif' }}>1,480+</div>
+                        <div style={{ fontSize: '1.2rem', marginBottom: '4px' }}>🙏 👨‍👩‍👧‍👦</div>
+                        <div style={{ fontSize: '0.85rem', color: '#555', fontWeight: 600 }}>Happy Pilgrim Diners Served</div>
+                      </div>
+                    </div>
+
+                    {/* WRITE REVIEW CTA BUTTON */}
+                    <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+                      <button
+                        onClick={() => {
+                          setCurrentPage('contact');
+                          setTimeout(() => {
+                            const el = document.getElementById('devotee-review-portal');
+                            if (el) el.scrollIntoView({ behavior: 'smooth' });
+                          }, 150);
+                        }}
+                        className="btn-primary-green"
+                        style={{ padding: '12px 28px', fontSize: '1rem', boxShadow: '0 6px 18px rgba(46,125,50,0.35)' }}
+                      >
+                        ✍️ Write a Review & Upload Food Photos in Contact Portal
+                      </button>
+                    </div>
+
+                    {/* TOP FEATURED DEVOTEE REVIEWS WITH PHOTOS */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                      {reviews.slice(0, 4).map((r, idx) => (
+                        <div key={r.id || idx} className="glass-card" style={{ padding: '20px', cursor: 'default' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                              <div style={{
+                                width: '44px', height: '44px', borderRadius: '50%',
+                                background: 'linear-gradient(135deg, var(--maroon-header), #7A1A27)',
+                                border: '2px solid var(--gold-primary)', color: 'var(--gold-glow)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                fontWeight: 800, fontSize: '1rem', fontFamily: 'Cinzel, serif'
+                              }}>
+                                {(r.user_name || 'D').substring(0, 2).toUpperCase()}
+                              </div>
+                              <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                  <strong style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontSize: '0.95rem' }}>{r.user_name}</strong>
+                                  <span style={{ backgroundColor: '#E8F5E9', color: '#1B5E20', border: '1px solid #2E7D32', fontSize: '0.68rem', padding: '1px 6px', borderRadius: '10px', fontWeight: 700 }}>✓ Verified</span>
+                                </div>
+                                <div style={{ fontSize: '0.72rem', color: '#777' }}>
+                                  {r.created_at ? new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Verified Pilgrim'}
+                                </div>
+                              </div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <div style={{ color: '#FFD700', fontSize: '1.2rem' }}>
+                                {'★'.repeat(Math.min(5, Math.max(1, Number(r.rating) || 5)))}
+                              </div>
+                              <span style={{ fontSize: '0.7rem', backgroundColor: 'rgba(212,175,55,0.18)', color: 'var(--maroon-header)', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                                🍛 {r.dish_name}
+                              </span>
+                            </div>
+                          </div>
+
+                          <p style={{ marginTop: '12px', fontSize: '0.88rem', color: 'var(--text-dark)', lineHeight: '1.5', fontStyle: 'italic' }}>
+                            "{r.comment}"
+                          </p>
+
+                          {r.images && r.images.length > 0 && (
+                            <div style={{ marginTop: '14px', borderTop: '1px solid rgba(212, 175, 55, 0.25)', paddingTop: '10px' }}>
+                              <div style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '6px' }}>
+                                📸 Customer Photos:
+                              </div>
+                              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                                {r.images.map((img, imgIdx) => (
+                                  <div
+                                    key={imgIdx}
+                                    className="review-photo-hover"
+                                    onClick={() => setSelectedPhotoModal({ url: img, caption: r.dish_name || 'Tirupati Dining', reviewer: r.user_name })}
+                                    style={{
+                                      position: 'relative', width: '80px', height: '80px', borderRadius: '8px',
+                                      overflow: 'hidden', border: '2px solid var(--gold-primary)', cursor: 'pointer',
+                                      boxShadow: '0 4px 10px rgba(0,0,0,0.15)'
+                                    }}
+                                  >
+                                    <img src={img} alt="Customer Photo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(56, 9, 16, 0.8)', color: '#FFF', fontSize: '0.58rem', textAlign: 'center', padding: '1px 0' }}>
+                                      🔍 Zoom
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', borderTop: '1px solid #EEE', paddingTop: '8px' }}>
+                            <button
+                              type="button"
+                              onClick={() => handleLikeReview(r.id)}
+                              className="helpful-pill"
+                            >
+                              <span>👍 Helpful</span>
+                              <span>({r.likes_count || 0})</span>
+                            </button>
+                            <span style={{ fontSize: '0.7rem', color: '#888' }}>
+                              📍 Tirupati Busstand
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </section>
               </div>
             )}
@@ -1108,6 +1470,414 @@
                   <p><strong>📍 Full Address:</strong> {EXACT_ADDRESS}</p>
                   <p style={{ marginTop: '8px' }}><strong>📞 Phones:</strong> +91 9346174197, +91 9014228068, +91 8247467209</p>
                   <p style={{ marginTop: '8px' }}><strong>✉️ Email:</strong> tirumaltirupatirestarent@gmail.com</p>
+                </div>
+
+                {/* DEVOTEE REVIEW & PHOTO UPLOAD PORTAL IN CONTACT */}
+                <div id="devotee-review-portal" className="glass-panel" style={{ padding: '30px', marginTop: '40px', borderRadius: '18px', border: '2.5px solid var(--gold-primary)', boxShadow: '0 12px 35px rgba(0,0,0,0.2)' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '22px' }}>
+                    <span style={{ backgroundColor: 'var(--maroon-header)', color: 'var(--gold-glow)', padding: '4px 14px', borderRadius: '12px', fontSize: '0.8rem', fontWeight: 800 }}>
+                      ✍️ DEVOTEE REVIEWS & EXPERIENCES
+                    </span>
+                    <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '10px', fontSize: '1.9rem', fontWeight: 800 }}>
+                      Write Your Review & Attach Dining Photos
+                    </h2>
+                    <p style={{ color: 'var(--text-dark)', fontSize: '0.92rem', maxWidth: '650px', margin: '8px auto' }}>
+                      Share your divine Satvik dining experience, pure cow ghee aroma, temple hygiene, and photos of your feast to guide fellow pilgrims visiting Tirupati!
+                    </p>
+                    <div className="gold-accent-line"></div>
+                  </div>
+
+                  {reviewSuccessMsg && (
+                    <div style={{ backgroundColor: '#E8F5E9', border: '2px solid #2E7D32', color: '#1B5E20', padding: '16px', borderRadius: '10px', textAlign: 'center', fontWeight: 700, fontSize: '1.05rem', marginBottom: '20px', boxShadow: '0 4px 15px rgba(46,125,50,0.2)' }}>
+                      {reviewSuccessMsg}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmitReview} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    {/* STAR RATING PICKER */}
+                    <div style={{ textAlign: 'center', padding: '15px', background: 'rgba(255,255,255,0.7)', borderRadius: '12px', border: '1px solid rgba(212,175,55,0.4)' }}>
+                      <label style={{ display: 'block', fontSize: '0.95rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                        ⭐ Select Your Devotee Rating:
+                      </label>
+                      <div style={{ display: 'flex', justifyContent: 'center', gap: '6px' }}>
+                        {[1, 2, 3, 4, 5].map(starNum => (
+                          <button
+                            key={starNum}
+                            type="button"
+                            onClick={() => setRevRating(starNum)}
+                            className={`star-rating-btn ${revRating >= starNum ? 'active' : ''}`}
+                            title={`${starNum} Stars`}
+                          >
+                            ★
+                          </button>
+                        ))}
+                      </div>
+                      <div style={{ fontSize: '0.85rem', color: 'var(--maroon-header)', fontWeight: 700, marginTop: '6px' }}>
+                        {revRating === 5 && '🌟🌟🌟🌟🌟 5 Stars - Divine & Heavenly Satvik Experience!'}
+                        {revRating === 4 && '⭐⭐⭐⭐ 4 Stars - Excellent Taste & Great Hospitality!'}
+                        {revRating === 3 && '⭐⭐⭐ 3 Stars - Good & Satisfactory Meal.'}
+                        {revRating === 2 && '⭐⭐ 2 Stars - Fair experience.'}
+                        {revRating === 1 && '⭐ 1 Star - Needs Improvement.'}
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '15px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Your Name *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Ramesh Kumar"
+                          value={revName}
+                          onChange={e => setRevName(e.target.value)}
+                          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Mobile Number or Email</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. 9014228068 or devotee@gmail.com"
+                          value={revContact}
+                          onChange={e => setRevContact(e.target.value)}
+                          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF' }}
+                        />
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Dish / Meal Experienced</label>
+                        <select
+                          value={revDish}
+                          onChange={e => setRevDish(e.target.value)}
+                          style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF', fontWeight: 600 }}
+                        >
+                          <option value="Srivari Maha Bhojanam">🍛 Srivari Maha Bhojanam (Banana Leaf Feast)</option>
+                          <option value="Ghee Masala Dosa">🥞 Pure Cow Ghee Masala Dosa</option>
+                          <option value="Tirupati Laddu Prasadam">🟡 World Famous Tirupati Laddu Prasadam</option>
+                          <option value="Ven Pongal & Ghee Idli">☕ Ven Pongal & Cotton Ghee Idli</option>
+                          <option value="Temple Pulihora & Daddojanam">🍚 Temple Pulihora & Sacred Curd Rice</option>
+                          <option value="Traditional South Indian Meals">🍲 Authentic South Indian / Andhra Meals</option>
+                          <option value="Overall Restaurant Ambience & Hospitality">🛕 Overall Dining Ambience & Spiritual Hospitality</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--maroon-header)' }}>Your Devotee Review & Feedback *</label>
+                      <textarea
+                        required
+                        rows="4"
+                        placeholder="Describe your dining experience, taste of pure ghee, chutneys, banana leaf feast, cleanliness, or hospitality near Tirupati bus stand..."
+                        value={revComment}
+                        onChange={e => setRevComment(e.target.value)}
+                        style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1.5px solid var(--gold-primary)', marginTop: '5px', backgroundColor: '#FFF', fontFamily: 'inherit', fontSize: '0.92rem' }}
+                      />
+                    </div>
+
+                    {/* CUSTOMER PHOTO UPLOAD SECTION */}
+                    <div style={{ backgroundColor: 'rgba(255, 253, 249, 0.9)', padding: '20px', borderRadius: '12px', border: '1.5px solid var(--gold-primary)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+                        <div>
+                          <strong style={{ color: 'var(--maroon-header)', fontSize: '0.95rem' }}>📸 Attach Customer Dining Photos:</strong>
+                          <p style={{ fontSize: '0.78rem', color: '#666', margin: '2px 0 0 0' }}>Upload pictures of dishes, dining banana leaf, or your family feast from phone/camera!</p>
+                        </div>
+                        <span style={{ fontSize: '0.78rem', backgroundColor: 'var(--gold-primary)', color: '#380910', padding: '3px 10px', borderRadius: '12px', fontWeight: 800 }}>
+                          {revImages.length} Photo{revImages.length === 1 ? '' : 's'} Selected
+                        </span>
+                      </div>
+
+                      <div className="photo-upload-dropzone" onClick={() => document.getElementById('review-file-input').click()}>
+                        <input
+                          id="review-file-input"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={handleImageFilesChange}
+                          style={{ display: 'none' }}
+                        />
+                        <div style={{ fontSize: '2rem', marginBottom: '6px' }}>📷</div>
+                        <div style={{ fontWeight: 700, color: 'var(--maroon-header)', fontSize: '0.95rem' }}>
+                          Click here to Choose Photos from Device / Camera
+                        </div>
+                        <div style={{ fontSize: '0.78rem', color: '#777', marginTop: '4px' }}>
+                          Supports JPEG, PNG, WEBP (multiple photos allowed)
+                        </div>
+                      </div>
+
+                      {/* QUICK 1-CLICK SAMPLE DINING PHOTOS */}
+                      <div style={{ marginTop: '14px', paddingTop: '12px', borderTop: '1px dashed #DDD' }}>
+                        <div style={{ fontSize: '0.78rem', color: '#666', fontWeight: 700, marginBottom: '6px' }}>
+                          ⚡ Or 1-Click Attach Authentic Restaurant Photos:
+                        </div>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/bhojanam.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🍛 Srivari Bhojanam
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/laddu.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🟡 Tirupati Laddu
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/dosa.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🥞 Ghee Masala Dosa
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleAddSampleImage('/table_2.jpg')}
+                            style={{ padding: '5px 12px', borderRadius: '15px', border: '1px solid var(--gold-primary)', backgroundColor: '#FFF', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', color: 'var(--maroon-header)' }}
+                          >
+                            + 🪑 Dining Table
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* OPTIONAL IMAGE URL INPUT */}
+                      <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+                        <input
+                          type="url"
+                          placeholder="Or paste an Image URL (https://...)"
+                          value={customImageUrl}
+                          onChange={e => setCustomImageUrl(e.target.value)}
+                          style={{ flex: 1, padding: '8px 12px', borderRadius: '6px', border: '1px solid #CCC', fontSize: '0.82rem' }}
+                        />
+                        <button
+                          type="button"
+                          onClick={handleAddCustomImageUrl}
+                          style={{ padding: '8px 14px', borderRadius: '6px', backgroundColor: 'var(--maroon-header)', color: 'var(--gold-glow)', border: 'none', fontWeight: 700, fontSize: '0.8rem', cursor: 'pointer' }}
+                        >
+                          + Add URL
+                        </button>
+                      </div>
+
+                      {/* SELECTED PHOTO PREVIEWS WITH REMOVE (X) */}
+                      {revImages.length > 0 && (
+                        <div style={{ marginTop: '16px' }}>
+                          <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                            Attached Photos ({revImages.length}):
+                          </div>
+                          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                            {revImages.map((img, i) => (
+                              <div
+                                key={i}
+                                style={{
+                                  position: 'relative', width: '90px', height: '90px', borderRadius: '8px',
+                                  overflow: 'hidden', border: '2px solid var(--gold-primary)', boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                                }}
+                              >
+                                <img src={img} alt={`Attached ${i}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <button
+                                  type="button"
+                                  onClick={() => handleRemoveRevImage(i)}
+                                  title="Remove this photo"
+                                  style={{
+                                    position: 'absolute', top: '3px', right: '3px',
+                                    background: 'rgba(183, 28, 28, 0.9)', color: '#FFF',
+                                    border: 'none', borderRadius: '50%', width: '22px', height: '22px',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontSize: '0.75rem', fontWeight: 800, cursor: 'pointer'
+                                  }}
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmittingReview}
+                      className="btn-primary-green"
+                      style={{ padding: '14px', justifyContent: 'center', fontSize: '1.1rem', marginTop: '10px', boxShadow: '0 6px 20px rgba(46, 125, 50, 0.4)' }}
+                    >
+                      {isSubmittingReview ? 'Publishing Review & Photos...' : '✨ Submit Devotee Review & Photos'}
+                    </button>
+                  </form>
+                </div>
+
+                {/* LIVE REVIEWS STREAM IN CONTACT PORTAL */}
+                <div style={{ marginTop: '45px' }}>
+                  <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                    <h2 style={{ fontFamily: 'Cinzel, serif', color: '#FFF', fontSize: '1.8rem', fontWeight: 800 }}>
+                      📸 Recent Pilgrim Reviews & Photos
+                    </h2>
+                    <p style={{ color: '#F3E5AB', fontSize: '0.9rem' }}>
+                      Verified reviews shared by devotees visiting Tirupati Restaurant
+                    </p>
+                    <div className="gold-accent-line"></div>
+                  </div>
+
+                  {/* FILTER TABS */}
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '25px' }}>
+                    <button
+                      onClick={() => setReviewFilter('all')}
+                      className="review-filter-btn"
+                      style={{
+                        backgroundColor: reviewFilter === 'all' ? 'var(--gold-primary)' : 'rgba(255,255,255,0.8)',
+                        color: reviewFilter === 'all' ? '#380910' : 'var(--maroon-header)',
+                        border: '1.5px solid var(--gold-primary)'
+                      }}
+                    >
+                      🌟 All Reviews ({reviews.length})
+                    </button>
+                    <button
+                      onClick={() => setReviewFilter('photos')}
+                      className="review-filter-btn"
+                      style={{
+                        backgroundColor: reviewFilter === 'photos' ? 'var(--gold-primary)' : 'rgba(255,255,255,0.8)',
+                        color: reviewFilter === 'photos' ? '#380910' : 'var(--maroon-header)',
+                        border: '1.5px solid var(--gold-primary)'
+                      }}
+                    >
+                      📸 With Customer Photos ({reviews.filter(r => r.images && r.images.length > 0).length})
+                    </button>
+                    <button
+                      onClick={() => setReviewFilter('5star')}
+                      className="review-filter-btn"
+                      style={{
+                        backgroundColor: reviewFilter === '5star' ? 'var(--gold-primary)' : 'rgba(255,255,255,0.8)',
+                        color: reviewFilter === '5star' ? '#380910' : 'var(--maroon-header)',
+                        border: '1.5px solid var(--gold-primary)'
+                      }}
+                    >
+                      ⭐⭐⭐⭐⭐ 5 Stars Only ({reviews.filter(r => Number(r.rating) === 5).length})
+                    </button>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px' }}>
+                    {reviews.filter(r => {
+                      if (reviewFilter === 'photos') return r.images && r.images.length > 0;
+                      if (reviewFilter === '5star') return Number(r.rating) === 5;
+                      return true;
+                    }).map((r, idx) => (
+                      <div key={r.id || idx} className="glass-card" style={{ padding: '20px', cursor: 'default' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <div style={{
+                              width: '44px', height: '44px', borderRadius: '50%',
+                              background: 'linear-gradient(135deg, var(--maroon-header), #7A1A27)',
+                              border: '2px solid var(--gold-primary)', color: 'var(--gold-glow)',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              fontWeight: 800, fontSize: '1rem', fontFamily: 'Cinzel, serif',
+                              boxShadow: '0 4px 10px rgba(0,0,0,0.2)'
+                            }}>
+                              {(r.user_name || 'D').substring(0, 2).toUpperCase()}
+                            </div>
+                            <div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                                <strong style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontSize: '0.95rem' }}>
+                                  {r.user_name}
+                                </strong>
+                                <span style={{ backgroundColor: '#E8F5E9', color: '#1B5E20', border: '1px solid #2E7D32', fontSize: '0.7rem', padding: '1px 6px', borderRadius: '10px', fontWeight: 700 }}>
+                                  ✓ Verified Devotee
+                                </span>
+                              </div>
+                              <div style={{ fontSize: '0.72rem', color: '#777', marginTop: '2px' }}>
+                                {r.created_at ? new Date(r.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Verified Pilgrim'}
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div style={{ textAlign: 'right' }}>
+                            <div style={{ color: '#FFD700', fontSize: '1.2rem', letterSpacing: '1px' }}>
+                              {'★'.repeat(Math.min(5, Math.max(1, Number(r.rating) || 5)))}
+                              {'☆'.repeat(Math.max(0, 5 - Math.min(5, Math.max(1, Number(r.rating) || 5))))}
+                            </div>
+                            <span style={{ fontSize: '0.72rem', backgroundColor: 'rgba(212,175,55,0.18)', color: 'var(--maroon-header)', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>
+                              🍛 {r.dish_name || 'Satvik Feast'}
+                            </span>
+                          </div>
+                        </div>
+
+                        <p style={{ marginTop: '14px', fontSize: '0.9rem', color: 'var(--text-dark)', lineHeight: '1.6', fontStyle: 'italic' }}>
+                          "{r.comment}"
+                        </p>
+
+                        {/* CUSTOMER ATTACHED DINING PHOTOS */}
+                        {r.images && r.images.length > 0 && (
+                          <div style={{ marginTop: '14px', borderTop: '1px solid rgba(212, 175, 55, 0.25)', paddingTop: '10px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                              <span>📸 Customer Dining Photos ({r.images.length}):</span>
+                              <span style={{ fontSize: '0.7rem', color: '#666', fontWeight: 500 }}>(Click to zoom)</span>
+                            </div>
+                            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                              {r.images.map((img, imgIdx) => (
+                                <div
+                                  key={imgIdx}
+                                  className="review-photo-hover"
+                                  onClick={() => setSelectedPhotoModal({ url: img, caption: r.dish_name || 'Tirupati Dining', reviewer: r.user_name })}
+                                  style={{
+                                    position: 'relative', width: '85px', height: '85px', borderRadius: '8px',
+                                    overflow: 'hidden', border: '2px solid var(--gold-primary)', cursor: 'pointer',
+                                    boxShadow: '0 4px 10px rgba(0,0,0,0.15)'
+                                  }}
+                                >
+                                  <img src={img} alt="Customer Review Photo" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+                                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(56, 9, 16, 0.8)', color: '#FFF', fontSize: '0.6rem', textAlign: 'center', padding: '2px 0', fontWeight: 600 }}>
+                                    🔍 Zoom
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', borderTop: '1px solid #EEE', paddingTop: '10px' }}>
+                          <button
+                            type="button"
+                            onClick={() => handleLikeReview(r.id)}
+                            className="helpful-pill"
+                          >
+                            <span>👍 Helpful</span>
+                            <span>({r.likes_count || 0})</span>
+                          </button>
+                          <span style={{ fontSize: '0.72rem', color: '#888' }}>
+                            📍 Near Tirupati Busstand
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ENLARGED PHOTO LIGHTBOX MODAL */}
+            {selectedPhotoModal && (
+              <div className="modal-overlay" onClick={() => setSelectedPhotoModal(null)}>
+                <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', padding: '25px', textAlign: 'center' }}>
+                  <button onClick={() => setSelectedPhotoModal(null)} style={{ position: 'absolute', right: '15px', top: '15px', background: 'none', border: 'none', fontSize: '1.6rem', cursor: 'pointer', color: 'var(--maroon-header)', fontWeight: 800 }}>✕</button>
+                  <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontSize: '1.3rem', marginBottom: '6px' }}>
+                    📸 Customer Dining Photo
+                  </h3>
+                  <p style={{ fontSize: '0.88rem', color: '#555', marginBottom: '16px' }}>
+                    Dish: <strong style={{ color: 'var(--maroon-header)' }}>{selectedPhotoModal.caption}</strong> • Shared by <strong style={{ color: 'var(--green-btn)' }}>{selectedPhotoModal.reviewer}</strong>
+                  </p>
+                  <div style={{ borderRadius: '12px', overflow: 'hidden', border: '3px solid var(--gold-primary)', boxShadow: '0 10px 30px rgba(0,0,0,0.35)', maxHeight: '68vh', backgroundColor: '#1a0407' }}>
+                    <img
+                      src={selectedPhotoModal.url}
+                      alt="Enlarged Dining View"
+                      style={{ width: '100%', maxHeight: '65vh', objectFit: 'contain', display: 'block', margin: '0 auto' }}
+                    />
+                  </div>
+                  <div style={{ marginTop: '18px', display: 'flex', justifyContent: 'center' }}>
+                    <button onClick={() => setSelectedPhotoModal(null)} className="btn-gold-outline" style={{ padding: '8px 24px' }}>
+                      Close Photo View
+                    </button>
+                  </div>
                 </div>
               </div>
             )}

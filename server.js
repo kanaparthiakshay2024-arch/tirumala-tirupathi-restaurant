@@ -254,6 +254,46 @@ const server = http.createServer(async (req, res) => {
       saveDB();
       return sendJSON(res, { message: 'Table reserved successfully!', reservation_code: resCode, details: newRes }, 201);
     }
+
+    if (pathname === '/api/reviews' && method === 'GET') {
+      return sendJSON(res, dbData.reviews || []);
+    }
+
+    if (pathname === '/api/reviews' && method === 'POST') {
+      const body = await parseJSONBody(req);
+      if (!body.user_name || !body.comment) {
+        return sendJSON(res, { error: 'Customer name and review comment are required' }, 400);
+      }
+      const newReview = {
+        id: (dbData.reviews && dbData.reviews.length ? Math.max(...dbData.reviews.map(r => r.id || 0)) : 0) + 1,
+        menu_item_id: body.menu_item_id || null,
+        dish_name: body.dish_name || 'Satvik Dining Experience',
+        user_name: body.user_name,
+        user_email: body.user_email || '',
+        user_mobile: body.user_mobile || '',
+        rating: Number(body.rating) || 5,
+        comment: body.comment,
+        images: Array.isArray(body.images) ? body.images : (body.image ? [body.image] : []),
+        likes_count: 0,
+        status: 'approved',
+        created_at: new Date().toISOString()
+      };
+      if (!dbData.reviews) dbData.reviews = [];
+      dbData.reviews.unshift(newReview);
+      saveDB();
+      return sendJSON(res, { message: 'Review submitted successfully!', review: newReview }, 201);
+    }
+
+    if (pathname.match(/^\/api\/reviews\/(\d+)\/like$/) && method === 'POST') {
+      const reviewId = parseInt(pathname.split('/')[3], 10);
+      const rev = (dbData.reviews || []).find(r => r.id === reviewId);
+      if (rev) {
+        rev.likes_count = (rev.likes_count || 0) + 1;
+        saveDB();
+        return sendJSON(res, { message: 'Review liked!', likes_count: rev.likes_count });
+      }
+      return sendJSON(res, { error: 'Review not found' }, 404);
+    }
   }
 
   // --- SERVE PUBLIC FILES ---
