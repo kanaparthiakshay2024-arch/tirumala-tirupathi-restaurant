@@ -1,8 +1,10 @@
+require('dotenv').config();
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const url = require('url');
+const supabaseService = require('./server/supabase');
 
 const PORT = 5000;
 const DB_FILE = path.join(__dirname, 'database.json');
@@ -196,6 +198,18 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
+    if (pathname === '/api/supabase/status' && method === 'GET') {
+      try {
+        const status = await supabaseService.checkSupabaseStatus();
+        return sendJSON(res, {
+          supabase_url: supabaseService.SUPABASE_URL,
+          ...status
+        });
+      } catch (e) {
+        return sendJSON(res, { connected: false, error: e.message });
+      }
+    }
+
     if (pathname === '/api/auth/send-otp' && method === 'POST') {
       const body = await parseJSONBody(req);
       dbData.otp_verifications.push({ mobile: body.mobile, otp_code: '123456' });
@@ -251,10 +265,18 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (pathname === '/api/menu/categories' && method === 'GET') {
+      try {
+        const sbCategories = await supabaseService.getCategories();
+        if (sbCategories && sbCategories.length > 0) return sendJSON(res, sbCategories);
+      } catch (e) {}
       return sendJSON(res, dbData.categories);
     }
 
     if (pathname === '/api/menu/items' && method === 'GET') {
+      try {
+        const sbItems = await supabaseService.getMenuItems();
+        if (sbItems && sbItems.length > 0) return sendJSON(res, sbItems);
+      } catch (e) {}
       return sendJSON(res, dbData.menu_items);
     }
 
@@ -291,6 +313,12 @@ const server = http.createServer(async (req, res) => {
       };
       dbData.orders.push(newOrder);
       saveDB();
+
+      // Async write to Supabase if configured
+      try {
+        supabaseService.insertOrder(newOrder).catch(() => {});
+      } catch (e) {}
+
       return sendJSON(res, { message: 'Order placed successfully!', orderId: newOrder.id, order_number: orderNumber }, 201);
     }
 
@@ -311,10 +339,20 @@ const server = http.createServer(async (req, res) => {
       };
       dbData.table_reservations.push(newRes);
       saveDB();
+
+      // Async write to Supabase if configured
+      try {
+        supabaseService.insertReservation(newRes).catch(() => {});
+      } catch (e) {}
+
       return sendJSON(res, { message: 'Table reserved successfully!', reservation_code: resCode, details: newRes }, 201);
     }
 
     if (pathname === '/api/reviews' && method === 'GET') {
+      try {
+        const sbReviews = await supabaseService.getReviews();
+        if (sbReviews && sbReviews.length > 0) return sendJSON(res, sbReviews);
+      } catch (e) {}
       return sendJSON(res, dbData.reviews || []);
     }
 
@@ -341,6 +379,14 @@ const server = http.createServer(async (req, res) => {
       if (!dbData.reviews) dbData.reviews = [];
       dbData.reviews.unshift(newReview);
       saveDB();
+
+      // Async write to Supabase
+      try {
+        supabaseService.insertReview(newReview).then(saved => {
+          if (saved && saved.id) newReview.supabase_id = saved.id;
+        }).catch(() => {});
+      } catch (e) {}
+
       return sendJSON(res, { message: 'Review submitted successfully!', review: newReview }, 201);
     }
 
@@ -350,6 +396,7 @@ const server = http.createServer(async (req, res) => {
       if (rev) {
         rev.likes_count = (rev.likes_count || 0) + 1;
         saveDB();
+        try { supabaseService.likeReview(reviewId).catch(() => {}); } catch(e) {}
         return sendJSON(res, { message: 'Review liked!', likes_count: rev.likes_count });
       }
       return sendJSON(res, { error: 'Review not found' }, 404);

@@ -841,6 +841,26 @@
   ],
   "reviews": [
     {
+      "id": 7,
+      "menu_item_id": null,
+      "dish_name": "Tirupati Laddu Prasadam",
+      "user_name": "Satish Devotee",
+      "user_email": "",
+      "user_mobile": "",
+      "rating": 5,
+      "comment": "The sacred laddu prasadam with pure cow ghee was divine!",
+      "images": [],
+      "likes_count": 1,
+      "status": "approved",
+      "restaurant_reply": {
+        "text": "🙏 Govinda Govinda, Satish Devotee! Thank you for your divine blessings. Our sacred Tirupati Laddu Prasadam is prepared using pure deshi cow ghee, premium cashews, and Pachcha Karpooram, just like temple offerings. May Lord Venkateswara shower you with abundant health and happiness!",
+        "author": "Koppula Koteshwar Rao (Chief Chef)",
+        "badge": "Prasadam Department",
+        "replied_at": "2026-10-16T11:54:13.614Z"
+      },
+      "created_at": "2026-10-16T11:54:13.614Z"
+    },
+    {
       "id": 6,
       "menu_item_id": null,
       "dish_name": "Ghee Masala Dosa",
