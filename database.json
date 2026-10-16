@@ -51,6 +51,14 @@
       "email": "sidhhu123@gmail.com",
       "password_hash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
       "role": "customer"
+    },
+    {
+      "id": 7,
+      "name": "Devotee Radha Krishna 9515",
+      "mobile": "984809515",
+      "email": "radhakrishna9515@gmail.com",
+      "password_hash": "f7e21229bc3564db4f1eabf1827190bc192fdc55bb6207866eb376d5504a462f",
+      "role": "customer"
     }
   ],
   "otp_verifications": [
@@ -58,6 +66,10 @@
       "mobile": "9014228068",
       "otp_code": "123456",
       "verified": false
+    },
+    {
+      "mobile": "984809515",
+      "otp_code": "123456"
     }
   ],
   "categories": [
@@ -841,6 +853,77 @@
   ],
   "reviews": [
     {
+      "id": 10,
+      "menu_item_id": null,
+      "dish_name": "Ghee Masala Dosa",
+      "user_name": "Karthik Narayanan",
+      "user_email": "karthik.narayan@gmail.com",
+      "user_mobile": "",
+      "rating": 5,
+      "comment": "Crispy tawa roast dosa cooked in pure deshi cow ghee! Uploading my dining photo here.",
+      "images": [
+        "/dosa.jpg",
+        "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////wgALCAABAAEBAREA/8QAFBABAAAAAAAAAAAAAAAAAAAAAP/aAAgBAQABPxA="
+      ],
+      "likes_count": 0,
+      "status": "approved",
+      "restaurant_reply": {
+        "text": "🙏 Namaste Karthik Narayanan! We are overjoyed that you enjoyed our crispy deshi ghee dosas and soft cotton idlis with freshly ground coconut chutney and piping drumstick sambar. Freshness and pure ghee are our eternal promise to every pilgrim!",
+        "author": "Kanaparthi Akshay (Manager)",
+        "badge": "Operations Manager",
+        "replied_at": "2026-10-16T14:32:36.618Z"
+      },
+      "created_at": "2026-10-16T14:32:36.618Z",
+      "supabase_id": 2
+    },
+    {
+      "id": 9,
+      "menu_item_id": null,
+      "dish_name": "Tirupati Laddu Prasadam",
+      "user_name": "Sunita Devi",
+      "user_email": "sunita.pilgrim@yahoo.com",
+      "user_mobile": "",
+      "rating": 5,
+      "comment": "The sacred Tirupati Laddu Prasadam had authentic temple aroma, rich cashews, and divine Pachcha Karpooram taste! Govinda Govinda!",
+      "images": [
+        "/laddu.jpg"
+      ],
+      "likes_count": 0,
+      "status": "approved",
+      "restaurant_reply": {
+        "text": "🙏 Govinda Govinda, Sunita Devi! Thank you for your divine blessings. Our sacred Tirupati Laddu Prasadam is prepared using pure deshi cow ghee, premium cashews, and Pachcha Karpooram, just like temple offerings. May Lord Venkateswara shower you with abundant health and happiness!",
+        "author": "Koppula Koteshwar Rao (Chief Chef)",
+        "badge": "Prasadam Department",
+        "replied_at": "2026-10-16T14:32:36.614Z"
+      },
+      "created_at": "2026-10-16T14:32:36.614Z",
+      "supabase_id": 3
+    },
+    {
+      "id": 8,
+      "menu_item_id": null,
+      "dish_name": "Srivari Maha Bhojanam",
+      "user_name": "Devotee Radha Krishna 9515",
+      "user_email": "radhakrishna9515@gmail.com",
+      "user_mobile": "",
+      "rating": 5,
+      "comment": "The 18-item royal Satvik Bhojanam served on real banana leaf was spiritually uplifting and heavenly! Pure deshi cow ghee flavor.",
+      "images": [
+        "/bhojanam.jpg",
+        "/table_2.jpg"
+      ],
+      "likes_count": 1,
+      "status": "approved",
+      "restaurant_reply": {
+        "text": "🙏 Namaste Devotee Radha Krishna 9515! Srivari blessings to you and your family. We are thrilled that you relished our royal 18-item sacred Satvik Bhojanam served on the traditional banana leaf. Our kitchen adheres strictly to sacred temple recipes without onion or garlic. We look forward to serving you again on your next holy visit to Tirupati!",
+        "author": "Rachakonda Mithrakumar (Owner) & Chief Chef Koppula Koteshwar Rao",
+        "badge": "Temple Kitchen Management",
+        "replied_at": "2026-10-16T14:32:36.612Z"
+      },
+      "created_at": "2026-10-16T14:32:36.612Z",
+      "supabase_id": 1
+    },
+    {
       "id": 7,
       "menu_item_id": null,
       "dish_name": "Tirupati Laddu Prasadam",
@@ -985,7 +1068,40 @@
       }
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "id": 1,
+      "order_number": "TR-15724325",
+      "user_name": "Devotee Radha Krishna 9515",
+      "house_no": "Flat 402, Srinivasa Nilayam",
+      "street": "Near Tata Automobile Showroom Road",
+      "area": "Beside Busstand Area",
+      "city": "Tirupati",
+      "pin_code": "517501",
+      "primary_mobile": "984809515",
+      "secondary_mobile": "9346174197",
+      "distance_km": 1.8,
+      "grand_total": 628,
+      "payment_method": "UPI",
+      "order_status": "Order Confirmed",
+      "estimated_delivery_time": "35-45 Minutes",
+      "items": [
+        {
+          "id": 1,
+          "name": "Ghee Masala Dosa",
+          "price": 99,
+          "quantity": 2
+        },
+        {
+          "id": 12,
+          "name": "Tirupati Laddu Prasadam",
+          "price": 100,
+          "quantity": 4
+        }
+      ],
+      "created_at": "2026-10-16T14:32:37.243Z"
+    }
+  ],
   "table_reservations": [
     {
       "id": 1,
@@ -997,6 +1113,18 @@
       "guests": 4,
       "seating_area": "Indoor Air Conditioned",
       "special_requests": "None",
+      "status": "Confirmed"
+    },
+    {
+      "id": 2,
+      "reservation_code": "TBL-2651",
+      "name": "Devotee Radha Krishna 9515",
+      "mobile": "984809515",
+      "res_date": "2026-10-25",
+      "res_time": "19:30 (Dinner)",
+      "guests": 4,
+      "seating_area": "Indoor Air Conditioned",
+      "special_requests": "Banana leaf traditional serving requested",
       "status": "Confirmed"
     }
   ],
