@@ -1,0 +1,69 @@
+{
+  "name": "Tirumala Tirupati Restaurant",
+  "short_name": "Tirupati Dining",
+  "description": "Authentic Pure South Indian Satvik Vegetarian Dining & Srivari Naivedyam beside Tirupati Busstand.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1A0407",
+  "theme_color": "#4A0E17",
+  "lang": "en",
+  "categories": ["food", "lifestyle", "shopping"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Satvik Veg Menu",
+      "short_name": "Menu",
+      "description": "Explore all Satvik dishes and daily specials",
+      "url": "/#menu",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Srivari Naivedyam",
+      "short_name": "Naivedyam",
+      "description": "Sacred Tirupati Laddu, Pulihora & Offerings",
+      "url": "/#naivedyam",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Book Table",
+      "short_name": "Reserve",
+      "description": "Reserve AC and family dining tables",
+      "url": "/#reservation",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Devotee Reviews",
+      "short_name": "Reviews",
+      "description": "Read pilgrim experiences and write reviews",
+      "url": "/#reviews",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

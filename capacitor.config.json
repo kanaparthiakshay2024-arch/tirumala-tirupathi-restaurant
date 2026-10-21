@@ -1,0 +1,12 @@
+{
+  "appId": "com.tirupatirestaurant.app",
+  "appName": "Tirumala Tirupati Restaurant",
+  "webDir": "public",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true,
+    "webContentsDebuggingEnabled": true
+  }
+}

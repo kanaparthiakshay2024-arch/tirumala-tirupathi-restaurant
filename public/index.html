@@ -9,6 +9,27 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- PWA & Mobile App Meta Tags -->
+  <meta name="theme-color" content="#4A0E17" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Tirupati Restaurant" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+
+  <!-- ServiceWorker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('📱 ServiceWorker active with scope:', reg.scope))
+          .catch(err => console.warn('ServiceWorker note:', err));
+      });
+    }
+  </script>
+
   <!-- React CDN -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -643,10 +664,29 @@
       const [paymentMethod, setPaymentMethod] = useState('UPI');
       const [supabaseStatus, setSupabaseStatus] = useState({ connected: true, tables_created: false });
 
+      // MOBILE APP (APK & PWA) STATE
+      const [isAppModalOpen, setIsAppModalOpen] = useState(false);
+      const [deferredPrompt, setDeferredPrompt] = useState(null);
+      const [isAppInstalled, setIsAppInstalled] = useState(false);
+
       useEffect(() => {
+        const handleBeforeInstallPrompt = (e) => {
+          e.preventDefault();
+          setDeferredPrompt(e);
+        };
+        const handleAppInstalled = () => {
+          setIsAppInstalled(true);
+          setDeferredPrompt(null);
+        };
+        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.addEventListener('appinstalled', handleAppInstalled);
+
         const checkHashUrl = () => {
           if (window.location.hash === '#reviews' || window.location.hash === '#review-section' || window.location.hash === '#devotee-review-portal') {
             setCurrentPage('reviews');
+          }
+          if (window.location.hash === '#app' || window.location.hash === '#apk') {
+            setIsAppModalOpen(true);
           }
         };
         checkHashUrl();
@@ -963,9 +1003,30 @@
                 <a onClick={() => setCurrentPage('reservation')} style={{ cursor: 'pointer', color: currentPage === 'reservation' ? 'var(--gold-primary)' : '#FFF' }}>Book Table</a>
                 <a onClick={() => { setCurrentPage('reviews'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} style={{ cursor: 'pointer', color: currentPage === 'reviews' ? 'var(--gold-primary)' : '#FFF' }}>⭐ Reviews</a>
                 <a onClick={() => setCurrentPage('contact')} style={{ cursor: 'pointer', color: currentPage === 'contact' ? 'var(--gold-primary)' : '#FFF' }}>Contact</a>
+                <a onClick={() => setIsAppModalOpen(true)} style={{ cursor: 'pointer', color: 'var(--gold-glow)', fontWeight: 700 }}>📱 App</a>
               </nav>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <button
+                  onClick={() => setIsAppModalOpen(true)}
+                  className="btn-gold-outline"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 14px',
+                    fontSize: '0.82rem',
+                    borderRadius: '20px',
+                    background: 'linear-gradient(135deg, rgba(212,175,55,0.2), rgba(74,14,23,0.4))',
+                    color: '#F3E5AB',
+                    border: '1px solid var(--gold-primary)',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                  title="Download Android APK & Install Mobile App"
+                >
+                  📱 Mobile App
+                </button>
                 <button onClick={() => setCurrentPage('cart')} className="btn-primary-green" style={{ padding: '6px 16px' }}>
                   Cart ({cart.reduce((s,i)=>s+i.quantity, 0)})
                 </button>
@@ -2530,6 +2591,100 @@
                     <button onClick={() => setSelectedPhotoModal(null)} className="btn-gold-outline" style={{ padding: '8px 24px' }}>
                       Close Photo View
                     </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* MOBILE APP (APK & PWA) INSTALLATION MODAL */}
+            {isAppModalOpen && (
+              <div className="modal-overlay" onClick={() => setIsAppModalOpen(false)}>
+                <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '620px', padding: '32px 26px', textAlign: 'center', borderRadius: '20px' }}>
+                  <button onClick={() => setIsAppModalOpen(false)} style={{ position: 'absolute', right: '18px', top: '16px', background: 'none', border: 'none', fontSize: '1.6rem', cursor: 'pointer', color: 'var(--maroon-header)', fontWeight: 800 }}>✕</button>
+
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+                    <img src="/logo.jpg" alt="App Logo" style={{ width: '85px', height: '85px', borderRadius: '50%', border: '3px solid var(--gold-primary)', boxShadow: '0 8px 24px rgba(74,14,23,0.35)' }} />
+                  </div>
+
+                  <span style={{ backgroundColor: 'var(--maroon-header)', color: 'var(--gold-glow)', padding: '5px 16px', borderRadius: '15px', fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    📱 Official Mobile Application
+                  </span>
+                  <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '12px', fontSize: '1.55rem' }}>
+                    Tirumala Tirupati Restaurant
+                  </h2>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: '6px', lineHeight: 1.5 }}>
+                    Experience pure Satvik dining, sacred Srivari Naivedyam, easy table reservations & pilgrim review photo sharing on your smartphone!
+                  </p>
+
+                  {/* TWO INSTALLATION OPTIONS */}
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '22px', textAlign: 'left' }}>
+                    {/* OPTION 1: Direct APK Download */}
+                    <div style={{ border: '2px solid var(--gold-primary)', borderRadius: '14px', padding: '18px 16px', backgroundColor: 'rgba(212,175,55,0.08)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '1.6rem' }}>📦</span>
+                          <h4 style={{ color: 'var(--maroon-header)', fontWeight: 800, fontSize: '1rem', margin: 0 }}>Android APK</h4>
+                        </div>
+                        <p style={{ fontSize: '0.8rem', color: '#555', lineHeight: 1.4 }}>
+                          Direct <strong>.apk</strong> package for Android phones & tablets. Free direct download.
+                        </p>
+                        <div style={{ marginTop: '8px', fontSize: '0.74rem', color: '#777' }}>
+                          • Version: <strong>v1.0.0</strong><br/>
+                          • Package: <strong>com.tirupatirestaurant.app</strong>
+                        </div>
+                      </div>
+                      <a
+                        href="https://github.com/kanaparthiakshay2024-arch/tirumala-tirupathi-restaurant/releases/latest"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary-green"
+                        style={{ marginTop: '14px', padding: '10px 14px', fontSize: '0.86rem', textDecoration: 'none', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700 }}
+                      >
+                        <span>📥 Download APK</span>
+                      </a>
+                    </div>
+
+                    {/* OPTION 2: 1-Tap Web App (PWA) */}
+                    <div style={{ border: '2px solid var(--maroon-header)', borderRadius: '14px', padding: '18px 16px', backgroundColor: 'rgba(74,14,23,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '1.6rem' }}>⚡</span>
+                          <h4 style={{ color: 'var(--maroon-header)', fontWeight: 800, fontSize: '1rem', margin: 0 }}>1-Tap Install</h4>
+                        </div>
+                        <p style={{ fontSize: '0.8rem', color: '#555', lineHeight: 1.4 }}>
+                          Instant home screen app with zero waiting. Works on both <strong>Android & iPhone (iOS)</strong>.
+                        </p>
+                        <div style={{ marginTop: '8px', fontSize: '0.74rem', color: '#777' }}>
+                          • Full screen experience<br/>
+                          • Offline menu caching
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          if (deferredPrompt) {
+                            deferredPrompt.prompt();
+                            const choice = await deferredPrompt.userChoice;
+                            if (choice && choice.outcome === 'accepted') setIsAppInstalled(true);
+                          } else {
+                            alert('📱 How to Add to Phone Home Screen:\n\n• On Android (Chrome): Tap menu (⋮) -> tap "Add to Home screen" or "Install App".\n• On iPhone (Safari): Tap Share (square with arrow) -> tap "Add to Home Screen".\n\nInstant native app icon will appear on your phone!');
+                          }
+                        }}
+                        className="btn-maroon"
+                        style={{ marginTop: '14px', padding: '10px 14px', fontSize: '0.86rem', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 700 }}
+                      >
+                        <span>{isAppInstalled ? '✅ Installed on Device' : '📲 Add to Phone'}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* HIGHLIGHT FEATURES */}
+                  <div style={{ marginTop: '20px', padding: '14px 16px', backgroundColor: '#FDFBF7', borderRadius: '12px', fontSize: '0.82rem', color: '#444', textAlign: 'left', border: '1px dashed #DDD' }}>
+                    <div style={{ fontWeight: 700, color: 'var(--maroon-header)', marginBottom: '6px' }}>✨ Mobile App Highlights:</div>
+                    <div>✔ <strong>Zero Address Bar:</strong> Clean full-screen standalone application</div>
+                    <div style={{ marginTop: '4px' }}>✔ <strong>Offline Ready:</strong> Browse sacred recipes and temple offerings without internet</div>
+                    <div style={{ marginTop: '4px' }}>✔ <strong>Instant Camera Uploads:</strong> Attach pilgrimage food photos directly into reviews</div>
+                    <div style={{ marginTop: '4px' }}>✔ <strong>Live Supabase Sync:</strong> Real-time table reservations and kitchen updates</div>
                   </div>
                 </div>
               </div>

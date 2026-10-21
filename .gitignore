@@ -2,3 +2,13 @@ node_modules/
 .env
 .DS_Store
 *.log
+scratch/
+
+# Android build and local files
+.gradle/
+**/build/
+android/app/build/
+android/.gradle/
+android/local.properties
+android/capacitor-cordova-android-plugins/build/
+*.apk

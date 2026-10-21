@@ -10,6 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
     "@supabase/supabase-js": "^2.118.0",
     "canvas-confetti": "^1.9.3",
     "dotenv": "^18.0.8",
