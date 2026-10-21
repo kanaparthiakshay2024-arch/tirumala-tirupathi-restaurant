@@ -52,6 +52,20 @@ jobs:
           cd android
           ./gradlew assembleDebug --stacktrace 2>&1 | tee ../build.log
 
+      - name: Locate and Prepare APK
+        run: |
+          echo "Scanning for compiled APK..."
+          find android -name "*.apk" -type f
+          mkdir -p release-apk
+          APK_PATH=$(find android -name "*.apk" -type f | head -n 1)
+          if [ -z "$APK_PATH" ]; then
+            echo "Error: No APK file found in android directory!"
+            exit 1
+          fi
+          echo "Found APK at: $APK_PATH"
+          cp -v "$APK_PATH" release-apk/app-debug.apk
+          ls -lh release-apk/app-debug.apk
+
       - name: Upload Build Log on Failure
         if: failure()
         uses: actions/upload-artifact@v4
@@ -63,7 +77,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Tirumala-Tirupati-Restaurant-APK
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: release-apk/app-debug.apk
           if-no-files-found: error
 
       - name: Create or Update GitHub Release with APK
@@ -91,6 +105,6 @@ jobs:
             2. Open the downloaded file from your notifications or Downloads folder.
             3. Tap **Install** (if prompted, enable *"Install unknown apps"* for your browser in Settings).
             4. Open **Tirumala Tirupati Restaurant** on your phone!
-          files: android/app/build/outputs/apk/debug/app-debug.apk
+          files: release-apk/app-debug.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
