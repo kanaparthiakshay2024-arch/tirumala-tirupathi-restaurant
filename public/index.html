@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Tirumala Tirupati Restaurant - Pure Satvik South Indian Dining</title>
   <meta name="description" content="Tirumala Tirupati Restaurant near Tata Automobile Showroom, beside Tirupati Busstand. Pure Satvik South Indian Vegetarian, Srivari Naivedyam, and divine dining experiences." />
   <!-- Google Fonts -->
@@ -275,6 +275,428 @@
       font-size: 0.85rem;
       cursor: pointer;
       transition: all 0.2s ease;
+    }
+
+    /* ============================================================
+       MOBILE FOOD DELIVERY APP STYLES (SWIGGY / ZOMATO ARCHITECTURE)
+       ============================================================ */
+
+    button, a, input, select, textarea {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Food Delivery Dish Cards */
+    .menu-dishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .food-delivery-card {
+      background: rgba(255, 253, 249, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid var(--gold-dark);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 6px 20px rgba(56, 9, 16, 0.1);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .food-delivery-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(74, 14, 23, 0.2);
+      border-color: var(--gold-primary);
+    }
+    .food-delivery-card-left {
+      flex: 1 1 64%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .food-delivery-card-title {
+      font-family: var(--font-heading);
+      color: var(--maroon-header);
+      font-size: 1.05rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin: 4px 0 2px 0;
+    }
+    .food-delivery-card-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--maroon-header);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 4px 0;
+    }
+    .food-delivery-card-old-price {
+      font-size: 0.85rem;
+      color: #888;
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+    .food-delivery-card-desc {
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .food-delivery-card-inspect {
+      font-size: 0.74rem;
+      color: var(--gold-dark);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    .food-delivery-card-right {
+      flex: 0 0 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      justify-content: flex-start;
+    }
+    .food-delivery-card-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 14px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      border: 1px solid rgba(212,175,55,0.4);
+    }
+    .food-delivery-add-btn-wrap {
+      position: absolute;
+      bottom: -10px;
+      width: 96px;
+      display: flex;
+      justify-content: center;
+      z-index: 5;
+    }
+
+    /* Modern ADD button & Stepper */
+    .add-dish-btn {
+      background: #FFFFFF;
+      color: var(--banana-leaf);
+      border: 1.8px solid var(--banana-leaf);
+      font-family: var(--font-body);
+      font-weight: 800;
+      font-size: 0.84rem;
+      padding: 6px 16px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      width: 100%;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .add-dish-btn:hover {
+      background: #E8F5E9;
+      border-color: #1B5E20;
+    }
+    .add-dish-btn:active {
+      transform: scale(0.94);
+    }
+
+    .qty-stepper-btn {
+      background: var(--green-btn);
+      color: #FFFFFF;
+      border: 1.5px solid var(--gold-primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(30,70,32,0.4);
+    }
+    .qty-step-btn {
+      background: none;
+      border: none;
+      color: #FFF;
+      font-size: 1.15rem;
+      font-weight: 800;
+      padding: 4px 8px;
+      cursor: pointer;
+      line-height: 1;
+      transition: background 0.15s ease;
+    }
+    .qty-step-btn:hover { background: rgba(255,255,255,0.2); }
+    .qty-step-btn:active { background: rgba(255,255,255,0.4); }
+    .qty-step-val {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #FFD700;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    /* Horizontal Category Track */
+    .category-chips-track {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 8px 14px 12px 14px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .category-chips-track::-webkit-scrollbar { display: none; }
+
+    .cat-chip {
+      white-space: nowrap;
+      padding: 8px 18px;
+      border-radius: 22px;
+      border: 1.5px solid var(--gold-primary);
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--maroon-header);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .cat-chip:active { transform: scale(0.95); }
+    .cat-chip.active {
+      background: var(--maroon-header);
+      color: var(--gold-glow);
+      border-color: var(--gold-primary);
+      box-shadow: 0 4px 14px rgba(74, 14, 23, 0.4);
+    }
+
+    /* Floating Quick Cart Bar (Swiggy/Zomato Signature) */
+    .floating-cart-pill {
+      position: fixed;
+      bottom: 74px;
+      left: 14px;
+      right: 14px;
+      max-width: 520px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #1E4620, #2E7D32);
+      color: #FFF;
+      padding: 13px 20px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(30, 70, 32, 0.5), 0 0 0 2px var(--gold-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 990;
+      cursor: pointer;
+      animation: slideUpCart 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes slideUpCart {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .floating-cart-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .floating-cart-total {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #FFD700;
+    }
+    .floating-cart-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Mobile Bottom Navigation Dock */
+    .mobile-bottom-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(35, 5, 8, 0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1.5px solid var(--gold-primary);
+      box-shadow: 0 -8px 25px rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 4px max(8px, env(safe-area-inset-bottom)) 4px;
+      z-index: 999;
+    }
+    .bottom-dock-tab {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: #CDB79E;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .bottom-dock-tab:active { transform: scale(0.92); }
+    .bottom-dock-tab.active {
+      color: var(--gold-primary);
+      font-weight: 800;
+    }
+    .bottom-dock-icon { font-size: 1.35rem; line-height: 1; }
+    .bottom-dock-label { font-size: 0.72rem; font-family: var(--font-body); letter-spacing: 0.3px; }
+    .bottom-dock-tab.active::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      width: 24px;
+      height: 3px;
+      background: var(--gold-primary);
+      border-radius: 2px;
+      box-shadow: 0 0 8px var(--gold-primary);
+    }
+    .bottom-dock-cart-wrap { position: relative; display: inline-block; }
+    .bottom-dock-badge {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background: #E53935;
+      color: #FFF;
+      font-size: 0.7rem;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 12px;
+      border: 1.5px solid #FFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      animation: popBadge 0.3s ease;
+    }
+    @keyframes popBadge {
+      0% { transform: scale(0); }
+      70% { transform: scale(1.25); }
+      100% { transform: scale(1); }
+    }
+
+    /* Mobile Header Location Bar */
+    .mobile-location-header {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(35, 5, 8, 0.95);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      justify-content: space-between;
+    }
+    .mobile-app-badge-btn {
+      background: linear-gradient(135deg, rgba(212,175,55,0.25), rgba(74,14,23,0.5));
+      border: 1.5px solid var(--gold-primary);
+      color: var(--gold-glow);
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .mobile-login-pill-btn {
+      background: var(--maroon-header);
+      color: var(--gold-glow);
+      border: 1px solid var(--gold-primary);
+      padding: 5px 12px;
+      border-radius: 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .mobile-user-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      color: #380910;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 0.8rem;
+      border: 1.5px solid #FFF;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 768px) {
+      .desktop-top-bar { display: none !important; }
+      .desktop-nav-links { display: none !important; }
+      .desktop-header-actions { display: none !important; }
+      .desktop-brand-title { font-size: 1.05rem !important; }
+      .desktop-brand-subtitle { font-size: 0.65rem !important; }
+      .desktop-hero-title { font-size: 1.7rem !important; line-height: 1.25 !important; }
+      .desktop-hero-section { padding: 35px 14px 25px 14px !important; }
+      #root { padding-bottom: 95px !important; }
+
+      .menu-dishes-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+      .food-delivery-card {
+        padding: 12px !important;
+      }
+      .food-delivery-card-right {
+        flex: 0 0 100px !important;
+      }
+      .food-delivery-card-img {
+        width: 100px !important;
+        height: 100px !important;
+      }
+      .food-delivery-add-btn-wrap {
+        width: 86px !important;
+      }
+      .modal-overlay {
+        align-items: flex-end !important;
+        padding: 0 !important;
+      }
+      .modal-content {
+        border-radius: 22px 22px 0 0 !important;
+        max-height: 85vh !important;
+        border-bottom: none !important;
+        animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-bottom-dock { display: none !important; }
+      .mobile-location-header { display: none !important; }
+      .category-chips-track { display: none !important; }
+      .floating-cart-pill {
+        bottom: 24px;
+        right: 24px;
+        left: auto;
+        width: 380px;
+      }
+    }
+
+    @keyframes slideUpModal {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
     }
   </style>
 </head>
@@ -871,12 +1293,27 @@
       };
 
       const addToCart = (item) => {
-        if (!user) { alert('Please log in to add items to cart.'); setIsAuthOpen(true); return; }
         setCart(prev => {
           const ex = prev.find(i => i.id === item.id);
           if (ex) return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
           return [...prev, { ...item, quantity: 1 }];
         });
+      };
+
+      const updateQuantity = (itemId, delta) => {
+        setCart(prev => {
+          return prev.map(i => {
+            if (i.id === itemId) {
+              const newQty = i.quantity + delta;
+              return newQty > 0 ? { ...i, quantity: newQty } : null;
+            }
+            return i;
+          }).filter(Boolean);
+        });
+      };
+
+      const removeFromCart = (itemId) => {
+        setCart(prev => prev.filter(i => i.id !== itemId));
       };
 
       const handleScrollDown = () => {
@@ -918,9 +1355,11 @@
 
       const filteredMenuItems = menuItems.filter(item => {
         if (searchQuery !== '') return item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase());
-        if (activeTimeSlot === '6am-11am') return item.category_slug === 'breakfast';
-        if (activeTimeSlot === '12pm-6pm') return item.category_slug === 'lunch';
-        if (activeTimeSlot === '6pm-11pm') return item.category_slug === 'naivedyam' || item.category_slug === 'dinner';
+        if (activeTimeSlot === 'all') return true;
+        if (activeTimeSlot === '6am-11am' || activeTimeSlot === 'breakfast') return item.category_slug === 'breakfast';
+        if (activeTimeSlot === '12pm-6pm' || activeTimeSlot === 'lunch') return item.category_slug === 'lunch';
+        if (activeTimeSlot === '6pm-11pm' || activeTimeSlot === 'dinner') return item.category_slug === 'naivedyam' || item.category_slug === 'dinner';
+        if (activeTimeSlot === 'naivedyam') return item.category_slug === 'naivedyam';
         return true;
       });
 
@@ -928,30 +1367,73 @@
         <div onClick={() => setIsSearchDropdownOpen(false)}>
           {/* HEADER */}
           <header className="glass-header" style={{ color: '#FFF', position: 'sticky', top: 0, zIndex: 100 }}>
-            <div style={{ backgroundColor: 'rgba(56, 9, 16, 0.88)', padding: '6px 20px', fontSize: '0.78rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#F3E5AB' }}>
+            {/* Top Bar for Desktop */}
+            <div className="desktop-top-bar" style={{ backgroundColor: 'rgba(56, 9, 16, 0.88)', padding: '6px 20px', fontSize: '0.78rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#F3E5AB' }}>
               <span>📍 {EXACT_ADDRESS}</span>
               <BackgroundAudioPlayer />
             </div>
 
-            <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
-              <div onClick={() => setCurrentPage('home')} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }}>
-                <img src="/logo.jpg" style={{ width: '55px', height: '55px', borderRadius: '50%', border: '2px solid var(--gold-primary)' }} />
+            {/* Mobile Location & App Download Header (Swiggy / Zomato style) */}
+            <div className="mobile-location-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden' }}>
+                <span style={{ fontSize: '1.2rem', color: 'var(--gold-primary)' }}>📍</span>
+                <div style={{ lineHeight: 1.15, overflow: 'hidden' }}>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#FFF', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                    Tirupati Busstand <span style={{ fontSize: '0.7rem', color: 'var(--gold-primary)' }}>▼</span>
+                  </div>
+                  <div style={{ fontSize: '0.68rem', color: '#E0D0C0', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '210px' }}>
+                    Beside Central Busstand, Tirupati
+                  </div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <button
+                  onClick={() => setIsAppModalOpen(true)}
+                  className="mobile-app-badge-btn"
+                  title="Install Android App APK"
+                >
+                  📱 APK
+                </button>
+                {user ? (
+                  <div
+                    onClick={() => {
+                      if (confirm(`Namaste ${user.name}! Would you like to logout?`)) {
+                        handleLogout();
+                      }
+                    }}
+                    className="mobile-user-avatar"
+                    title={`Logged in as ${user.name}`}
+                  >
+                    {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                ) : (
+                  <button onClick={() => setIsAuthOpen(true)} className="mobile-login-pill-btn">
+                    Login
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <div style={{ maxWidth: '1320px', margin: '0 auto', padding: '10px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+              <div onClick={() => setCurrentPage('home')} style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
+                <img src="/logo.jpg" style={{ width: '46px', height: '46px', borderRadius: '50%', border: '2px solid var(--gold-primary)' }} />
                 <div>
-                  <h1 style={{ fontFamily: 'Cinzel, serif', fontSize: '1.45rem', color: 'var(--gold-primary)', fontWeight: 800 }}>TIRUMALA TIRUPATI RESTAURANT</h1>
-                  <p style={{ fontSize: '0.72rem', color: '#F3E5AB' }}>Pure South Indian Satvik Vegetarian</p>
+                  <h1 className="desktop-brand-title" style={{ fontFamily: 'Cinzel, serif', fontSize: '1.35rem', color: 'var(--gold-primary)', fontWeight: 800 }}>TIRUMALA TIRUPATI</h1>
+                  <p className="desktop-brand-subtitle" style={{ fontSize: '0.7rem', color: '#F3E5AB' }}>Pure Satvik Vegetarian Food Delivery</p>
                 </div>
               </div>
 
               {/* SEARCH INPUT */}
-              <div style={{ position: 'relative', width: '290px' }} onClick={e => e.stopPropagation()}>
+              <div style={{ position: 'relative', flex: '1 1 220px', maxWidth: '420px', minWidth: '180px' }} onClick={e => e.stopPropagation()}>
                 <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', fontSize: '0.9rem', color: 'var(--gold-dark)' }}>🔍</span>
                 <input
                   type="text"
-                  placeholder="Search Masala Dosa, Idli..."
+                  placeholder="Search Masala Dosa, Pongal, Laddu..."
                   value={searchQuery}
                   onFocus={() => setIsSearchDropdownOpen(true)}
                   onChange={e => { setSearchQuery(e.target.value); setIsSearchDropdownOpen(true); }}
                   className="search-input-glass"
+                  style={{ width: '100%', boxSizing: 'border-box' }}
                 />
                 {searchQuery && (
                   <button onClick={() => { setSearchQuery(''); setIsSearchDropdownOpen(false); }} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#999', cursor: 'pointer', fontWeight: 800 }}>✕</button>
@@ -996,7 +1478,7 @@
                 )}
               </div>
 
-              <nav style={{ display: 'flex', gap: '18px', fontFamily: 'Cinzel, serif', fontWeight: 600, fontSize: '0.9rem' }}>
+              <nav className="desktop-nav-links" style={{ display: 'flex', gap: '18px', fontFamily: 'Cinzel, serif', fontWeight: 600, fontSize: '0.9rem' }}>
                 <a onClick={() => setCurrentPage('home')} style={{ cursor: 'pointer', color: currentPage === 'home' ? 'var(--gold-primary)' : '#FFF' }}>Home</a>
                 <a onClick={() => setCurrentPage('menu')} style={{ cursor: 'pointer', color: currentPage === 'menu' ? 'var(--gold-primary)' : '#FFF' }}>Veg Menu</a>
                 <a onClick={() => setCurrentPage('naivedyam')} style={{ cursor: 'pointer', color: currentPage === 'naivedyam' ? 'var(--gold-primary)' : '#FFF' }}>✨ Naivedyam</a>
@@ -1006,7 +1488,7 @@
                 <a onClick={() => setIsAppModalOpen(true)} style={{ cursor: 'pointer', color: 'var(--gold-glow)', fontWeight: 700 }}>📱 App</a>
               </nav>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div className="desktop-header-actions" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <button
                   onClick={() => setIsAppModalOpen(true)}
                   className="btn-gold-outline"
@@ -1039,6 +1521,30 @@
                   <button onClick={() => setIsAuthOpen(true)} className="btn-maroon" style={{ padding: '6px 16px' }}>Login</button>
                 )}
               </div>
+            </div>
+
+            {/* HORIZONTAL CATEGORY CHIPS TRACK FOR MOBILE QUICK DELIVERY */}
+            <div className="category-chips-track">
+              {[
+                { id: 'all', label: 'All Dishes 🍛' },
+                { id: 'breakfast', label: 'Tiffins & Dosa 🥞' },
+                { id: 'lunch', label: 'Maha Bhojanam 🍱' },
+                { id: 'naivedyam', label: 'Sacred Prasadam 🛕' },
+                { id: 'dinner', label: 'Dinner 🌙' }
+              ].map(cat => (
+                <button
+                  key={cat.id}
+                  className={`cat-chip ${activeTimeSlot === cat.id ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveTimeSlot(cat.id);
+                    if (currentPage !== 'home' && currentPage !== 'menu') {
+                      setCurrentPage('menu');
+                    }
+                  }}
+                >
+                  {cat.label}
+                </button>
+              ))}
             </div>
           </header>
 
@@ -1208,24 +1714,48 @@
                       <button onClick={() => setSearchQuery('')} className="btn-primary-green" style={{ marginTop: '15px' }}>Clear Search & View All Menu</button>
                     </div>
                   ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px' }}>
-                      {filteredMenuItems.map(item => (
-                        <div key={item.id} className="glass-card" onClick={() => setSelectedFoodModal(item)} style={{ padding: '16px' }}>
-                          <img src={item.image_url} style={{ width: '100%', height: '170px', objectFit: 'cover', borderRadius: '8px' }} />
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-                            <span className="veg-badge"><span className="veg-dot"></span> 100% Pure Veg</span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--gold-dark)', fontWeight: 700 }}>🔍 Click for Ingredients</span>
+                    <div className="menu-dishes-grid">
+                      {filteredMenuItems.map(item => {
+                        const inCart = cart.find(c => c.id === item.id);
+                        return (
+                          <div key={item.id} className="food-delivery-card" onClick={() => setSelectedFoodModal(item)}>
+                            <div className="food-delivery-card-left">
+                              <div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                                  <span className="veg-badge"><span className="veg-dot"></span> Satvik</span>
+                                  <span style={{ fontSize: '0.74rem', color: '#B8860B', fontWeight: 800 }}>★ 4.9 (120+)</span>
+                                </div>
+                                <h3 className="food-delivery-card-title">
+                                  <HighlightText text={item.name} query={searchQuery} />
+                                </h3>
+                                <div className="food-delivery-card-price">
+                                  <span>₹{item.offer_price || item.price}</span>
+                                  {item.offer_price && <span className="food-delivery-card-old-price">₹{item.price}</span>}
+                                </div>
+                                <p className="food-delivery-card-desc">{item.description}</p>
+                              </div>
+                              <span className="food-delivery-card-inspect">🔍 View Ingredients & Nutrition</span>
+                            </div>
+
+                            <div className="food-delivery-card-right">
+                              <img src={item.image_url} className="food-delivery-card-img" alt={item.name} />
+                              <div className="food-delivery-add-btn-wrap" onClick={e => e.stopPropagation()}>
+                                {inCart ? (
+                                  <div className="qty-stepper-btn">
+                                    <button onClick={() => updateQuantity(item.id, -1)} className="qty-step-btn">−</button>
+                                    <span className="qty-step-val">{inCart.quantity}</span>
+                                    <button onClick={() => updateQuantity(item.id, 1)} className="qty-step-btn">+</button>
+                                  </div>
+                                ) : (
+                                  <button onClick={() => addToCart(item)} className="add-dish-btn">
+                                    ADD <span>+</span>
+                                  </button>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                          <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '6px', fontWeight: 700 }}>
-                            <HighlightText text={item.name} query={searchQuery} />
-                          </h3>
-                          <p style={{ fontSize: '0.82rem', color: '#555', margin: '6px 0' }}>{item.description}</p>
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-                            <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--maroon-header)' }}>₹{item.offer_price || item.price}</span>
-                            <button onClick={e => { e.stopPropagation(); addToCart(item); }} className="btn-primary-green" style={{ padding: '6px 14px' }}>+ Add</button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   )}
                 </section>
@@ -1621,24 +2151,48 @@
                 <h1 className="section-title" style={{ color: '#FFF' }}>Complete Pure Veg Menu</h1>
                 <div className="gold-accent-line"></div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '25px', marginTop: '30px' }}>
-                  {filteredMenuItems.map(item => (
-                    <div key={item.id} className="glass-card" onClick={() => setSelectedFoodModal(item)} style={{ padding: '16px' }}>
-                      <img src={item.image_url} style={{ width: '100%', height: '170px', objectFit: 'cover', borderRadius: '6px' }} />
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-                        <span className="veg-badge"><span className="veg-dot"></span> 100% Veg</span>
-                        <span style={{ fontSize: '0.75rem', color: 'var(--gold-dark)', fontWeight: 700 }}>🔍 Click for Ingredients</span>
+                <div className="menu-dishes-grid" style={{ marginTop: '25px' }}>
+                  {filteredMenuItems.map(item => {
+                    const inCart = cart.find(c => c.id === item.id);
+                    return (
+                      <div key={item.id} className="food-delivery-card" onClick={() => setSelectedFoodModal(item)}>
+                        <div className="food-delivery-card-left">
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                              <span className="veg-badge"><span className="veg-dot"></span> Satvik</span>
+                              <span style={{ fontSize: '0.74rem', color: '#B8860B', fontWeight: 800 }}>★ 4.9 (120+)</span>
+                            </div>
+                            <h3 className="food-delivery-card-title">
+                              <HighlightText text={item.name} query={searchQuery} />
+                            </h3>
+                            <div className="food-delivery-card-price">
+                              <span>₹{item.offer_price || item.price}</span>
+                              {item.offer_price && <span className="food-delivery-card-old-price">₹{item.price}</span>}
+                            </div>
+                            <p className="food-delivery-card-desc">{item.description}</p>
+                          </div>
+                          <span className="food-delivery-card-inspect">🔍 View Ingredients & Nutrition</span>
+                        </div>
+
+                        <div className="food-delivery-card-right">
+                          <img src={item.image_url} className="food-delivery-card-img" alt={item.name} />
+                          <div className="food-delivery-add-btn-wrap" onClick={e => e.stopPropagation()}>
+                            {inCart ? (
+                              <div className="qty-stepper-btn">
+                                <button onClick={() => updateQuantity(item.id, -1)} className="qty-step-btn">−</button>
+                                <span className="qty-step-val">{inCart.quantity}</span>
+                                <button onClick={() => updateQuantity(item.id, 1)} className="qty-step-btn">+</button>
+                              </div>
+                            ) : (
+                              <button onClick={() => addToCart(item)} className="add-dish-btn">
+                                ADD <span>+</span>
+                              </button>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '6px' }}>
-                        <HighlightText text={item.name} query={searchQuery} />
-                      </h3>
-                      <p style={{ fontSize: '0.82rem', color: '#555', margin: '6px 0' }}>{item.description}</p>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
-                        <span style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--maroon-header)' }}>₹{item.offer_price || item.price}</span>
-                        <button onClick={e => { e.stopPropagation(); addToCart(item); }} className="btn-primary-green" style={{ padding: '6px 14px' }}>+ Add</button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -1648,82 +2202,445 @@
               <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px' }}>
                 <h1 className="section-title" style={{ color: '#FFF' }}>Worship Offerings (Naivedyam)</h1>
                 <div className="gold-accent-line"></div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '25px', marginTop: '30px' }}>
-                  {menuItems.filter(i=>i.category_slug==='naivedyam').map(item => (
-                    <div key={item.id} className="glass-card" onClick={() => setSelectedFoodModal(item)} style={{ padding: '18px' }}>
-                      <img src={item.image_url} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '6px' }} />
-                      <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', marginTop: '10px' }}>{item.name}</h3>
-                      <p style={{ fontSize: '0.85rem', margin: '6px 0' }}>{item.description}</p>
-                      {item.worship_significance && (
-                        <div style={{ backgroundColor: 'rgba(212,175,55,0.15)', padding: '10px', borderRadius: '6px', fontSize: '0.8rem', color: 'var(--maroon-header)', margin: '10px 0', borderLeft: '3px solid var(--gold-primary)' }}>
-                          <strong>✨ Spiritual Worship Significance:</strong> {item.worship_significance}
+                <div className="menu-dishes-grid" style={{ marginTop: '25px' }}>
+                  {menuItems.filter(i=>i.category_slug==='naivedyam').map(item => {
+                    const inCart = cart.find(c => c.id === item.id);
+                    return (
+                      <div key={item.id} className="food-delivery-card" onClick={() => setSelectedFoodModal(item)}>
+                        <div className="food-delivery-card-left">
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                              <span className="veg-badge"><span className="veg-dot"></span> Prasadam</span>
+                              <span style={{ fontSize: '0.74rem', color: '#B8860B', fontWeight: 800 }}>★ 5.0 Divine</span>
+                            </div>
+                            <h3 className="food-delivery-card-title">{item.name}</h3>
+                            <div className="food-delivery-card-price">
+                              <span>₹{item.offer_price || item.price}</span>
+                            </div>
+                            <p className="food-delivery-card-desc">{item.description}</p>
+                            {item.worship_significance && (
+                              <div style={{ fontSize: '0.72rem', color: 'var(--maroon-header)', backgroundColor: 'rgba(212,175,55,0.15)', padding: '4px 8px', borderRadius: '4px', marginTop: '4px' }}>
+                                ✨ {item.worship_significance}
+                              </div>
+                            )}
+                          </div>
+                          <span className="food-delivery-card-inspect" style={{ marginTop: '6px' }}>🔍 View Sacred Ingredients</span>
                         </div>
-                      )}
-                      <button onClick={e => { e.stopPropagation(); addToCart(item); }} className="btn-primary-green" style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}>Add Sacred Naivedyam</button>
-                    </div>
-                  ))}
+
+                        <div className="food-delivery-card-right">
+                          <img src={item.image_url} className="food-delivery-card-img" alt={item.name} />
+                          <div className="food-delivery-add-btn-wrap" onClick={e => e.stopPropagation()}>
+                            {inCart ? (
+                              <div className="qty-stepper-btn">
+                                <button onClick={() => updateQuantity(item.id, -1)} className="qty-step-btn">−</button>
+                                <span className="qty-step-val">{inCart.quantity}</span>
+                                <button onClick={() => updateQuantity(item.id, 1)} className="qty-step-btn">+</button>
+                              </div>
+                            ) : (
+                              <button onClick={() => addToCart(item)} className="add-dish-btn">
+                                ADD <span>+</span>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}
 
-            {/* CART PAGE */}
+            {/* MODERN FOOD DELIVERY CART PAGE */}
             {currentPage === 'cart' && (
-              <div style={{ maxWidth: '900px', margin: '40px auto', padding: '0 20px' }}>
-                <h1 className="section-title" style={{ color: '#FFF' }}>Your Cart</h1>
-                <div className="glass-panel" style={{ padding: '25px', borderRadius: '16px', marginTop: '20px' }}>
-                  {cart.map(i => (
-                    <div key={i.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px', borderBottom: '1px solid #DDD' }}>
-                      <span>{i.name} x {i.quantity}</span>
-                      <span>₹{i.price * i.quantity}</span>
-                    </div>
-                  ))}
-                  <div style={{ fontSize: '1.3rem', fontWeight: 800, textAlign: 'right', marginTop: '15px' }}>Total: ₹{subtotal}</div>
-                  <button onClick={() => setCurrentPage('checkout')} className="btn-primary-green" style={{ marginTop: '15px', float: 'right' }}>Proceed to Checkout</button>
+              <div style={{ maxWidth: '780px', margin: '20px auto 40px auto', padding: '0 16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
+                  <button
+                    onClick={() => setCurrentPage('home')}
+                    style={{
+                      background: 'rgba(255,255,255,0.15)',
+                      border: '1px solid var(--gold-primary)',
+                      color: '#FFF',
+                      padding: '6px 14px',
+                      borderRadius: '20px',
+                      cursor: 'pointer',
+                      fontWeight: 700,
+                      fontSize: '0.85rem'
+                    }}
+                  >
+                    ← Back to Menu
+                  </button>
+                  <h1 className="section-title" style={{ color: '#FFF', margin: 0, fontSize: '1.6rem' }}>
+                    Satvik Food Cart
+                  </h1>
                 </div>
+
+                {cart.length === 0 ? (
+                  <div className="glass-panel" style={{ padding: '50px 20px', textAlign: 'center', borderRadius: '20px' }}>
+                    <div style={{ fontSize: '4rem', marginBottom: '10px' }}>🛍️</div>
+                    <h2 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', fontWeight: 800 }}>Your Satvik Cart is Empty</h2>
+                    <p style={{ color: '#666', fontSize: '0.9rem', maxWidth: '400px', margin: '8px auto 20px auto' }}>
+                      Add sacred Ghee Masala Dosas, Tirupati Laddus, or Royal Bhojanam to begin your divine meal.
+                    </p>
+                    <button onClick={() => setCurrentPage('home')} className="btn-primary-green" style={{ padding: '10px 24px' }}>
+                      Explore Sacred Menu ➔
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    {/* RESTAURANT INFO CARD */}
+                    <div className="glass-panel" style={{ padding: '16px 20px', borderRadius: '16px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '14px', border: '1.5px solid var(--gold-primary)' }}>
+                      <img src="/logo.jpg" style={{ width: '52px', height: '52px', borderRadius: '50%', border: '2px solid var(--gold-primary)' }} alt="Logo" />
+                      <div style={{ flex: 1 }}>
+                        <h3 style={{ fontFamily: 'Cinzel, serif', color: 'var(--maroon-header)', margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>
+                          Tirumala Tirupati Restaurant
+                        </h3>
+                        <p style={{ fontSize: '0.78rem', color: '#666', margin: '2px 0 0 0' }}>
+                          📍 Near Tata Showroom, Beside Tirupati Busstand • 100% Deshi Cow Ghee
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* CART ITEMS LIST */}
+                    <div className="glass-panel" style={{ padding: '20px', borderRadius: '18px', marginBottom: '16px' }}>
+                      <div style={{ borderBottom: '1px solid #EEE', paddingBottom: '10px', marginBottom: '10px', fontWeight: 800, fontSize: '0.9rem', color: 'var(--maroon-header)', display: 'flex', justifyContent: 'space-between' }}>
+                        <span>SELECTED DISHES ({cart.reduce((s,i)=>s+i.quantity, 0)})</span>
+                        <span onClick={() => setCart([])} style={{ color: '#C62828', cursor: 'pointer', fontSize: '0.78rem', fontWeight: 600 }}>Clear All</span>
+                      </div>
+
+                      {cart.map(item => (
+                        <div key={item.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 0', borderBottom: '1px solid rgba(0,0,0,0.06)', gap: '12px' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1, minWidth: 0 }}>
+                            <span className="veg-badge"><span className="veg-dot"></span></span>
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--maroon-header)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {item.name}
+                              </div>
+                              <div style={{ fontSize: '0.8rem', color: '#666' }}>
+                                ₹{item.price} each
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* STEPPER */}
+                          <div style={{ width: '85px' }}>
+                            <div className="qty-stepper-btn">
+                              <button onClick={() => updateQuantity(item.id, -1)} className="qty-step-btn">−</button>
+                              <span className="qty-step-val">{item.quantity}</span>
+                              <button onClick={() => updateQuantity(item.id, 1)} className="qty-step-btn">+</button>
+                            </div>
+                          </div>
+
+                          <div style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--maroon-header)', minWidth: '60px', textAlign: 'right' }}>
+                            ₹{item.price * item.quantity}
+                          </div>
+                        </div>
+                      ))}
+
+                      {/* ADD MORE ITEMS */}
+                      <div style={{ marginTop: '14px', textAlign: 'center' }}>
+                        <button
+                          onClick={() => setCurrentPage('home')}
+                          style={{
+                            background: 'none',
+                            border: '1px dashed var(--banana-leaf)',
+                            color: 'var(--banana-leaf)',
+                            padding: '8px 18px',
+                            borderRadius: '8px',
+                            fontWeight: 700,
+                            fontSize: '0.84rem',
+                            cursor: 'pointer',
+                            width: '100%'
+                          }}
+                        >
+                          + Add More Satvik Dishes / Naivedyam
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* COOKING & DEVOTEE INSTRUCTIONS */}
+                    <div className="glass-panel" style={{ padding: '16px 20px', borderRadius: '16px', marginBottom: '16px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--maroon-header)', marginBottom: '8px' }}>
+                        📝 Sacred Kitchen & Delivery Instructions:
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="e.g. Extra coconut chutney, traditional banana leaf wrap, deliver to cottage gate..."
+                        style={{ width: '100%', padding: '10px 14px', borderRadius: '10px', border: '1.5px solid #DDD', fontSize: '0.85rem', outline: 'none' }}
+                      />
+                    </div>
+
+                    {/* BILL DETAILS (SWIGGY/ZOMATO STYLE) */}
+                    <div className="glass-panel" style={{ padding: '20px', borderRadius: '18px', marginBottom: '24px' }}>
+                      <div style={{ fontWeight: 800, fontSize: '0.92rem', color: 'var(--maroon-header)', marginBottom: '12px' }}>
+                        BILL SUMMARY
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', color: '#555', marginBottom: '8px' }}>
+                        <span>Item Total</span>
+                        <span style={{ fontWeight: 700, color: '#222' }}>₹{subtotal}</span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', color: '#555', marginBottom: '8px' }}>
+                        <span>Temple Kitchen Packaging</span>
+                        <span style={{ color: 'var(--banana-leaf)', fontWeight: 700 }}>
+                          <span style={{ textDecoration: 'line-through', color: '#999', marginRight: '6px' }}>₹25</span>
+                          FREE
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.88rem', color: '#555', marginBottom: '8px' }}>
+                        <span>Pilgrim Delivery Partner Fee</span>
+                        <span style={{ color: 'var(--banana-leaf)', fontWeight: 700 }}>
+                          <span style={{ textDecoration: 'line-through', color: '#999', marginRight: '6px' }}>₹40</span>
+                          FREE
+                        </span>
+                      </div>
+                      <div style={{ borderTop: '1.5px dashed #CCC', margin: '12px 0' }}></div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.15rem', fontWeight: 900, color: 'var(--maroon-header)' }}>
+                        <span>TO PAY</span>
+                        <span>₹{subtotal}</span>
+                      </div>
+                      <div style={{ marginTop: '8px', padding: '6px 12px', background: 'rgba(46, 125, 50, 0.1)', borderRadius: '8px', color: '#2E7D32', fontSize: '0.78rem', fontWeight: 700, textAlign: 'center' }}>
+                        🎉 You saved ₹65 on sacred delivery fees!
+                      </div>
+                    </div>
+
+                    {/* CHECKOUT BUTTON */}
+                    <button
+                      onClick={() => setCurrentPage('checkout')}
+                      className="btn-primary-green"
+                      style={{
+                        width: '100%',
+                        justifyContent: 'space-between',
+                        padding: '14px 20px',
+                        fontSize: '1.05rem',
+                        borderRadius: '14px',
+                        boxShadow: '0 8px 25px rgba(30,70,32,0.4)'
+                      }}
+                    >
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span style={{ fontSize: '0.75rem', opacity: 0.9 }}>TOTAL PAYABLE</span>
+                        <span style={{ fontWeight: 900, fontSize: '1.15rem' }}>₹{subtotal}</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800 }}>
+                        <span>Proceed to Checkout</span>
+                        <span>➔</span>
+                      </div>
+                    </button>
+                  </div>
+                )}
               </div>
             )}
 
-            {/* CHECKOUT PAGE */}
+            {/* MODERN MOBILE CHECKOUT PAGE */}
             {currentPage === 'checkout' && (
-              <div style={{ maxWidth: '800px', margin: '40px auto', padding: '0 20px' }}>
-                <h1 className="section-title" style={{ color: '#FFF' }}>Delivery & Payment</h1>
-                <form onSubmit={e => {
-                  e.preventDefault();
-                  const orderNumber = 'TR-' + Date.now().toString().slice(-6);
-                  const orderPayload = {
-                    order_number: orderNumber,
-                    user_name: user ? user.name : 'Guest',
-                    house_no: houseNo,
-                    street: street,
-                    area: area,
-                    city: city,
-                    pin_code: pinCode,
-                    primary_mobile: primaryMobile || '9014228068',
-                    secondary_mobile: secondaryMobile,
-                    distance_km: 2.5,
-                    grand_total: subtotal + 30,
-                    payment_method: paymentMethod || 'UPI',
-                    order_status: 'Order Confirmed',
-                    estimated_delivery_time: '35-45 Minutes',
-                    items: cart
-                  };
-                  fetch('/api/orders', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderPayload)
-                  }).catch(() => {});
-                  if (clientSupabase) {
-                    clientSupabase.from('orders').insert([orderPayload]).catch(() => {});
-                  }
-                  alert(`🙏 Order Confirmed! Order Ref: ${orderNumber}. Estimated delivery: 35-45 mins.`);
-                  setCart([]);
-                  setCurrentPage('home');
-                }} className="glass-panel" style={{ padding: '30px', marginTop: '20px', borderRadius: '16px' }}>
-                  <input type="text" required placeholder="House / Flat No." value={houseNo} onChange={e=>setHouseNo(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px' }} />
-                  <input type="text" required placeholder="Street" value={street} onChange={e=>setStreet(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px' }} />
-                  <input type="text" required placeholder="Area" value={area} onChange={e=>setArea(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px' }} />
-                  <input type="tel" required placeholder="Secondary Mobile (MANDATORY)" value={secondaryMobile} onChange={e=>setSecondaryMobile(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '10px', border: '2px solid red' }} />
-                  <button type="submit" className="btn-primary-green" style={{ width: '100%', justifyContent: 'center' }}>Confirm & Pay ₹{subtotal + 30}</button>
+              <div style={{ maxWidth: '780px', margin: '20px auto 40px auto', padding: '0 16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
+                  <button
+                    onClick={() => setCurrentPage('cart')}
+                    style={{
+                      background: 'rgba(255,255,255,0.15)',
+                      border: '1px solid var(--gold-primary)',
+                      color: '#FFF',
+                      padding: '6px 14px',
+                      borderRadius: '20px',
+                      cursor: 'pointer',
+                      fontWeight: 700,
+                      fontSize: '0.85rem'
+                    }}
+                  >
+                    ← Back to Cart
+                  </button>
+                  <h1 className="section-title" style={{ color: '#FFF', margin: 0, fontSize: '1.6rem' }}>
+                    Delivery & Payment
+                  </h1>
+                </div>
+
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    if (!secondaryMobile || secondaryMobile.trim().length < 10) {
+                      alert('Secondary Mobile Number is MANDATORY for pilgrim order dispatch & delivery coordination!');
+                      return;
+                    }
+                    const orderNumber = 'TR-' + Date.now().toString().slice(-6);
+                    const orderPayload = {
+                      order_number: orderNumber,
+                      user_name: user ? user.name : 'Devotee Pilgrim',
+                      house_no: houseNo,
+                      street: street,
+                      area: area || 'Beside Tirupati Busstand',
+                      city: city,
+                      pin_code: pinCode,
+                      primary_mobile: primaryMobile || (user ? user.mobile : '9014228068'),
+                      secondary_mobile: secondaryMobile,
+                      distance_km: 1.8,
+                      grand_total: subtotal,
+                      payment_method: paymentMethod || 'UPI',
+                      order_status: 'Order Confirmed',
+                      estimated_delivery_time: '30-40 Minutes',
+                      items: cart
+                    };
+                    fetch('/api/orders', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(orderPayload)
+                    }).catch(() => {});
+                    if (clientSupabase) {
+                      clientSupabase.from('orders').insert([orderPayload]).catch(() => {});
+                    }
+                    alert(`🙏 Order Confirmed! Reference: ${orderNumber}\nEstimated Delivery: 30-40 mins to your Tirupati location.\nGovinda Govinda!`);
+                    setCart([]);
+                    setCurrentPage('home');
+                  }}
+                  className="glass-panel"
+                  style={{ padding: '24px 20px', borderRadius: '18px' }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px', color: 'var(--maroon-header)', fontWeight: 800 }}>
+                    <span style={{ fontSize: '1.3rem' }}>📍</span>
+                    <span>DELIVERY ADDRESS IN TIRUPATI</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '12px', marginBottom: '18px' }}>
+                    <div>
+                      <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', display: 'block', marginBottom: '4px' }}>
+                        Flat / House No. / Hotel Room / Cottage No. *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Room 304, Srinivasa Pilgrim Rest House"
+                        value={houseNo}
+                        onChange={e => setHouseNo(e.target.value)}
+                        style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1.5px solid #CCC', fontSize: '0.9rem', outline: 'none' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', display: 'block', marginBottom: '4px' }}>
+                        Street / Landmark *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Beside Tirupati Busstand, Near Tata Automobile Showroom"
+                        value={street}
+                        onChange={e => setStreet(e.target.value)}
+                        style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1.5px solid #CCC', fontSize: '0.9rem', outline: 'none' }}
+                      />
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                      <div>
+                        <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', display: 'block', marginBottom: '4px' }}>
+                          Area / Colony
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="Beside Busstand"
+                          value={area}
+                          onChange={e => setArea(e.target.value)}
+                          style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1.5px solid #CCC', fontSize: '0.9rem', outline: 'none' }}
+                        />
+                      </div>
+                      <div>
+                        <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', display: 'block', marginBottom: '4px' }}>
+                          PIN Code
+                        </label>
+                        <input
+                          type="text"
+                          value={pinCode}
+                          onChange={e => setPinCode(e.target.value)}
+                          style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1.5px solid #CCC', fontSize: '0.9rem', outline: 'none' }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px', color: 'var(--maroon-header)', fontWeight: 800 }}>
+                    <span style={{ fontSize: '1.3rem' }}>📞</span>
+                    <span>PILGRIM CONTACT DETAILS</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '12px', marginBottom: '20px' }}>
+                    <div>
+                      <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#555', display: 'block', marginBottom: '4px' }}>
+                        Primary Mobile Number
+                      </label>
+                      <input
+                        type="tel"
+                        placeholder="e.g. 9014228068"
+                        value={primaryMobile}
+                        onChange={e => setPrimaryMobile(e.target.value)}
+                        style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '1.5px solid #CCC', fontSize: '0.9rem', outline: 'none' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ fontSize: '0.78rem', fontWeight: 800, color: '#C62828', display: 'block', marginBottom: '4px' }}>
+                        Secondary Mobile Number (MANDATORY for Tirupati Pilgrim Dispatch) *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="e.g. 9346174197 or family member mobile"
+                        value={secondaryMobile}
+                        onChange={e => setSecondaryMobile(e.target.value)}
+                        style={{ width: '100%', padding: '12px 14px', borderRadius: '10px', border: '2px solid #E53935', fontSize: '0.9rem', outline: 'none', backgroundColor: '#FFF9F9' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px', color: 'var(--maroon-header)', fontWeight: 800 }}>
+                    <span style={{ fontSize: '1.3rem' }}>💳</span>
+                    <span>SELECT PAYMENT METHOD</span>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '24px' }}>
+                    <div
+                      onClick={() => setPaymentMethod('UPI')}
+                      style={{
+                        border: paymentMethod === 'UPI' ? '2px solid var(--banana-leaf)' : '1px solid #CCC',
+                        backgroundColor: paymentMethod === 'UPI' ? 'rgba(46,125,50,0.08)' : '#FFF',
+                        padding: '14px',
+                        borderRadius: '12px',
+                        cursor: 'pointer',
+                        textAlign: 'center'
+                      }}
+                    >
+                      <div style={{ fontSize: '1.4rem' }}>📱⚡</div>
+                      <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--maroon-header)', marginTop: '4px' }}>UPI / GPay / PhonePe</div>
+                      <div style={{ fontSize: '0.72rem', color: '#666' }}>Instant & Contactless</div>
+                    </div>
+
+                    <div
+                      onClick={() => setPaymentMethod('COD')}
+                      style={{
+                        border: paymentMethod === 'COD' ? '2px solid var(--banana-leaf)' : '1px solid #CCC',
+                        backgroundColor: paymentMethod === 'COD' ? 'rgba(46,125,50,0.08)' : '#FFF',
+                        padding: '14px',
+                        borderRadius: '12px',
+                        cursor: 'pointer',
+                        textAlign: 'center'
+                      }}
+                    >
+                      <div style={{ fontSize: '1.4rem' }}>💵</div>
+                      <div style={{ fontWeight: 800, fontSize: '0.88rem', color: 'var(--maroon-header)', marginTop: '4px' }}>Cash on Delivery</div>
+                      <div style={{ fontSize: '0.72rem', color: '#666' }}>Pay upon food arrival</div>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-primary-green"
+                    style={{
+                      width: '100%',
+                      justifyContent: 'center',
+                      padding: '14px',
+                      fontSize: '1.1rem',
+                      borderRadius: '14px',
+                      boxShadow: '0 8px 25px rgba(30,70,32,0.45)'
+                    }}
+                  >
+                    Confirm & Place Satvik Order • ₹{subtotal} ➔
+                  </button>
                 </form>
               </div>
             )}
@@ -2711,6 +3628,66 @@
               </div>
             </div>
           </footer>
+
+          {/* FLOATING QUICK CART BAR (SWIGGY / ZOMATO STYLE) */}
+          {cart.length > 0 && currentPage !== 'cart' && currentPage !== 'checkout' && (
+            <div className="floating-cart-pill" onClick={() => setCurrentPage('cart')}>
+              <div className="floating-cart-left">
+                <span style={{ fontSize: '1.25rem' }}>🛍️</span>
+                <span className="floating-cart-count">{cart.reduce((s,i)=>s+i.quantity, 0)} {cart.reduce((s,i)=>s+i.quantity, 0) === 1 ? 'ITEM' : 'ITEMS'}</span>
+                <span style={{ color: 'rgba(255,255,255,0.6)' }}>•</span>
+                <span className="floating-cart-total">₹{subtotal}</span>
+              </div>
+              <div className="floating-cart-right">
+                <span>View Cart</span>
+                <span style={{ fontSize: '1.1rem', marginLeft: '4px' }}>➔</span>
+              </div>
+            </div>
+          )}
+
+          {/* NATIVE MOBILE BOTTOM NAVIGATION DOCK */}
+          <nav className="mobile-bottom-dock">
+            <button
+              onClick={() => { setCurrentPage('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`bottom-dock-tab ${currentPage === 'home' || currentPage === 'menu' ? 'active' : ''}`}
+            >
+              <span className="bottom-dock-icon">🍽️</span>
+              <span className="bottom-dock-label">Menu</span>
+            </button>
+            <button
+              onClick={() => { setCurrentPage('naivedyam'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`bottom-dock-tab ${currentPage === 'naivedyam' ? 'active' : ''}`}
+            >
+              <span className="bottom-dock-icon">🛕</span>
+              <span className="bottom-dock-label">Naivedyam</span>
+            </button>
+            <button
+              onClick={() => { setCurrentPage('cart'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`bottom-dock-tab bottom-dock-cart ${currentPage === 'cart' || currentPage === 'checkout' ? 'active' : ''}`}
+            >
+              <div className="bottom-dock-cart-wrap">
+                <span className="bottom-dock-icon">🛍️</span>
+                {cart.length > 0 && (
+                  <span className="bottom-dock-badge">{cart.reduce((s,i)=>s+i.quantity, 0)}</span>
+                )}
+              </div>
+              <span className="bottom-dock-label">Cart</span>
+            </button>
+            <button
+              onClick={() => { setCurrentPage('reviews'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`bottom-dock-tab ${currentPage === 'reviews' ? 'active' : ''}`}
+            >
+              <span className="bottom-dock-icon">⭐</span>
+              <span className="bottom-dock-label">Reviews</span>
+            </button>
+            <button
+              onClick={() => { setCurrentPage('reservation'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`bottom-dock-tab ${currentPage === 'reservation' ? 'active' : ''}`}
+            >
+              <span className="bottom-dock-icon">🪑</span>
+              <span className="bottom-dock-label">Tables</span>
+            </button>
+          </nav>
         </div>
       );
     };
