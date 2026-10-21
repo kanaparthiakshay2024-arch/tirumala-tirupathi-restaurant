@@ -49,8 +49,19 @@ jobs:
 
       - name: Build Android Debug APK
         run: |
+          set -o pipefail
           cd android
-          ./gradlew :app:assembleDebug --stacktrace
+          ./gradlew :app:assembleDebug --stacktrace 2>&1 | tee ../gradle-output.log
+
+      - name: Push failure log to branch on failure
+        if: failure()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B build-log-branch
+          git add -f gradle-output.log
+          git commit -m "chore: save build log"
+          git push -f origin build-log-branch
 
       - name: Locate and Prepare APK
         run: |
@@ -65,13 +76,6 @@ jobs:
           echo "Found APK at: $APK_PATH"
           cp -v "$APK_PATH" release-apk/app-debug.apk
           ls -lh release-apk/app-debug.apk
-
-      - name: Upload Build Log on Failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: gradle-build-log
-          path: build.log
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
